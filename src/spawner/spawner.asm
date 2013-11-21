@@ -509,9 +509,6 @@ Initialize_Spawn:
       
       SpawnINI_Get_Int str_Settings, str_Credits, 10000
       mov DWORD [0x007E2470], eax   
-
-    SpawnINI_Get_Int str_Settings, str_Port, 1234
-      mov WORD [0x0070FCF0], ax   
       
      SpawnINI_Get_Int str_Settings, str_GameSpeed, 0
      mov    dword [0x007E4720], eax
@@ -543,6 +540,11 @@ Initialize_Spawn:
     CALL 0x006B4D24 ; htonl
     MOV [hp_data.tunnel_id], EAX
 
+    SpawnINI_Get_Int str_Settings, str_Port, 1234
+    CMP DWORD [hp_data.tunnel_port],0
+    JNE .nosetport
+    mov WORD [0x0070FCF0], ax   ; port
+.nosetport:
 
      
      
