@@ -28,6 +28,7 @@ hp_data:
     .HouseHandicapsArray RESD 8
     .TunnelIPBuf    RESB 32
     .SpawnLocationsArray RESD 8
+    .IsDoingAlliancesSpawner RESB 1
 
     .addressList RESB (ListAddress_size * addressList_length)
     .tunnel_id RESD 1
@@ -78,11 +79,19 @@ endstruc
 @JMP   0x004E1DE0   _Select_Game_Init_Spawner
 @JMP   0x00609470   _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
 @JMP   0x005E08E3   _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
+@JMP   0x004BDDB1   _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
 
 ; NEED TO ADD SendFix & ReceiveFix
 
 _SessionClass__Free_Scenario_Descriptions_RETN_Patch:
     retn
+
+_HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner:
+    cmp     BYTE [hp_data.IsDoingAlliancesSpawner], 1
+    jz      0x004BDE68
+    test    al, al          ; hooked by patch
+    jz      0x4BDE68
+    jmp     0x004BDDB9 
 
 _Send_Statistics_Packet_Return_If_Spawner_Active:
     cmp     DWORD [hp_data.SpawnerActive], 1
@@ -414,6 +423,8 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     Set_House_Country 7, DWORD [hp_data.HouseCountriesArray+24], g
     Set_House_Country 8, DWORD [hp_data.HouseCountriesArray+28], h
     
+    mov     BYTE [hp_data.IsDoingAlliancesSpawner], 1
+    
     House_Make_Allies_Spawner str_Multi1_Alliances, 0, a
     House_Make_Allies_Spawner str_Multi2_Alliances, 1, b
     House_Make_Allies_Spawner str_Multi3_Alliances, 2, c
@@ -422,6 +433,8 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     House_Make_Allies_Spawner str_Multi6_Alliances, 5, f
     House_Make_Allies_Spawner str_Multi7_Alliances, 6, g
     House_Make_Allies_Spawner str_Multi8_Alliances, 7, h
+    
+    mov     BYTE [hp_data.IsDoingAlliancesSpawner], 0
     
     Set_House_Handicap  0, DWORD [hp_data.HouseHandicapsArray+0], a
     Set_House_Handicap  1, DWORD [hp_data.HouseHandicapsArray+4], b
