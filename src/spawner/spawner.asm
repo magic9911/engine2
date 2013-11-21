@@ -26,6 +26,7 @@ hp_data:
     .HouseColorsArray RESD 8
     .HouseCountriesArray RESD 8
     .HouseHandicapsArray RESD 8
+    .TunnelIPBuf    RESB 32
 
     .addressList RESB (ListAddress_size * addressList_length)
     .tunnel_id RESD 1
@@ -128,6 +129,7 @@ str_Firestorm   db"Firestorm",0
 str_HouseColors db"HouseColors",0
 str_HouseCountries db"HouseCountries",0
 str_HouseHandicaps db"HouseHandicaps",0
+str_Tunnel      db"Tunnel",0
 
 str_Multi1      db"Multi1",0
 str_Multi2      db"Multi2",0
@@ -516,6 +518,32 @@ Initialize_Spawn:
      
     SpawnINI_Get_Bool str_Settings, str_MultiEngineer, 0
      mov    BYTE [0x007E247C], al
+     
+    ; tunnel ip
+    LEA EAX, [hp_data.TunnelIPBuf]
+    SpawnINI_Get_String str_Tunnel, str_IP, str_Empty, EAX, 32
+
+    LEA EAX, [hp_data.TunnelIPBuf]
+    PUSH EAX
+    mov eax, [hp_data.inet_addr]
+    call    eax
+    MOV [hp_data.tunnel_ip], EAX
+
+    ; tunnel port
+    SpawnINI_Get_Int str_Tunnel, str_Port, 0
+    AND EAX, 0xFFFF
+    PUSH EAX
+    CALL 0x006B4D24 ; htonl
+    MOV [hp_data.tunnel_port], EAX
+
+    ; tunnel id 
+    SpawnINI_Get_Int str_Settings, str_Port, 0
+    AND EAX, 0xFFFF
+    PUSH EAX
+    CALL 0x006B4D24 ; htonl
+    MOV [hp_data.tunnel_id], EAX
+
+
      
      
     SpawnINI_Get_Bool str_Settings, str_Firestorm, 0
