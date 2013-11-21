@@ -27,6 +27,7 @@ hp_data:
     .HouseCountriesArray RESD 8
     .HouseHandicapsArray RESD 8
     .TunnelIPBuf    RESB 32
+    .SpawnLocationsArray RESD 8
 
     .addressList RESB (ListAddress_size * addressList_length)
     .tunnel_id RESD 1
@@ -130,6 +131,7 @@ str_HouseColors db"HouseColors",0
 str_HouseCountries db"HouseCountries",0
 str_HouseHandicaps db"HouseHandicaps",0
 str_Tunnel      db"Tunnel",0
+str_SpawnLocations db"SpawnLocations",0
 
 str_Multi1      db"Multi1",0
 str_Multi2      db"Multi2",0
@@ -336,6 +338,33 @@ Load_House_Colors_Spawner:
     
    retn
 
+Load_Spawn_Locations_Spawner:
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi1, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+0], eax
+    
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi2, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+4], eax
+    
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi3, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+8], eax
+      
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi4, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+12], eax
+    
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi5, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+16], eax
+    
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi6, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+20], eax
+    
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi7, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+24], eax
+    
+    SpawnINI_Get_Int str_SpawnLocations, str_Multi8, -1
+    mov     DWORD [hp_data.SpawnLocationsArray+28], eax
+    
+   retn   
+   
 Load_House_Handicaps_Spawner:
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi1, -1
     mov     DWORD [hp_data.HouseHandicapsArray+0], eax
@@ -467,7 +496,7 @@ Initialize_Spawn:
     call    Load_House_Colors_Spawner
     call    Load_House_Countries_Spawner
     call    Load_House_Handicaps_Spawner
-    
+    call    Load_Spawn_Locations_Spawner
     
     mov   BYTE [0x007E4580], 1 ; GameActive, needs to be set here or the game gets into an infinite loop trying to create spawning units
 
