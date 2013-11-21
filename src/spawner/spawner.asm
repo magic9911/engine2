@@ -83,15 +83,15 @@ endstruc
 
 ; NEED TO ADD SendFix & ReceiveFix
 
-_SessionClass__Free_Scenario_Descriptions_RETN_Patch:
-    retn
-
 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner:
     cmp     BYTE [hp_data.IsDoingAlliancesSpawner], 1
     jz      0x004BDE68
     test    al, al          ; hooked by patch
     jz      0x4BDE68
-    jmp     0x004BDDB9 
+    jmp     0x004BDDB9
+
+_SessionClass__Free_Scenario_Descriptions_RETN_Patch:
+    retn    
 
 _Send_Statistics_Packet_Return_If_Spawner_Active:
     cmp     DWORD [hp_data.SpawnerActive], 1
