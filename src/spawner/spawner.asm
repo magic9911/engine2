@@ -1,3 +1,11 @@
+; max number of players in static address list
+%define addressList_length 8
+
+struc ListAddress
+    .port:      RESD 1
+    .ip:        RESD 1
+endstruc
+
 [absolute 0xA69000]
 
 hp_data:
@@ -18,6 +26,11 @@ hp_data:
     .HouseColorsArray RESD 8
     .HouseCountriesArray RESD 8
     .HouseHandicapsArray RESD 8
+
+    .addressList RESB (ListAddress_size * addressList_length)
+    .tunnel_id RESD 1
+    .tunnel_ip RESD 1
+    .tunnel_port RESD 1
     
 [section .text]
 
@@ -25,6 +38,12 @@ struc NetAddress
     .port:      RESD 1
     .ip:        RESD 1
     .zero:      RESW 1
+endstruc
+
+struc SpawnAddress
+    .pad1:      RESD 1
+    .id:        RESD 1
+    .pad2:      RESW 1
 endstruc
 
    %macro SpawnINI_Get_Int 3
@@ -779,11 +798,15 @@ Add_Human_Opponents:
     JE .next_opp
      
     mov     eax, 1
-    MOV [esi + 0x14 + NetAddress.zero], WORD 0
-    
-          mov      DWORD [0x007E2458], 4 ; sessiontype Lan
-    
-    
+    mov      DWORD [0x007E2458], 4 ; sessiontype Lan
+
+    ; set addresses to indexes for send/receive hack
+    PUSH ECX
+    MOV [esi + 0x14 + SpawnAddress.pad1], WORD 0
+    MOV ECX, DWORD [hp_data.CurrentOpponent]
+    MOV [esi + 0x14 + SpawnAddress.id], ECX
+    MOV [esi + 0x14 + SpawnAddress.pad2], WORD 0
+
     LEA EAX, [hp_data.IP_temp]
     SpawnINI_Get_String hp_data.OtherSection, str_IP, str_Empty, EAX, 32
     
@@ -791,7 +814,9 @@ Add_Human_Opponents:
     mov eax, [hp_data.inet_addr]
     call    eax
     
-    MOV [esi + 0x14 + NetAddress.ip], EAX
+    MOV ECX, DWORD [hp_data.CurrentOpponent]
+    DEC ECX
+    MOV [ECX * ListAddress_size + hp_data.addressList + ListAddress.ip], EAX
     
     SpawnINI_Get_Int hp_data.OtherSection, str_Port, 0
     AND EAX, 0xFFFF
@@ -799,9 +824,11 @@ Add_Human_Opponents:
     PUSH EAX
     CALL 0x006B4D24 ; htonl
     
-    MOV [esi + 0x14 + NetAddress.port], EAX
-
-
+    MOV ECX, DWORD [hp_data.CurrentOpponent]
+    DEC ECX
+    SHR EAX,16
+    MOV [ECX * ListAddress_size + hp_data.addressList + ListAddress.port], AX
+    POP ECX
 
 
       mov      dword [esi+0x41], -1 
