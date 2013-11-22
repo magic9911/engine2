@@ -6,6 +6,9 @@ _Create_Units_First_Spawn_EDI_Patch:
     jmp 0x005DEBCD
 
 _Create_Units_Selectable_Spawning_Locations:
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+
     ; edi contains the currently used spawn  
     mov eax, [esp+0x24] ; House number to generate for
     cmp dword [var.SpawnLocationsArray+eax*4], -1

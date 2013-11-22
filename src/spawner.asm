@@ -285,6 +285,9 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     pushad
     call Assign_Houses
     
+    cmp dword [var.SpawnerActive], 0
+    jz  .Ret
+    
     Set_House_Color 0, dword [var.HouseColorsArray+0], a
     Set_House_Color 1, dword [var.HouseColorsArray+4], b
     Set_House_Color 2, dword [var.HouseColorsArray+8], c
@@ -324,7 +327,8 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     Set_House_Handicap 5, dword [var.HouseHandicapsArray+20], f
     Set_House_Handicap 6, dword [var.HouseHandicapsArray+24], g
     Set_House_Handicap 7, dword [var.HouseHandicapsArray+28], h
-   
+  
+.Ret:  
     popad
     jmp 0x005E08E8
 
@@ -379,20 +383,20 @@ Initialize_Spawn:
     sub esp,128
 
 %define TempBuf     ebp-128
-
+ 
+; Commented out at the moment so I don't need to supply the -SPAWN arg the whole time 
+    call [GetCommandLineA]
+    push str_SpawnArg
+    push eax
+    call stristr_
+    add esp, 8
+    test eax, eax
+    je .Exit_Error
+    
     cmp dword [var.SpawnerActive], 1
     jz .Ret_Exit
     
     mov dword [var.SpawnerActive], 1
- 
-;; Commented out at the moment so I don't need to supply the -SPAWN arg the whole time 
-;    call [GetCommandLineA]
-;    push str_SpawnArg
-;    push eax
-;    call stristr_
-;    add esp, 8
-;    test eax, eax
-;    je .Exit_Error
     
     call Load_SPAWN_INI
     cmp eax, 0
