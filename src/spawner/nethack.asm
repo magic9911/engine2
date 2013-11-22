@@ -14,164 +14,156 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-@CALL 0x006A2525 TS_SendHack
-@CALL 0x006A25F9 TS_RecvHack
+@CALL 0x006A2525 NetHack_SendTo
+@CALL 0x006A25F9 NetHack_RecvFrom
 
-struc sockaddr_in
-    .sin_family     RESW 1
-    .sin_port       RESW 1
-    .sin_addr       RESD 1
-    .sin_zero       RESB 8
-endstruc
-
-TS_SendHack:
+NetHack_SendTo:
 %push
-    PUSH EBP
-    MOV EBP,ESP
-    SUB ESP,sockaddr_in_size
-    PUSH ESI
-    PUSH EDI
+    push ebp
+    mov ebp, esp
+    sub esp, sockaddr_in_size
+    push esi
+    push edi
 
-%define var_dest    EBP-sockaddr_in_size
+%define TempDest    ebp-sockaddr_in_size
 
-%define addrlen     EBP+28
-%define dest_addr   EBP+24
-%define flags       EBP+20
-%define len         EBP+16
-%define buf         EBP+12
-%define sockfd      EBP+8
+%define addrlen     ebp+28
+%define dest_addr   ebp+24
+%define flags       ebp+20
+%define len         ebp+16
+%define buf         ebp+12
+%define sockfd      ebp+8
 
     ; pull index
-    MOV ECX,[dest_addr]
-    MOV ECX,[ECX + sockaddr_in.sin_addr]
+    mov ecx, [dest_addr]
+    mov ecx, [ecx + sockaddr_in.sin_addr]
 
     ; validate index
-    CMP ECX,1
-    JL .error
-    CMP ECX,addressList_length
-    JG .error
+    cmp ecx, 1
+    jl .error
+    cmp ecx, AddressList_length
+    jg .error
 
     ; change to zero based
-    DEC ECX
+    dec ecx
 
     ; sin_family
-    LEA EDX, [var_dest + sockaddr_in.sin_family]
-    MOV WORD [EDX], 2
+    lea edx, [TempDest + sockaddr_in.sin_family]
+    mov word [edx], 2
 
     ; sin_port
-    MOV AX, WORD [ECX * ListAddress_size + hp_data.addressList + ListAddress.port]
-    LEA EDX, [var_dest + sockaddr_in.sin_port]
-    MOV WORD [EDX], AX
+    mov ax, word [ecx * ListAddress_size + var.AddressList + ListAddress.port]
+    lea edx, [TempDest + sockaddr_in.sin_port]
+    mov word [edx], ax
 
     ; sin_addr
-    MOV EAX, DWORD [ECX * ListAddress_size + hp_data.addressList + ListAddress.ip]
-    LEA EDX, [var_dest + sockaddr_in.sin_addr]
-    MOV DWORD [EDX], EAX
+    mov eax, dword [ecx * ListAddress_size + var.AddressList + ListAddress.ip]
+    lea edx, [TempDest + sockaddr_in.sin_addr]
+    mov dword [edx], eax
 
     ; sin_zero
-    XOR EAX,EAX
-    LEA EDX, [var_dest + sockaddr_in.sin_zero]
-    MOV DWORD [EDX], EAX
-    ADD EDX,4
-    MOV DWORD [EDX], EAX
+    xor eax, eax
+    lea edx, [TempDest + sockaddr_in.sin_zero]
+    mov dword [edx], eax
+    add edx, 4
+    mov dword [edx], eax
 
     ; do call to sendto
-    MOV EAX,[addrlen]
-    PUSH EAX
-    LEA EAX,[var_dest]
-    PUSH EAX
-    MOV EAX,[flags]
-    PUSH EAX
-    MOV EAX,[len]
-    PUSH EAX
-    MOV EAX,[buf]
-    PUSH EAX
-    MOV EAX,[sockfd]
-    PUSH EAX
-    CALL Tunnel_SendTo
+    mov eax, [addrlen]
+    push eax
+    lea eax, [TempDest]
+    push eax
+    mov eax, [flags]
+    push eax
+    mov eax, [len]
+    push eax
+    mov eax, [buf]
+    push eax
+    mov eax, [sockfd]
+    push eax
+    call Tunnel_SendTo
 
-    JMP .exit
+    jmp .exit
 .error:
-    MOV EAX,-1
+    mov eax,-1
 .exit:
-    POP EDI
-    POP ESI
-    MOV ESP,EBP
-    POP EBP
-    RETN 24
+    pop edi
+    pop esi
+    mov esp, ebp
+    pop ebp
+    retn 24
 %pop
 
-
-TS_RecvHack:
+NetHack_RecvFrom:
 %push
-    PUSH EBP
-    MOV EBP,ESP
-    PUSH ESI
-    PUSH EDI
+    push ebp
+    mov ebp, esp
+    push esi
+    push edi
 
-%define addrlen     EBP+28
-%define src_addr    EBP+24
-%define flags       EBP+20
-%define len         EBP+16
-%define buf         EBP+12
-%define sockfd      EBP+8
+%define addrlen     ebp+28
+%define src_addr    ebp+24
+%define flags       ebp+20
+%define len         ebp+16
+%define buf         ebp+12
+%define sockfd      ebp+8
 
     ; call recvfrom first to get the packet
-    MOV EAX,[addrlen]
-    PUSH EAX
-    MOV EAX,[src_addr]
-    PUSH EAX
-    MOV EAX,[flags]
-    PUSH EAX
-    MOV EAX,[len]
-    PUSH EAX
-    MOV EAX,[buf]
-    PUSH EAX
-    MOV EAX,[sockfd]
-    PUSH EAX
-    CALL Tunnel_RecvFrom
+    mov eax, [addrlen]
+    push eax
+    mov eax, [src_addr]
+    push eax
+    mov eax, [flags]
+    push eax
+    mov eax, [len]
+    push eax
+    mov eax, [buf]
+    push eax
+    mov eax, [sockfd]
+    push eax
+    call Tunnel_RecvFrom
 
     ; bail out if error
-    CMP EAX,-1
-    JE .exit
+    cmp eax, -1
+    je .exit
 
     ; now, we need to map src_addr ip/port to index by reversing the search!
-    XOR ECX,ECX
-.nextAddr:
+    xor ecx,ecx
+.nextaddr:
 
     ; compare ip
-    MOV EDX,[src_addr]
-    MOV EDX,[EDX + sockaddr_in.sin_addr]
-    CMP EDX, [ECX * ListAddress_size + hp_data.addressList + ListAddress.ip]
-    JNE .next
+    mov edx, [src_addr]
+    mov edx, [edx + sockaddr_in.sin_addr]
+    cmp edx, [ecx * ListAddress_size + var.AddressList + ListAddress.ip]
+    jne .next
 
     ; compare port
-    MOV EDX,[src_addr]
-    MOV DX,[EDX + sockaddr_in.sin_port]
-    AND EDX,0xFFFF
-    CMP DX, [ECX * ListAddress_size + hp_data.addressList + ListAddress.port]
-    JNE .next
+    mov edx,[src_addr]
+    mov dx, [edx + sockaddr_in.sin_port]
+    and edx, 0xffff
+    cmp dx, [ecx * ListAddress_size + var.AddressList + ListAddress.port]
+    jne .next
 
     ; found it, set this index to source addr
-    INC ECX
-    MOV EDX,[src_addr]
-    MOV [EDX + sockaddr_in.sin_addr], ECX
+    inc ecx
+    mov edx, [src_addr]
+    mov [edx + sockaddr_in.sin_addr], ecx
 
-    MOV EDX,[src_addr]
-    MOV WORD [EDX + sockaddr_in.sin_port], 0
+    mov edx, [src_addr]
+    mov word [edx + sockaddr_in.sin_port], 0
 
-    JMP .exit
+    jmp .exit
 
 .next:
-    INC ECX
-    CMP ECX,7
-    JG .exit
-    JMP .nextAddr
+    inc ecx
+    cmp ecx, 7
+    jg .exit
+    jmp .nextaddr
 
 .exit:
-    POP EDI
-    POP ESI
-    MOV ESP,EBP
-    POP EBP
-    RETN 24
+    pop edi
+    pop esi
+    mov esp, ebp
+    pop ebp
+    retn 24
 %pop
