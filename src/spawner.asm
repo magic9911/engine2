@@ -397,6 +397,7 @@ Initialize_Spawn:
     jz .Ret_Exit
     
     mov dword [var.SpawnerActive], 1
+    mov dword [var.PortHack], 1 ; default enabled
     
     call Load_SPAWN_INI
     cmp eax, 0
@@ -812,10 +813,16 @@ Add_Human_Opponents:
 
     push eax
     call htonl
-    
+    shr eax,16
+
+    ; disable PortHack if different port than own
+    cmp ax, [ListenPort]
+    je .samePort
+    mov dword [var.PortHack], 0    
+.samePort:
+
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    shr eax,16
     mov [ecx * ListAddress_size + var.AddressList + ListAddress.port], ax
 
     mov dword [esi+0x41], -1 

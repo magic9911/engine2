@@ -137,12 +137,15 @@ NetHack_RecvFrom:
     cmp edx, [ecx * ListAddress_size + var.AddressList + ListAddress.ip]
     jne .next
 
+    cmp dword [var.PortHack], 1
+    je .skipPort
     ; compare port
     mov edx,[src_addr]
     mov dx, [edx + sockaddr_in.sin_port]
     and edx, 0xffff
     cmp dx, [ecx * ListAddress_size + var.AddressList + ListAddress.port]
     jne .next
+.skipPort:
 
     ; found it, set this index to source addr
     inc ecx

@@ -19,5 +19,6 @@ var:
     .TunnelIp               RESD 1
     .TunnelPort             RESD 1
     .AddressList            RESB (ListAddress_size * AddressList_length)
+    .PortHack               RESD 1
 
 [section .text]
