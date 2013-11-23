@@ -29,7 +29,7 @@ str_Side            db "Side",0
 str_Color           db "Color",0
 str_OtherSectionFmt db "Other%d",0
 str_Port            db "Port",0
-str_IP              db "IP",0
+str_Ip              db "Ip",0
 str_SpawnArg        db "-SPAWN",0
 str_MultiEngineer   db "MultiEngineer",0
 str_Firestorm       db "Firestorm",0

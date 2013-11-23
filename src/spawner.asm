@@ -467,7 +467,7 @@ Initialize_Spawn:
      
     ; tunnel ip
     lea eax, [TempBuf]
-    SpawnINI_Get_String str_Tunnel, str_IP, str_Empty, eax, 32
+    SpawnINI_Get_String str_Tunnel, str_Ip, str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
@@ -797,7 +797,7 @@ Add_Human_Opponents:
 
     lea eax, [TempBuf]
     lea ecx, [OtherSection]
-    SpawnINI_Get_String ecx, str_IP, str_Empty, eax, 32
+    SpawnINI_Get_String ecx, str_Ip, str_Empty, eax, 32
     
     lea eax, [TempBuf]
     push eax
