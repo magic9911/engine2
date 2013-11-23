@@ -560,7 +560,7 @@ Initialize_Spawn:
     call IPXManagerClass__Set_Timing
     
     mov dword [MaxAhead], 3
-    mov dword [MaxMaxAhead], 3
+    mov dword [MaxMaxAhead], 0
     MOV dword [FrameSendRate], 1
     mov dword [LatencyFudge], 0
     mov dword [RequestedFPS], 60
@@ -576,7 +576,18 @@ Initialize_Spawn:
     xor edx, edx 
     mov ecx, Scenario_Name
     call Start_Scenario
+    
+    ; HACK: If SessonType was set to WOL then set it to LAN now
+    ; We had to set SessionType to WOL to make sure players connect
+    ; while Start_Scenario was being executed
+    
+    cmp dword [SessionType], 4
+    jnz .Dont_Set_SessionType_To_Lan
+    
+    mov dword [SessionType], 3 
       
+.Dont_Set_SessionType_To_Lan:
+
     mov ecx, SessionClass_this
     call SessionClass__Create_Connections
       
@@ -787,7 +798,7 @@ Add_Human_Opponents:
     je .next_opp
      
     mov eax, 1
-    mov dword [SessionType], 4 ; LAN
+    mov dword [SessionType], 4 ; HACK: SessonType set to WOL, will be set to LAN later
 
     ; set addresses to indexes for send/receive hack
     mov [esi + 0x14 + SpawnAddress.pad1], word 0
