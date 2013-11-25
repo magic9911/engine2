@@ -20,5 +20,6 @@ var:
     .TunnelPort             RESD 1
     .AddressList            RESB (ListAddress_size * AddressList_length)
     .PortHack               RESD 1
+    .SaveGameNameBuf        RESB 60
 
 [section .text]

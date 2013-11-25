@@ -89,6 +89,9 @@
 %define Scenario_Name                               0x007E28B8
 %define Start_Scenario                              0x005DB170
 
+; Save games
+%define Load_Game                                   0x005D6910
+
 ; definitions of common structures
 struc sockaddr_in
     .sin_family     RESW 1

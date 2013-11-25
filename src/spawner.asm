@@ -402,7 +402,7 @@ Initialize_Spawn:
     call Load_SPAWN_INI
     cmp eax, 0
     jz .Exit_Error
-    
+   
     ; get pointer to inet_addr
     push str_wsock32_dll
     call [LoadLibraryA]
@@ -525,7 +525,7 @@ Initialize_Spawn:
     
     mov dword [SessionType], 0 ; single player
    
-.Not_Single_Player   
+.Not_Single_Player:
         
     ; Needs to be done after SessionClass is set, or the seed value will be overwritten
     ; inside the Init_Random() call if sessiontype == SKIRMISH
@@ -578,6 +578,21 @@ Initialize_Spawn:
     
     mov dword eax, [NameNodes_CurrentSize]
     mov dword [HumanPlayers], eax
+    
+    SpawnINI_Get_Bool str_Settings, str_LoadSaveGame, 0
+    jz  .Dont_Load_Savegame
+    
+    lea eax, [var.SaveGameNameBuf]
+    SpawnINI_Get_String str_Settings, str_SaveGameName, str_Empty, eax, 60
+ 
+    mov byte [0x7E48FC], 0
+    mov byte [0x7E4040], 0
+    lea ecx, [var.SaveGameNameBuf]
+    call Load_Game
+    
+    jmp .Dont_Load_Scenario
+   
+.Dont_Load_Savegame:
 
     ; start scenario 
     push -1 
@@ -585,6 +600,8 @@ Initialize_Spawn:
     mov ecx, Scenario_Name
     call Start_Scenario
     
+.Dont_Load_Scenario:
+
     ; HACK: If SessonType was set to WOL then set it to LAN now
     ; We had to set SessionType to WOL to make sure players connect
     ; while Start_Scenario was being executed

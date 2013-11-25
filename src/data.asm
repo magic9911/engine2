@@ -38,7 +38,9 @@ str_HouseCountries  db "HouseCountries",0
 str_HouseHandicaps  db "HouseHandicaps",0
 str_Tunnel          db "Tunnel",0
 str_SpawnLocations  db "SpawnLocations",0
-str_IsSinglePlayer db "IsSinglePlayer",0
+str_IsSinglePlayer  db "IsSinglePlayer",0
+str_LoadSaveGame    db "LoadSaveGame",0
+str_SaveGameName    db "SaveGameName",0
 
 str_Multi1          db "Multi1",0
 str_Multi2          db "Multi2",0
