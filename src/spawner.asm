@@ -518,9 +518,17 @@ Initialize_Spawn:
 
     call Add_Human_Player
     call Add_Human_Opponents
+    
+    SpawnINI_Get_Bool str_Settings, str_IsSinglePlayer, 0
+    cmp al, 0
+    jz   .Not_Single_Player
+    
+    mov dword [SessionType], 0 ; single player
+   
+.Not_Single_Player   
         
     ; Needs to be done after SessionClass is set, or the seed value will be overwritten
-    ; inside the Init_Random() call (if sessiontype == SKIRMISH)
+    ; inside the Init_Random() call if sessiontype == SKIRMISH
     SpawnINI_Get_Int str_Settings, str_Seed, 0
     mov dword [Seed], eax
     call Init_Random
@@ -666,7 +674,6 @@ _Select_Game_Init_Spawner:
     ; if spawn not initialized, go to main menu
     je .Normal_Code
     
-;    mov eax, 1
     retn
    
 .Normal_Code:   
