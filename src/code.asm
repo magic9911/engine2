@@ -1,4 +1,4 @@
-[org 0x00401000] ; FIXME: this is the real code root, use extended one
+[org 0x00B93000]
 
 ; FIXME: this call terminates the game for me at least -hifi
 @CLEAR 0x006BD6A0 0x90 0x006BD71D
