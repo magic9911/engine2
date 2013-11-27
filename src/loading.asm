@@ -6,6 +6,10 @@
 _OptionsClass__Load_Settings_Ext:
     INIClass_Get_Bool INIClass_RA2md_INI, str_Options, str_NoCD, 0
     mov byte [var.IsNoCD], al
+ 
+; This gets loaded after the patch needs to be applied... 
+;    INIClass_Get_Bool INIClass_RA2md_INI, str_Options, str_UseGraphicsPatch, 0
+;    mov byte [var.UseGraphicsPatch], al
 
 .Ret:
     mov ecx, 0x8870C0 ; offset
