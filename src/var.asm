@@ -1,0 +1,5 @@
+[absolute 0x??????]
+
+var:
+
+[section .text]
