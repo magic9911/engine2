@@ -383,8 +383,7 @@ Initialize_Spawn:
     sub esp,128
 
 %define TempBuf     ebp-128
- 
-; Commented out at the moment so I don't need to supply the -SPAWN arg the whole time 
+
     call [GetCommandLineA]
     push str_SpawnArg
     push eax
@@ -499,16 +498,17 @@ Initialize_Spawn:
     cmp al, 0
     jz .No_Firestorm
     
+    ; Firestorm related variables
     mov dword [0x006F2638], 3 ; FIXME: name this
     mov dword [0x006F263C], 3 ; FIXME: name this
     
 .No_Firestorm:
     
     mov ecx, SessionClass_this
-    call 0x005EE7D0 ; FIXME: name this
+    call SessionClass__Read_Scenario_Descriptions
         
     ; scenario
-    lea eax, [0x007E28B8] ; FIXME: name this
+    lea eax, [ScenarioName] ; FIXME: name this
     SpawnINI_Get_String str_Settings, str_Scenario, str_Empty, eax, 32
 
 ;    push str_gcanyonmap
@@ -580,6 +580,7 @@ Initialize_Spawn:
     mov dword [HumanPlayers], eax
     
     SpawnINI_Get_Bool str_Settings, str_LoadSaveGame, 0
+    cmp al, 0
     jz  .Dont_Load_Savegame
     
     lea eax, [var.SaveGameNameBuf]
@@ -597,7 +598,7 @@ Initialize_Spawn:
     ; start scenario 
     push -1 
     xor edx, edx 
-    mov ecx, Scenario_Name
+    mov ecx, ScenarioName
     call Start_Scenario
     
 .Dont_Load_Scenario:
@@ -625,7 +626,7 @@ Initialize_Spawn:
        
     call 0x00462C60 ; FIXME: name this and everything below
        
-    mov ecx, [0x0074C8F0] 
+    mov ecx, [WWMouseClas_Mouse] 
     mov edx, [ecx] 
     call dword [edx+0Ch] 
        
@@ -639,7 +640,7 @@ Initialize_Spawn:
     mov edx, [0x0074C5DC] 
     call 0x004B96C0 
        
-    mov ecx, [0x0074C8F0] 
+    mov ecx, [WWMouseClas_Mouse] 
     mov edx, [ecx] 
     call dword [edx+10h] 
        
@@ -648,18 +649,18 @@ Initialize_Spawn:
        
     push 0 
     push 13h 
-    mov ecx, 0x00748348 
+    mov ecx, MouseClass_Map 
     call 0x00562390 
        
-    mov ecx, 0x00748348 
+    mov ecx, MouseClass_Map 
     call 0x005621F0 
        
     push 1 
-    mov ecx, 0x00748348 
+    mov ecx, MouseClass_Map 
     call 0x005F3E60 
        
     push 0 
-    mov ecx, 0x00748348 
+    mov ecx, MouseClass_Map 
     call 0x004B9440 
        
     call 0x00462C60 
@@ -694,7 +695,7 @@ _Select_Game_Init_Spawner:
     retn
    
 .Normal_Code:   
-    mov ecx, [0x0074C8F0] ; WWMouseClass *_Mouse
+    mov ecx, [WWMouseClas_Mouse]
     sub esp, 1ACh
     mov eax, [ecx]
     push ebx
@@ -712,14 +713,14 @@ Add_Human_Player:
 %define TempPtr ebp-4
 
     push 0x4D 
-    call 0x006B51D7 
+    call new
        
     add esp, 4 
        
     mov esi, eax 
 
     lea ecx, [esi+14h] 
-    call 0x004EF040 
+    call IPXAddressClass__IPXAddressClass 
 
     lea eax, [esi]
     SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x14
@@ -754,8 +755,8 @@ Add_Human_Player:
     mov [TempPtr], esi 
     lea eax, [TempPtr] 
     push eax 
-    mov ecx, 0x007E3E90 
-    call 0x0044D690 
+    mov ecx, NameNodeVector
+    call NameNodeVector_Add
 
     mov esp,ebp
     pop ebp
@@ -790,12 +791,12 @@ Add_Human_Opponents:
     add esp, 0x0C
     
     push 0x4D 
-    call 0x006B51D7 ; FIXME: name this
+    call new
     add esp, 4 
       
     mov esi, eax 
     lea ecx, [esi+14h] 
-    call 0x004EF040  ; FIXME: name this
+    call IPXAddressClass__IPXAddressClass
       
     lea eax, [esi]
     lea ecx, [OtherSection]
@@ -865,8 +866,8 @@ Add_Human_Opponents:
     mov [TempPtr], esi 
     lea eax, [TempPtr] 
     push eax 
-    mov ecx, 0x007E3E90 ; FIXME: name this
-    call 0x0044D690 ; FIXME: name this
+    mov ecx, NameNodeVector ; FIXME: name this
+    call NameNodeVector_Add ; FIXME: name this
       
     jmp .next_opp
 .Exit:
