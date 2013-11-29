@@ -11,6 +11,7 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/spawner/tunnel.asm"
 %include "src/spawner/nethack.asm"
 %include "src/spawner/selectable_spawns.asm"
+;%include "src/spawner/auto_ss.asm"
 
 ; other
 %include "src/display_messages_typed_by_yourself.asm"
