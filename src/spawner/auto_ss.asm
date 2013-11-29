@@ -12,9 +12,6 @@ _Main_Loop_Auto_SS:
 
     call 0x004EAB00 ; screen capture
     
-    
-
-
 .Ret:
     call 0x005094A0; Sync_Delay(void)
     jmp 0x00509388
