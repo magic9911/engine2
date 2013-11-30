@@ -21,5 +21,7 @@ var:
     .AddressList            RESB (ListAddress_size * AddressList_length)
     .PortHack               RESD 1
     .SaveGameNameBuf        RESB 60
+    
+    .Anticheat1             RESD 1
 
 [section .text]
