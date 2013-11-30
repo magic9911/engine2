@@ -28,6 +28,34 @@
 @JMP 0x00609470 _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
 @JMP 0x005E08E3 _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
 @JMP 0x004BDDB1 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
+@JMP 0x004E078C _Init_Game_Check_Spawn_Arg_No_Intro
+
+_Init_Game_Check_Spawn_Arg_No_Intro
+    pushad
+
+    call [GetCommandLineA]
+    push str_SpawnArg
+    push eax
+    call stristr_
+    add esp, 8
+    xor ebx, ebx
+    cmp eax, 0  
+    setne bl
+    mov [var.IsSpawnArgPresent], ebx
+    popad
+    
+    cmp dword [var.IsSpawnArgPresent], 0
+    jz .Normal_Code
+    
+.No_Intro:
+    jmp 0x004E0848
+
+
+.Normal_Code:
+    and ecx, 4
+    cmp cl, 4
+    jmp 0x004E0792
+
 
 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner:
     cmp byte [var.IsDoingAlliancesSpawner], 1
@@ -384,12 +412,8 @@ Initialize_Spawn:
 
 %define TempBuf     ebp-128
 
-    call [GetCommandLineA]
-    push str_SpawnArg
-    push eax
-    call stristr_
-    add esp, 8
-    test eax, eax
+    
+    cmp dword [var.IsSpawnArgPresent], 0
     je .Exit_Error
     
     cmp dword [var.SpawnerActive], 1
