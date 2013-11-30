@@ -1,5 +1,7 @@
 @JMP 0x00509383 _Main_Loop_Auto_SS
 
+; TODO NEED TO CHECK FOR SESSION == 3 AND SPAWNER ACTIVE
+
 _Main_Loop_Auto_SS:
     mov edx, 0
     mov ebx, 255
