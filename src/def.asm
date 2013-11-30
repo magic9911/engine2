@@ -49,6 +49,8 @@
 %define Credits                                     0x007E2470
 %define GameSpeed                                   0x007E4720
 %define MultiEngineer                               0x007E247C
+%define Frame                                       0x007E4924
+%define GameIDNumber                                0x00867014
 
 ; Network
 %define ListenPort                                  0x0070FCF0

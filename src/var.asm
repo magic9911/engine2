@@ -23,6 +23,9 @@ var:
     .PortHack                   RESD 1
     .SaveGameNameBuf            RESB 60
     
+    .DoingAutoSS                RESD 1
+    
     .Anticheat1                 RESD 1
+    
 
 [section .text]

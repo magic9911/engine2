@@ -61,3 +61,6 @@ str_Multi7_Alliances db "Multi7_Alliances",0
 str_Multi8_Alliances db "Multi8_Alliances",0
 
 str_message_fmt db "%s: %s"
+
+str_AutoSSFileNameFormat db"AUTOSS\\AutoSS-%d-%d_%d.PCX",0
+str_AutoSSDir db"./AutoSS",0
