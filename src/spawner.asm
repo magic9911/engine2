@@ -144,61 +144,54 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
 
 ; args <string of section to load from>, <House number which will ally>
 %macro  House_Make_Allies_Spawner 3
-    SpawnINI_Get_Bool %1, str_Multi1, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllyOne, -1
+    cmp al, -1
     jz .Dont_Ally_Multi1_%3
-    House_Make_Ally %2, 0, a%3
+    House_Make_Ally %2, eax, a%3
     
 .Dont_Ally_Multi1_%3:
 
-    SpawnINI_Get_Bool %1, str_Multi2, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllyTwo, -1
+    cmp al, -1
     jz .Dont_Ally_Multi2_%3
-    House_Make_Ally %2, 1, b%3
+    House_Make_Ally %2, eax, b%3
     
 .Dont_Ally_Multi2_%3:
 
-    SpawnINI_Get_Bool %1, str_Multi3, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllyThree, -1
+    cmp al, -1
     jz .Dont_Ally_Multi3_%3
-    House_Make_Ally %2, 2, c%3
+    House_Make_Ally %2, eax, c%3
     
 .Dont_Ally_Multi3_%3:
 
-    SpawnINI_Get_Bool %1, str_Multi4, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllyFour, -1
+    cmp al, -1
     jz .Dont_Ally_Multi4_%3
-    House_Make_Ally %2, 3, d%3
+    House_Make_Ally %2, eax, d%3
     
 .Dont_Ally_Multi4_%3:
 
-    SpawnINI_Get_Bool %1, str_Multi5, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllyFive, -1
+    cmp al, -1
     jz .Dont_Ally_Multi5_%3
-    House_Make_Ally %2, 4, e%3
+    House_Make_Ally %2, eax, e%3
     
 .Dont_Ally_Multi5_%3:
 
-    SpawnINI_Get_Bool %1, str_Multi6, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllySix, -1
+    cmp al, -1
     jz .Dont_Ally_Multi6_%3
-    House_Make_Ally %2, 5, f%3
+    House_Make_Ally %2, eax, f%3
     
 .Dont_Ally_Multi6_%3:
 
-    SpawnINI_Get_Bool %1, str_Multi7, 0
-    cmp al, 0
+    SpawnINI_Get_Int %1, str_HouseAllySeven, -1
+    cmp al, -1
     jz .Dont_Ally_Multi7_%3
-    House_Make_Ally %2, 6, g%3
+    House_Make_Ally %2, eax, g%3
     
 .Dont_Ally_Multi7_%3:
-
-    SpawnINI_Get_Bool %1, str_Multi8, 0
-    cmp al, 0
-    jz .Dont_Ally_Multi8_%3
-    House_Make_Ally %2, 7, h%3
-    
-.Dont_Ally_Multi8_%3:
 %endmacro
 
 Load_House_Countries_Spawner:

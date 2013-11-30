@@ -51,6 +51,14 @@ str_Multi6          db "Multi6",0
 str_Multi7          db "Multi7",0
 str_Multi8          db "Multi8",0
 
+str_HouseAllyOne 		db "HouseAllyOne",0
+str_HouseAllyTwo 		db "HouseAllyTwo",0
+str_HouseAllyThree 		db "HouseAllyThree",0
+str_HouseAllyFour 		db "HouseAllyFour",0
+str_HouseAllyFive 		db "HouseAllyFive",0
+str_HouseAllySix 		db "HouseAllySix",0
+str_HouseAllySeven	 	db "HouseAllySeven",0
+
 str_Multi1_Alliances db "Multi1_Alliances",0
 str_Multi2_Alliances db "Multi2_Alliances",0
 str_Multi3_Alliances db "Multi3_Alliances",0
