@@ -24,13 +24,23 @@
     call INIClass__GetString
 %endmacro
 
+%macro SpawnINI_Get_Fixed 4
+    push %4
+    push %3 
+    push %2
+    push %1
+    mov ecx, var.INIClass_SPAWN
+    call INIClass__GetFixed
+
+%endmacro
+
 @JMP 0x004E1DE0 _Select_Game_Init_Spawner
 @JMP 0x00609470 _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
 @JMP 0x005E08E3 _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
 @JMP 0x004BDDB1 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
 @JMP 0x004E078C _Init_Game_Check_Spawn_Arg_No_Intro
 
-_Init_Game_Check_Spawn_Arg_No_Intro
+_Init_Game_Check_Spawn_Arg_No_Intro:
     pushad
 
     call [GetCommandLineA]
@@ -617,6 +627,11 @@ Initialize_Spawn:
     xor edx, edx 
     mov ecx, ScenarioName
     call Start_Scenario
+    
+    mov esi, [0x0074C488] ; RulesClass pointer
+
+    SpawnINI_Get_Fixed str_Settings, str_MultipleFactory, dword [esi+2B0h], dword [esi+2B4h]
+    fstp    qword [esi+2B0h]
     
 .Dont_Load_Scenario:
 

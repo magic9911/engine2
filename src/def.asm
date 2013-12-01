@@ -25,6 +25,7 @@
 %define INIClass__GetBool                           0x004DE140
 %define INIClass__GetInt                            0x004DD140
 %define INIClass__GetString                         0x004DDF60
+%define INIClass__GetFixed                          0x004DD9F0
 
 ; File
 %define FileClass__FileClass                        0x004497B0

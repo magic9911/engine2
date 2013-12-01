@@ -41,6 +41,7 @@ str_SpawnLocations  db "SpawnLocations",0
 str_IsSinglePlayer  db "IsSinglePlayer",0
 str_LoadSaveGame    db "LoadSaveGame",0
 str_SaveGameName    db "SaveGameName",0
+str_MultipleFactory db "MultipleFactory",0
 
 str_Multi1          db "Multi1",0
 str_Multi2          db "Multi2",0
@@ -68,7 +69,7 @@ str_Multi6_Alliances db "Multi6_Alliances",0
 str_Multi7_Alliances db "Multi7_Alliances",0
 str_Multi8_Alliances db "Multi8_Alliances",0
 
-str_message_fmt db "%s: %s"
+str_message_fmt db "%s: %s",0
 
 str_AutoSSFileNameFormat db"AUTOSS\\AutoSS-%d-%d_%d.PCX",0
 str_AutoSSDir db"./AutoSS",0
