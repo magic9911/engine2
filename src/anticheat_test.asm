@@ -20,6 +20,21 @@
 @JMP 0x005BC150 _Anticheat_Test18
 @JMP 0x005BC170 _Anticheat_Test19
 @JMP 0x005BC1E7 _Anticheat_Test20
+@JMP 0x005B91A6 _Anticheat_Test21
+@JMP 0x005C22EC _Anticheat_Test22
+@JMP 0x005C265A _Anticheat_Test23
+
+_Anticheat_Test23:
+    mov ecx, [var.Anticheat1]
+    jmp 0x005C2660
+
+_Anticheat_Test22:
+    mov eax, [var.Anticheat1]
+    jmp 0x005C22F1
+
+_Anticheat_Test21:
+    mov eax, [var.Anticheat1]
+    jmp 0x005B91AB
 
 _Anticheat_Test20:
     mov     ecx, [var.Anticheat1]

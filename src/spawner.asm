@@ -594,9 +594,9 @@ Initialize_Spawn:
     push 3Ch
     call IPXManagerClass__Set_Timing
     
-    mov dword [MaxAhead], 3
+    mov dword [MaxAhead], 9
     mov dword [MaxMaxAhead], 0
-    MOV dword [FrameSendRate], 1
+    MOV dword [FrameSendRate], 3
     mov dword [LatencyFudge], 0
     mov dword [RequestedFPS], 60
     mov dword [ProtocolVersion], 2
