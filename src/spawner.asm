@@ -478,6 +478,9 @@ Initialize_Spawn:
   
     SpawnINI_Get_Bool str_Settings, str_Bases, 1
     mov byte [Bases], al      
+    
+    SpawnINI_Get_Bool str_Settings, str_AlliesAllowed 1
+    mov byte [AlliesAllowed], al
  
     SpawnINI_Get_Bool str_Settings, str_MCVRedeploy, 1
     mov byte [MCVRedeploy], al   

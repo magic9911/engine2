@@ -42,6 +42,7 @@ str_IsSinglePlayer  db "IsSinglePlayer",0
 str_LoadSaveGame    db "LoadSaveGame",0
 str_SaveGameName    db "SaveGameName",0
 str_MultipleFactory db "MultipleFactory",0
+str_AlliesAllowed   db "AlliesAllowed",0
 
 str_Multi1          db "Multi1",0
 str_Multi2          db "Multi2",0

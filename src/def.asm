@@ -50,6 +50,7 @@
 %define Credits                                     0x007E2470
 %define GameSpeed                                   0x007E4720
 %define MultiEngineer                               0x007E247C
+%define AlliesAllowed                               0x007E248C
 %define Frame                                       0x007E4924
 %define GameIDNumber                                0x00867014
 
