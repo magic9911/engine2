@@ -785,6 +785,8 @@ Add_Human_Player:
 
     SpawnINI_Get_Int str_Settings, str_Color, 0
     mov dword [esi+0x39], eax  ; color
+    mov dword [0x007E24DC], eax
+
     mov dword [esi+0x41], -1 
        
     mov [TempPtr], esi 
@@ -897,6 +899,8 @@ Add_Human_Opponents:
     mov [ecx * ListAddress_size + var.AddressList + ListAddress.port], ax
 
     mov dword [esi+0x41], -1 
+    
+    mov byte [esi+0x1E], 1
        
     mov [TempPtr], esi 
     lea eax, [TempPtr] 
