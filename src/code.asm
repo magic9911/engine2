@@ -13,3 +13,4 @@
 %include "src/copy_protection.asm"
 %include "src/no-cd.asm"
 %include "src/graphics_patch.asm"
+%include "src/nologo.asm"
