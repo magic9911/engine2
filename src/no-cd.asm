@@ -6,6 +6,13 @@
 @HOOK 0x00479110 _CD_NeverAsk
 @HOOK 0x0052C3B3 _Init_Game_NoCD_Check
 @HOOK 0x00531236 _Init_Secondary_MixFiles_Continue_When_Movies_Missing
+@HOOK 0x006BE719 _WinMain_Fix_Crash_When_NoCD_Enabled
+
+; add NULL pointer check
+_WinMain_Fix_Crash_When_NoCD_Enabled:
+    mov ecx, dword [0x00884E2C] ; MoviesMix?
+    jz  0x006BE72F
+    jmp 0x006BE71F
 
 _Init_Secondary_MixFiles_Continue_When_Movies_Missing:
     test bl, bl
