@@ -1,4 +1,5 @@
 copy /V gamemd.dat gamemd.exe /B
+timeout /T:3
 tools\petool.exe gamemd.exe add .pcode rxc 102400
 tools\petool.exe gamemd.exe add .pdata ri 102400
 tools\petool.exe gamemd.exe add .pvar rwu 102400

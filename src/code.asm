@@ -7,8 +7,11 @@
 
 ; macro
 %include "src/macros/INIclass_macros.asm"
+%include "src/macros/spawner_macros.asm"
 
 %include "src/loading.asm"
+
+%include "src/spawner/spawner.asm"
 
 %include "src/copy_protection.asm"
 %include "src/no-cd.asm"
