@@ -118,6 +118,7 @@ Initialize_Spawn:
     call SessionClass__Read_Scenario_Descriptions
     
     call Add_Human_Player
+    call Add_Human_Opponents
     
     ; scenario
     lea eax, [ScenarioName] ; FIXME: name this
@@ -438,3 +439,116 @@ Load_Sides_Stuff:
 
 .Ret:
     retn
+
+Add_Human_Opponents:
+    Add_Human_Opponent 0, str_Other1
+    Add_Human_Opponent 1, str_Other2
+    Add_Human_Opponent 2, str_Other3
+    Add_Human_Opponent 3, str_Other4
+    Add_Human_Opponent 4, str_Other5
+    Add_Human_Opponent 5, str_Other6
+    Add_Human_Opponent 6, str_Other7
+retn    
+
+Add_Human_Opponent_:
+%push
+    push ebp
+    mov ebp,esp
+    sub esp,128+128+4+4
+
+%define TempBuf         ebp-128
+%define TempPtr         ebp-128-128-4
+%define CurrentOpponent ebp-128-128-4-4
+
+    ; copy opponents
+    mov ecx, eax
+    mov dword [CurrentOpponent], ecx
+
+    
+    push 0x85
+    call new
+    add esp, 4 
+      
+    mov esi, eax 
+    lea ecx, [esi+14h] 
+    call IPXAddressClass__IPXAddressClass
+      
+    lea eax, [esi]
+    mov ecx, [var.OtherSection]
+    SpawnINI_Get_String ecx, str_Name, str_Empty, eax, 0x14
+    
+    lea eax, [esi]
+    mov eax, [eax]
+    test eax, eax
+    ; if no name present for this section, this is the last
+    je .Exit
+    
+    mov ecx, [var.OtherSection]
+    SpawnINI_Get_Int ecx, str_Side, -1
+    mov dword [esi+0x4B], eax ; side
+        
+    cmp eax,-1
+    je .Exit
+
+    mov ecx, [var.OtherSection]
+    SpawnINI_Get_Int ecx, str_Color, -1
+    mov dword [esi+0x53], eax  ; color
+        
+    cmp eax,-1
+    je .Exit
+     
+    mov eax, 1
+    mov dword [SessionType], 4 ; HACK: SessonType set to WOL, will be set to LAN later
+
+    ; set addresses to indexes for send/receive hack
+    mov [esi + 0x14 + SpawnAddress.pad1], word 0
+    mov ecx, dword [CurrentOpponent]
+    mov [esi + 0x14 + SpawnAddress.id], ecx
+    mov [esi + 0x14 + SpawnAddress.pad2], word 0
+
+    lea eax, [TempBuf]
+    mov ecx, [var.OtherSection]
+    SpawnINI_Get_String ecx, str_Ip, str_Empty, eax, 32
+    
+    lea eax, [TempBuf]
+    push eax
+    call [var.inet_addr]
+    
+    mov ecx, dword [CurrentOpponent]
+    dec ecx
+    mov [ecx * ListAddress_size + var.AddressList + ListAddress.ip], eax
+    
+    mov ecx, [var.OtherSection]
+    SpawnINI_Get_Int ecx, str_Port, 0
+    and eax, 0xffff
+
+    push eax
+    call htonl
+    shr eax,16
+
+    ; disable PortHack if different port than own
+    cmp ax, [ListenPort]
+    je .samePort
+    mov dword [var.PortHack], 0    
+.samePort:
+
+    mov ecx, dword [CurrentOpponent]
+    dec ecx
+    mov [ecx * ListAddress_size + var.AddressList + ListAddress.port], ax
+
+    mov dword [esi+0x73], -1 
+    
+    mov byte [esi+0x1E], 1
+       
+    mov [TempPtr], esi 
+    lea eax, [TempPtr] 
+    push eax 
+    mov ecx, NameNodeVector ; FIXME: name this
+    call NameNodeVector_Add ; FIXME: name this
+      
+ ;   jmp .next_opp
+.Exit:
+    mov esp,ebp
+    pop ebp
+    retn
+%pop

@@ -6,7 +6,7 @@
 %define strstr_         0x007CA4B0
 %define LoadLibraryA    0x007E1220
 %define GetProcAddress  0x007E1250
-;%define _sprintf        0x006B52EE
+%define _sprintf        0x007C8EF4
 %define mbstowcs_       0x007CC2AC
 
 ; Memory

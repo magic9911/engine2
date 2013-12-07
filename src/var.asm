@@ -28,6 +28,7 @@ var:
     
     .DoingAutoSS                RESD 1
     
+    .OtherSection               RESD 1
     .Anticheat1                 RESD 1
     
 [section .text]

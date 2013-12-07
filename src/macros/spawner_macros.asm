@@ -31,5 +31,12 @@
     push %1
     mov ecx, var.INIClass_SPAWN
     call INIClass__GetFixed
-
 %endmacro
+
+
+%macro Add_Human_Opponent 2
+    mov dword [var.OtherSection], %2
+    mov eax, %1
+    call Add_Human_Opponent_
+%endmacro
+

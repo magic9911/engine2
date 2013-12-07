@@ -35,6 +35,15 @@ str_Name            db "Name",0
 str_Side            db "Side",0
 str_Color           db "Color",0
 str_OtherSectionFmt db "Other%d",0
+
+str_Other1          db"Other1",0
+str_Other2          db"Other2",0
+str_Other3          db"Other3",0
+str_Other4          db"Other4",0
+str_Other5          db"Other5",0
+str_Other6          db"Other6",0
+str_Other7          db"Other7",0
+
 str_Port            db "Port",0
 str_Ip              db "Ip",0
 str_SpawnArg        db "-SPAWN",0
