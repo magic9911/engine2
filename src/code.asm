@@ -11,7 +11,10 @@
 
 %include "src/loading.asm"
 
+; spawner
 %include "src/spawner/spawner.asm"
+%include "src/spawner/tunnel.asm"
+%include "src/spawner/nethack.asm"
 
 %include "src/copy_protection.asm"
 %include "src/no-cd.asm"

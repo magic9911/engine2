@@ -1,5 +1,9 @@
 @JMP 0x0052C5D3 _Init_Game_Check_Spawn_Arg_No_Intro
 @JMP 0x0052D9A0 _Select_Game_Init_Spawner
+@JMP 0x004FCBD0 _HouseClass__Flag_To_Lose_RETN_Patch
+
+_HouseClass__Flag_To_Lose_RETN_Patch:
+    retn 4
 
 Initialize_Spawn:
 %push
@@ -183,7 +187,7 @@ Initialize_Spawn:
     mov ecx, eax
     call Set_Game_Mode
     mov [GameMode], eax
-    
+        
     ; start scenario 
     push -1 
     xor edx, edx 
@@ -198,9 +202,9 @@ Initialize_Spawn:
     jnz .Dont_Set_SessionType_To_Lan
     
     mov dword [SessionType], 3
-    
+ 
 .Dont_Set_SessionType_To_Lan:
-
+ 
     mov ecx, SessionClass_this
     call SessionClass__Create_Connections
 
@@ -368,10 +372,10 @@ Add_Human_Player:
 ;    SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x14
     
     lea eax, [NameBuf]
-    SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x14
+    SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x28
     
     lea eax, [NameBuf]
-    push 32
+    push 28
     push eax
     push esi
     call mbstowcs_ 
@@ -397,8 +401,11 @@ Add_Human_Player:
     mov dword [esi+0x53], eax  ; color
     mov dword [PlayerColor], eax
 
-    mov dword [esi+0x73], -1 
-       
+    mov dword [esi+0x73], -1
+
+    mov dword [esi+6Bh], -1 ; IS OBSERVER FLAG
+    
+    
     mov [TempPtr], esi 
     lea eax, [TempPtr] 
     push eax 
@@ -441,13 +448,13 @@ Load_Sides_Stuff:
     retn
 
 Add_Human_Opponents:
-    Add_Human_Opponent 0, str_Other1
-    Add_Human_Opponent 1, str_Other2
-    Add_Human_Opponent 2, str_Other3
-    Add_Human_Opponent 3, str_Other4
-    Add_Human_Opponent 4, str_Other5
-    Add_Human_Opponent 5, str_Other6
-    Add_Human_Opponent 6, str_Other7
+    Add_Human_Opponent 1, str_Other1
+    Add_Human_Opponent 2, str_Other2
+    Add_Human_Opponent 3, str_Other3
+    Add_Human_Opponent 4, str_Other4
+    Add_Human_Opponent 5, str_Other5
+    Add_Human_Opponent 6, str_Other6
+    Add_Human_Opponent 7, str_Other7
 retn    
 
 Add_Human_Opponent_:
@@ -470,12 +477,12 @@ Add_Human_Opponent_:
     add esp, 4 
       
     mov esi, eax 
-    lea ecx, [esi+14h] 
+    lea ecx, [esi+28h] 
     call IPXAddressClass__IPXAddressClass
       
     lea eax, [esi]
     mov ecx, [var.OtherSection]
-    SpawnINI_Get_String ecx, str_Name, str_Empty, eax, 0x14
+    SpawnINI_Get_String ecx, str_Name, str_Empty, eax, 0x28
     
     lea eax, [esi]
     mov eax, [eax]
@@ -501,10 +508,10 @@ Add_Human_Opponent_:
     mov dword [SessionType], 4 ; HACK: SessonType set to WOL, will be set to LAN later
 
     ; set addresses to indexes for send/receive hack
-    mov [esi + 0x14 + SpawnAddress.pad1], word 0
+    mov [esi + 0x28 + SpawnAddress.pad1], word 0
     mov ecx, dword [CurrentOpponent]
-    mov [esi + 0x14 + SpawnAddress.id], ecx
-    mov [esi + 0x14 + SpawnAddress.pad2], word 0
+    mov [esi + 0x28 + SpawnAddress.id], ecx
+    mov [esi + 0x28 + SpawnAddress.pad2], word 0
 
     lea eax, [TempBuf]
     mov ecx, [var.OtherSection]

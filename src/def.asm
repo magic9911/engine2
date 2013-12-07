@@ -1,6 +1,6 @@
 ; winapi
-;%define sendto          0x006B4D6C
-;%define recvfrom        0x006B4D66
+%define sendto          0x007C89B0
+%define recvfrom        0x007C89AA
 %define htonl           0x007C8962
 %define GetCommandLineA 0x007E1280
 %define strstr_         0x007CA4B0
