@@ -40,6 +40,7 @@ Initialize_Spawn:
 
     ; set session 
     mov dword [SessionType], 5
+    
 
     SpawnINI_Get_Int str_Settings, str_UnitCount, 1
     mov dword [UnitCount], eax
@@ -182,6 +183,8 @@ Initialize_Spawn:
     
     ; Load HouseTypes background and stuff for scenario loading screen
     call Load_Sides_Stuff
+    
+    call 0x0061F210 ; Load_Country_Flags_And_Stuff
     
     SpawnINI_Get_Int str_Settings, str_GameMode, 1
     mov ecx, eax
