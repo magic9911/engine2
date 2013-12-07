@@ -129,6 +129,52 @@ Initialize_Spawn:
     mov dword [Seed], eax
     call Init_Random
     
+    ; Initialize networking
+    
+    push 3F5CCh
+    call new
+    add esp, 4
+    
+    mov ecx, eax
+    call UDPInterfaceClass__UDPInterfaceClass
+    
+    mov [WinsockInterface_this], eax
+    
+    mov ecx, [WinsockInterface_this]
+    call WinsockInterfaceClass__Init
+    
+    push 0
+    mov ecx, [WinsockInterface_this]
+    call UDPInterfaceClass__Open_Socket
+    
+    mov ecx, [WinsockInterface_this]
+    call WinsockInterfaceClass__Start_Listening
+    
+    mov ecx, [WinsockInterface_this]
+    call WinsockInterfaceClass__Discard_In_Buffers
+    
+    mov ecx, [WinsockInterface_this]
+    call WinsockInterfaceClass__Discard_Out_Buffers
+    
+    mov ecx, IPXManagerClass_this
+    push 1
+    push 258h
+    push 0FFFFFFFFh
+    push 3Ch
+    call IPXManagerClass__Set_Timing
+    
+    mov dword [MaxAhead], 9
+    mov dword [MaxMaxAhead], 0
+    MOV dword [FrameSendRate], 3
+    mov dword [LatencyFudge], 0
+    mov dword [RequestedFPS], 60
+    mov dword [ProtocolVersion], 2
+
+    call Init_Network
+    
+    mov dword eax, [NameNodes_CurrentSize]
+    mov dword [HumanPlayers], eax
+    
     ; Load HouseTypes background and stuff for scenario loading screen
     call Load_Sides_Stuff
     
@@ -153,6 +199,17 @@ Initialize_Spawn:
     mov dword [SessionType], 3
     
 .Dont_Set_SessionType_To_Lan:
+
+    mov ecx, SessionClass_this
+    call SessionClass__Create_Connections
+
+    mov ecx, IPXManagerClass_this
+    push 1
+    push 258h
+    push 0FFFFFFFFh
+    push 3Ch
+    call IPXManagerClass__Set_Timing
+
 
     mov ecx, [WWMouseClas_Mouse] 
     mov edx, [ecx] 

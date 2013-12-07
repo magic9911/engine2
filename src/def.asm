@@ -70,28 +70,28 @@
 ;%define Get_Message_Delay_Or_Duration   0x006B2330
 
 ; Network
-;%define UDPInterfaceClass__UDPInterfaceClass        0x006A1E70
-;%define WinsockInterface_this                       0x0074C8D8
-;%define WinsockInterfaceClass__Init                 0x006A1180
-;%define UDPInterfaceClass__Open_Socket              0x006A2130
-;%define WinsockInterfaceClass__Start_Listening      0x006A1030
-;%define WinsockInterfaceClass__Discard_In_Buffers   0x006A10A0
-;%define WinsockInterfaceClass__Discard_Out_Buffers  0x006A1110
-;%define IPXManagerClass_this                        0x007E45A0
-;%define IPXManagerClass__Set_Timing                 0x004F05B0
+%define UDPInterfaceClass__UDPInterfaceClass        0x007B2DB0
+%define WinsockInterface_this                       0x00887628
+%define WinsockInterfaceClass__Init                 0x007B1DE0
+%define UDPInterfaceClass__Open_Socket              0x007B30B0
+%define WinsockInterfaceClass__Start_Listening      0x007B1BC0
+%define WinsockInterfaceClass__Discard_In_Buffers   0x007B1CA0
+%define WinsockInterfaceClass__Discard_Out_Buffers  0x007B1D10
+%define IPXManagerClass_this                        0x00A8E9C0
+%define IPXManagerClass__Set_Timing                 0x00540C60
 %define IPXAddressClass__IPXAddressClass            0x0053ECB0
 
 
-;%define MaxAhead                                    0x007E250C
-;%define MaxMaxAhead                                 0x007E2524
-;%define FrameSendRate                               0x007E2510
-;%define LatencyFudge                                0x007E3FA8
-;%define RequestedFPS                                0x007E2514
-;%define ProtocolVersion                             0x007E2464
+%define MaxAhead                                    0x00A8B550
+%define MaxMaxAhead                                 0x00A8B568
+%define FrameSendRate                               0x00A8B554
+%define LatencyFudge                                0x00A8DB9C
+%define RequestedFPS                                0x00A8B558
+%define ProtocolVersion                             0x00A8B24C
 
-;%define Init_Network                                0x00574F90
-;%define NameNodes_CurrentSize                       0x007E3EA0
-;%define HumanPlayers                                0x007E2508
+%define Init_Network                                0x005DA6C0
+%define NameNodes_CurrentSize                       0x00A8DA84
+%define HumanPlayers                                0x00A8B54C
 
 ; Scenario
 %define ScenarioName                                0x00A8B8E0
