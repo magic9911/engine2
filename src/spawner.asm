@@ -35,7 +35,7 @@
 %endmacro
 
 @JMP 0x004E1DE0 _Select_Game_Init_Spawner
-@JMP 0x00609470 _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
+;@JMP 0x00609470 _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
 @JMP 0x005E08E3 _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
 @JMP 0x004BDDB1 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
 @JMP 0x004E078C _Init_Game_Check_Spawn_Arg_No_Intro
@@ -538,7 +538,7 @@ Initialize_Spawn:
     call SessionClass__Read_Scenario_Descriptions
         
     ; scenario
-    lea eax, [ScenarioName] ; FIXME: name this
+    lea eax, [ScenarioName]
     SpawnINI_Get_String str_Settings, str_Scenario, str_Empty, eax, 32
 
 ;    push str_gcanyonmap
@@ -666,7 +666,7 @@ Initialize_Spawn:
     call dword [edx+0Ch] 
        
     mov ecx, [0x0074C5DC] 
-    push edi 
+    push 0 
     mov eax, [ecx] 
     call dword [eax+18h] 
        
@@ -785,7 +785,7 @@ Add_Human_Player:
 
     SpawnINI_Get_Int str_Settings, str_Color, 0
     mov dword [esi+0x39], eax  ; color
-    mov dword [0x007E24DC], eax
+    mov dword [PlayerColor], eax
 
     mov dword [esi+0x41], -1 
        

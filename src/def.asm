@@ -53,6 +53,7 @@
 %define AlliesAllowed                               0x007E248C
 %define Frame                                       0x007E4924
 %define GameIDNumber                                0x00867014
+%define PlayerColor                                 0x007E24DC
 
 ; Network
 %define ListenPort                                  0x0070FCF0
