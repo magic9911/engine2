@@ -1,6 +1,74 @@
 @JMP 0x0052C5D3 _Init_Game_Check_Spawn_Arg_No_Intro
 @JMP 0x0052D9A0 _Select_Game_Init_Spawner
-@JMP 0x004FCBD0 _HouseClass__Flag_To_Lose_RETN_Patch
+@JMP 0x004FCBD0 _HouseClass__Flag_To_Lose_RETN_Patch ; for debugging
+@JMP 0x00687F15 _Assign_Houses_Do_Spawner_Stuff
+@JMP 0x00688378 _Assign_Houses_Epilogue_Do_Spawner_Stuff
+
+@JMP 0x0050172A _Dont_Do_Alliances_At_Game_Start
+
+_Dont_Do_Alliances_At_Game_Start:
+    cmp dword [var.SpawnerActive], 1
+    jz .Skip
+
+.Normal_Code:
+    test cl, cl
+    push 0
+    push eax
+    mov ecx, esi
+    jmp 0x00501728
+
+.Skip:
+    jmp 0x00501736
+    
+_Dont_Make_Enemy_At_Game_Start:
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+
+    add esp, 8
+    jmp 0x0050172F
+
+.Normal_Code:
+    call 0x004F9F90 ; HouseClass::Make_Enemy
+    jmp 0x0050172F
+    
+_Assign_Houses_Epilogue_Do_Spawner_Stuff:
+    cmp dword [var.SpawnerActive], 0
+    jz .Ret
+
+    call Load_Predetermined_Alliances
+
+.Ret:
+    pop edi
+    pop esi
+    add esp, 4Ch
+    jmp 0x0068837D
+
+_Assign_Houses_Do_Spawner_Stuff:
+    pushad
+    
+    cmp dword [var.SpawnerActive], 0
+    jz .Ret
+    
+    call Load_Selectable_Countries
+    call Load_Selectable_Handicaps
+    call Load_Selectable_Colors
+    call Load_Selectable_Spawns
+    
+    ; Make sure players aren't the same team by default
+    ; Spawner uses a different system to set up teams
+    mov dword [PlayersTeams+0], -1
+    mov dword [PlayersTeams+4], -1
+    mov dword [PlayersTeams+8], -1
+    mov dword [PlayersTeams+12], -1
+    mov dword [PlayersTeams+16], -1
+    mov dword [PlayersTeams+20], -1
+    mov dword [PlayersTeams+24], -1
+    mov dword [PlayersTeams+28], -1
+
+.Ret:
+    popad
+    mov edi, [NameNodes_CurrentSize]
+    jmp  0x00687F1B
 
 _HouseClass__Flag_To_Lose_RETN_Patch:
     retn 4
@@ -124,6 +192,8 @@ Initialize_Spawn:
     
     call Add_Human_Player
     call Add_Human_Opponents
+    
+    call Load_Spectators
     
     ; scenario
     lea eax, [ScenarioName] ; FIXME: name this
@@ -404,10 +474,7 @@ Add_Human_Player:
     mov dword [esi+0x53], eax  ; color
     mov dword [PlayerColor], eax
 
-    mov dword [esi+0x73], -1
-
-    mov dword [esi+6Bh], -1 ; IS OBSERVER FLAG
-    
+    mov dword [esi+0x73], -1    
     
     mov [TempPtr], esi 
     lea eax, [TempPtr] 

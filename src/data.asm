@@ -76,6 +76,7 @@ str_HouseAllyFour 		db "HouseAllyFour",0
 str_HouseAllyFive 		db "HouseAllyFive",0
 str_HouseAllySix 		db "HouseAllySix",0
 str_HouseAllySeven	 	db "HouseAllySeven",0
+str_HouseAllyEight      db "HouseAllyEight",0
 
 str_Multi1_Alliances db "Multi1_Alliances",0
 str_Multi2_Alliances db "Multi2_Alliances",0
@@ -85,3 +86,8 @@ str_Multi5_Alliances db "Multi5_Alliances",0
 str_Multi6_Alliances db "Multi6_Alliances",0
 str_Multi7_Alliances db "Multi7_Alliances",0
 str_Multi8_Alliances db "Multi8_Alliances",0
+
+str_IsSpectator  db "IsSpectator",0
+
+
+

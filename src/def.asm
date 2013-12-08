@@ -13,12 +13,18 @@
 %define new                         0x007C8E17
 
 ; House
-;%define HouseClassArray             0x007E155C
-;%define HouseTypesArray             0x007E21D4
+%define HouseClassArray             0x00A8022C
+%define HouseTypesArray             0x00A83C9C
 ;%define HouseClass__Assign_Handicap 0x004BB460
-;%define HouseClass__Make_Ally       0x004BDB30
-;%define Assign_Houses               0x005DE210
+%define HouseClass__Make_Ally       0x004F9B50
+%define Assign_Houses               0x00687F10
 ;%define Get_MP_Color                0x005EEF70
+
+%define PlayersCountries            0x00A8B29C
+%define PlayersColors               0x00A8B2BC
+%define PlayersSpawns               0x00A8B2DC
+%define PlayersHandicaps            0x00A8B27C
+%define PlayersTeams                0x00A8B2FC
 
 ; INI
 %define INIClass__INIClass          0x00535B30
@@ -97,6 +103,7 @@
 %define ScenarioName                                0x00A8B8E0
 %define Start_Scenario                              0x00683AB0
 %define NameNodeVector                              0x00A8DA74
+%define NameNode                                    0x00A8DA78
 %define NameNodeVector_Add                          0x00477EC0
 %define SessionClass__Read_Scenario_Descriptions    0x00699980
 
