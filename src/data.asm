@@ -74,3 +74,5 @@ str_message_fmt db "%s: %s",0
 
 str_AutoSSFileNameFormat db"AUTOSS\\AutoSS-%d-%d_%d.PCX",0
 str_AutoSSDir db"./AutoSS",0
+
+str_stats_dmp: db "stats.dmp",0

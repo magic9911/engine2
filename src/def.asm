@@ -30,6 +30,9 @@
 ; File
 %define FileClass__FileClass                        0x004497B0
 %define FileClass__Is_Available                     0x004499C0
+%define FileClass__Open                             0x00449A40
+%define FileClass__Close                            0x00449A10
+%define FileClass__Write                            0x00449850
 
 ; Session
 %define SessionClass_this                           0x007E2458
@@ -104,6 +107,9 @@
 ; Mouse
 %define WWMouseClas_Mouse                           0x0074C8F0
 %define MouseClass_Map                              0x00748348
+
+; Statistics
+%define StatisticsPacketSent                        0x007E4FD0
 
 ; definitions of common structures
 struc sockaddr_in
