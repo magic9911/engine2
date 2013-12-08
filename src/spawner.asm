@@ -96,12 +96,17 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
     mov edi, [edi+%1*4]
     
 ;    mov dword [edi+0x10DFC], eax
-;    mov dword [edi+0x6C], eax
+    mov esi, [edi+0x24]
+    mov dword [esi+0x6C], eax
+    mov dword [edi+10DFCh], eax
     
     push eax
     call Get_MP_Color
     
     mov dword [edi+0x10DFC], eax
+    
+    mov ecx, edi
+    call 0x004CBAA0
 
 .Dont_Set_Color_%3:
 %endmacro
@@ -319,15 +324,6 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     cmp dword [var.SpawnerActive], 0
     jz  .Ret
     
-    Set_House_Color 0, dword [var.HouseColorsArray+0], a
-    Set_House_Color 1, dword [var.HouseColorsArray+4], b
-    Set_House_Color 2, dword [var.HouseColorsArray+8], c
-    Set_House_Color 3, dword [var.HouseColorsArray+12], d
-    Set_House_Color 4, dword [var.HouseColorsArray+16], e
-    Set_House_Color 5, dword [var.HouseColorsArray+20], f
-    Set_House_Color 6, dword [var.HouseColorsArray+24], g
-    Set_House_Color 7, dword [var.HouseColorsArray+28], h
-    
     Set_House_Country 0, dword [var.HouseCountriesArray+0], a
     Set_House_Country 1, dword [var.HouseCountriesArray+4], b
     Set_House_Country 2, dword [var.HouseCountriesArray+8], c
@@ -337,6 +333,15 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     Set_House_Country 7, dword [var.HouseCountriesArray+24], g
     Set_House_Country 8, dword [var.HouseCountriesArray+28], h
     
+    Set_House_Color 0, dword [var.HouseColorsArray+0], a
+    Set_House_Color 1, dword [var.HouseColorsArray+4], b
+    Set_House_Color 2, dword [var.HouseColorsArray+8], c
+    Set_House_Color 3, dword [var.HouseColorsArray+12], d
+    Set_House_Color 4, dword [var.HouseColorsArray+16], e
+    Set_House_Color 5, dword [var.HouseColorsArray+20], f
+    Set_House_Color 6, dword [var.HouseColorsArray+24], g
+    Set_House_Color 7, dword [var.HouseColorsArray+28], h
+        
     mov byte [var.IsDoingAlliancesSpawner], 1
     
     House_Make_Allies_Spawner str_Multi1_Alliances, 0, a

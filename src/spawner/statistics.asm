@@ -1,5 +1,5 @@
-@JMP 0x005B4FAE _Execute_DoList_Send_Statistics_Game_Leave
-@JMP 0x005B4FD3 _Execute_DoList_Send_Statistics_Game_Leave2
+;@JMP 0x005B4FAE _Execute_DoList_Send_Statistics_Game_Leave
+;@JMP 0x005B4FD3 _Execute_DoList_Send_Statistics_Game_Leave2
 @JMP 0x004BAC2C _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff
 
 _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff:
