@@ -40,6 +40,11 @@
 @JMP 0x004BDDB1 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
 @JMP 0x004E078C _Init_Game_Check_Spawn_Arg_No_Intro
 
+; Inside HouseClass::Mplayer_Defeated skip some checks which makes game continue
+; even if there are only allied AI players left, in skirmish
+@JMP 0x004BF7B6 0x004BF7BF
+@JMP 0x004BF7F0 0x004BF7F9
+
 _Init_Game_Check_Spawn_Arg_No_Intro:
     pushad
 
@@ -639,7 +644,9 @@ Initialize_Spawn:
     mov esi, [0x0074C488] ; RulesClass pointer
 
     SpawnINI_Get_Fixed str_Settings, str_MultipleFactory, dword [esi+2B0h], dword [esi+2B4h]
-    fstp    qword [esi+2B0h]
+    fstp qword [esi+2B0h]
+    
+    mov byte [esi+0F48h], 0 ; Disable Paranoid RulesClass setting
     
 .Dont_Load_Scenario:
 

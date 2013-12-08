@@ -41,7 +41,7 @@ _Create_Units_Set_Selected_Spawn_Locations:
     
     mov esi, 0
     
-.Loop   
+.Loop:
     cmp esi, 7
     jg  .Ret
     
