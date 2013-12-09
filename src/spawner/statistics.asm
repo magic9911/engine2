@@ -2,6 +2,87 @@
 @JMP 0x005B4FD3 _Execute_DoList_Send_Statistics_Game_Leave2
 @JMP 0x004BAC2C _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff
 @JMP 0x0060A79C _Send_Statistics_Packet_Write_Statistics_Dump
+@JMP 0x005B4333 _sub_5B4290_Send_Statistics_Spawner
+@JMP 0x005B1E94 _Queue_AI_Multiplayer_Send_Statistics_Spawner
+@JMP 0x00509220 _sub_508A40_Send_Statistics_Spawner1
+@JMP 0x0050927A _sub_508A40_Send_Statistics_Spawner2
+
+_sub_508A40_Send_Statistics_Spawner2:
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+    cmp dword [SessionType], 0
+    jz .Normal_Code
+    
+    jmp .Send
+    
+.Send:
+ jmp 0x00509283
+
+.Dont_Send:
+ jmp 0x005092A5
+ 
+.Normal_Code:
+    cmp dword [SessionType], 4
+    jnz .Dont_Send
+    jmp .Send
+
+_sub_508A40_Send_Statistics_Spawner1:
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+    cmp dword [SessionType], 0
+    jz .Normal_Code
+    
+    jmp .Send
+    
+.Send:
+ jmp 0x00509229
+
+.Dont_Send:
+ jmp 0x0050924B
+ 
+.Normal_Code:
+    cmp dword [SessionType], 4
+    jnz .Dont_Send
+    jmp .Send
+
+_Queue_AI_Multiplayer_Send_Statistics_Spawner:
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+    cmp dword [SessionType], 0
+    jz .Normal_Code
+    
+    jmp .Send
+    
+.Send:
+ jmp 0x005B1EA0
+
+.Dont_Send:
+ jmp 0x005B1F21
+ 
+.Normal_Code:
+    cmp dword [SessionType], 4
+    jnz .Dont_Send
+    jmp .Send
+
+_sub_5B4290_Send_Statistics_Spawner:
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+    cmp dword [SessionType], 0
+    jz .Normal_Code
+    
+    jmp .Send
+    
+.Send:
+ jmp 0x005B433C
+
+.Dont_Send:
+ jmp 0x005B439F
+ 
+.Normal_Code:
+    cmp dword [SessionType], 4
+    jnz .Dont_Send
+    jmp .Send
+
 
 _Send_Statistics_Packet_Write_Statistics_Dump:
     cmp dword [var.SpawnerActive], 0
@@ -82,8 +163,7 @@ _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff:
 _Execute_DoList_Send_Statistics_Game_Leave2:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    mov edx, [SessionType]
-    cmp edx, 0
+    cmp dword [SessionType], 0
     jz .Normal_Code
     
     jmp .Send
@@ -94,7 +174,7 @@ _Execute_DoList_Send_Statistics_Game_Leave2:
 .Dont_Send:
  jmp 0x005B500C
  
- .Normal_Code:
+.Normal_Code:
     mov edx, [SessionType]
     cmp edx, 4
     jnz .Dont_Send
@@ -104,8 +184,7 @@ _Execute_DoList_Send_Statistics_Game_Leave2:
 _Execute_DoList_Send_Statistics_Game_Leave:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    mov edx, [SessionType]
-    cmp edx, 0
+    cmp dword [SessionType], 0
     jz .Normal_Code
     
     jmp 0x005B4FB9
@@ -118,5 +197,3 @@ _Execute_DoList_Send_Statistics_Game_Leave:
     cmp edx, 4
     jnz .Dont_Send
     jmp 0x005B4FB9
-
-;.text:005B4FD3                 mov     edx, SessionClass_Session
