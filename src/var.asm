@@ -27,5 +27,7 @@ var:
     
     .Anticheat1                 RESD 1
     
+    .AntiCheatArray             RESB (StripClass_Size * 2)
+    
 
 [section .text]

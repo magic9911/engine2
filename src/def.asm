@@ -111,6 +111,11 @@
 ; Statistics
 %define StatisticsPacketSent                        0x007E4FD0
 
+; Sidebar
+%define LEFT_STRIP                                  0x00749874
+%define RIGHT_STRIP                                 0x00749C48
+%define StripClass_Size                             980
+
 ; definitions of common structures
 struc sockaddr_in
     .sin_family     RESW 1

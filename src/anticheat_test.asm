@@ -24,6 +24,241 @@
 @JMP 0x005C22EC _Anticheat_Test22
 @JMP 0x005C265A _Anticheat_Test23
 
+;@JMP 0x005F4645 _Anticheat_Test30
+@JMP 0x005F468C _Anticheat_Test31
+
+@JMP 0x005F4E7B _Anticheat_Test32
+@JMP 0x005F4E8F _Anticheat_Test33
+@JMP 0x005F50F1 _Anticheat_Test34
+@JMP 0x005F5168 _Anticheat_Test35
+@JMP 0x005F51F8 _Anticheat_Test36
+@JMP 0x005F56E0 _Anticheat_Test37
+@JMP 0x005F5720 _Anticheat_Test38
+@JMP 0x005F58D0 _Anticheat_Test39
+@JMP 0x005F464E _Anticheat_Test40
+@JMP 0x005F59DD _Anticheat_Test41
+@JMP 0x005F5DD1 _Anticheat_Test42
+@JMP 0x005F5E9D _Anticheat_Test43
+@JMP 0x005F2C90 _Anticheat_Test44
+
+_Anticheat_Test44:
+    cmp [edx+4], ebp
+    jnz 0x005F2C99
+    
+    cmp edx, RIGHT_STRIP
+    jg .Right_Strip
+    
+    cmp [var.AntiCheatArray+edx-LEFT_STRIP], edi
+    jz 0x005F2CA9
+    jmp 0x005F2C99
+    
+.Right_Strip:
+    cmp [var.AntiCheatArray+StripClass_Size+edx-RIGHT_STRIP], edi
+    jz 0x005F2CA9
+    jmp 0x005F2C99
+
+_Anticheat_Test43:
+    cmp eax, RIGHT_STRIP
+    jz .Right_Strip
+    
+    mov edx, [var.AntiCheatArray+ebp+50h]
+
+.Ret:
+    push edx
+    jmp 0x005F5EA2
+    
+.Right_Strip:
+    mov edx, [var.AntiCheatArray+StripClass_Size+ebp+50h]
+    jmp .Ret
+
+_Anticheat_Test42:
+    cmp eax, RIGHT_STRIP
+    jz .Right_Strip
+    
+    mov edx, [var.AntiCheatArray+ebp+50h]
+    
+.Ret:
+    push edx
+    jmp 0x005F5DD6
+   
+.Right_Strip:
+    mov edx, [var.AntiCheatArray+StripClass_Size+ebp+50h]
+    jmp .Ret
+
+_Anticheat_Test41:
+    cmp eax, RIGHT_STRIP
+    jz .Right_Strip
+
+    mov edi, [var.AntiCheatArray+ebp+50h]
+    
+.Ret:
+    mov eax, [eax+ebp+58h]
+    jmp 0x005F59E5
+    
+.Right_Strip:
+    mov edi, [var.AntiCheatArray+StripClass_Size+ebp+50h]
+    jmp .Ret
+
+_Anticheat_Test40:
+    cmp [eax+4], edi
+    jnz 0x005F4657
+    
+    cmp eax, RIGHT_STRIP
+    jg .Right_Strip
+    
+    
+    cmp [var.AntiCheatArray+eax-LEFT_STRIP], ebx
+    jz  0x005F46A1
+    jmp 0x005F4657
+    
+.Right_Strip:
+    cmp [var.AntiCheatArray+StripClass_Size+eax-RIGHT_STRIP], ebx
+    jz  0x005F46A1
+    jmp 0x005F4657
+
+
+_Anticheat_Test39:
+    mov [esp+0x2C], edx
+    
+    cmp esi, RIGHT_STRIP
+    jz .Right_Strip
+    
+    lea edx, [var.AntiCheatArray+50h]
+    
+.Ret:
+    jmp 0x005F58D7
+    
+.Right_Strip:
+    lea edx, [var.AntiCheatArray+StripClass_Size+50h]
+    jmp .Ret
+
+_Anticheat_Test38:
+    cmp esi, RIGHT_STRIP
+    jz .Right_Strip
+
+    lea edi, [var.AntiCheatArray+50h]
+
+.Ret:
+    mov [esp+0x1C], ecx
+    jmp 0x005F5727
+    
+.Right_Strip:
+    lea edi, [var.AntiCheatArray+StripClass_Size+50h]
+    jmp .Ret
+
+_Anticheat_Test37:
+    cmp esi, RIGHT_STRIP
+    jz  .Right_Strip
+
+    lea eax, [var.AntiCheatArray+eax*4+50h]
+    
+.Ret:
+    mov ebp, [eax]
+    jmp 0x005F56E6
+    
+.Right_Strip:
+    lea eax, [var.AntiCheatArray+StripClass_Size+eax*4+50h]
+    jmp .Ret
+
+_Anticheat_Test36:
+    cmp edx, RIGHT_STRIP
+    jz .Right_Strip
+
+    mov ebp, [var.AntiCheatArray+eax*4+50h]
+    
+.Ret:
+    mov ecx, [0x007E3FFC]
+    jmp 0x005F5202
+    
+.Right_Strip:
+    mov ebp, [var.AntiCheatArray+StripClass_Size+eax*4+50h]
+    jmp .Ret
+
+_Anticheat_Test35:
+    cmp ecx, RIGHT_STRIP
+    jg .Right_Strip
+
+    mov edx, [ecx+var.AntiCheatArray+50h-LEFT_STRIP]
+
+.Ret:
+    mov ecx, [eax]
+    jmp 0x005F516D
+    
+.Right_Strip:
+    mov edx, [ecx+var.AntiCheatArray+StripClass_Size+50h-RIGHT_STRIP]
+    jmp .Ret
+
+_Anticheat_Test34:
+    cmp eax, RIGHT_STRIP
+    jg .Right_Strip
+
+    mov edx, [eax+var.AntiCheatArray+50h-LEFT_STRIP]
+
+.Ret:
+    call 0x004631B0
+    jmp 0x005F50F9
+    
+.Right_Strip:
+    mov edx, [eax+var.AntiCheatArray+StripClass_Size+50h-RIGHT_STRIP]
+    jmp .Ret
+
+_Anticheat_Test33:
+    cmp ecx, RIGHT_STRIP
+    jz .Right_Strip
+    
+    mov edx, [var.AntiCheatArray+eax*4+50h]
+
+.Ret:
+    mov ecx, esi
+    jmp 0x005F4E95
+    
+.Right_Strip:
+    mov edx, [var.AntiCheatArray+StripClass_Size+eax*4+50h]
+    jmp .Ret
+
+_Anticheat_Test32:
+    cmp ecx, RIGHT_STRIP
+    jz .Right_Strip
+    mov ecx, [var.AntiCheatArray+eax*4+50h]
+    
+.Ret:
+    mov edx, [0x007E3FFC]
+    jmp 0x005F4E85
+    
+.Right_Strip:
+    mov ecx, [var.AntiCheatArray+StripClass_Size+eax*4+50h]
+    jmp .Ret
+
+_Anticheat_Test31:
+
+    cmp esi, RIGHT_STRIP
+    jz .Right_Strip
+
+    mov [var.AntiCheatArray + ecx * 4 + 50h], ebx
+
+.Ret:
+    mov eax, [esi+4Ch]
+    jmp 0x005F4693
+
+.Right_Strip:
+    mov [var.AntiCheatArray + StripClass_Size + ecx * 4 + 50h], ebx
+    jmp .Ret
+
+_Anticheat_Test30:
+    xor     ecx, ecx
+    test    edx, edx
+    jle     0x005F465F
+
+    cmp esi, RIGHT_STRIP
+    jz .Right_Strip
+    
+    lea eax, [var.AntiCheatArray + 50]
+    jmp 0x005F464E
+
+.Right_Strip:
+    lea eax, [var.AntiCheatArray + StripClass_Size + 50]
+    jmp 0x005F464E
+    
 _Anticheat_Test23:
     mov ecx, [var.Anticheat1]
     jmp 0x005C2660
