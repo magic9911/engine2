@@ -41,6 +41,15 @@
 @JMP 0x005F5E9D _Anticheat_Test43
 @JMP 0x005F2C90 _Anticheat_Test44
 
+@JMP 0x0046EA84 _Anticheat_Test45
+
+_Anticheat_Test45:
+    lea eax, [eax+ebx*4]
+    inc ecx
+    mov [eax], ecx
+    mov ecx, [esi+4]
+    jmp 0x0046EA8D
+
 _Anticheat_Test44:
     cmp [edx+4], ebp
     jnz 0x005F2C99
