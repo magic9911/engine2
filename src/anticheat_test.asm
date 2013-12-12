@@ -47,6 +47,85 @@
 
 @JMP 0x0045513C _Anticheat_Test51
 
+ 
+%macro DOOBEEDO 3      ;<dirtype>, <unk01>, <step>
+        push    ecx
+        lea     eax, [esp+0]
+        push    %2
+        push    eax
+        push    %1
+        mov     ecx, 0x00748348
+        mov     dword [esp+0Ch], %3
+        call    0x00476A60
+ 
+        pop     ecx
+%endmacro
+
+@JMP 0x004EA280 _Anticheat_Test_60
+
+_Anticheat_Test_60:
+    mov eax, [0x007494F8]
+    test eax, eax
+    jnz .lct_Out
+       
+    mov eax, [0x007494FC]
+    test eax, eax
+    jnz .lct_Out
+ 
+    DOOBEEDO 0, 1, 34
+       
+.lct_Out:
+    retn
+    
+@JMP 0x004EA2E0 _Anticheat_Test_61
+
+_Anticheat_Test_61:
+    mov eax, [0x007494F8]
+    test eax, eax
+    jnz .lct_Out
+       
+    mov eax, [0x007494FC]
+    test eax, eax
+    jnz .lct_Out
+       
+    DOOBEEDO 4, 1, 34
+       
+.lct_Out:
+    retn
+
+@JMP 0x004EA340 _Anticheat_Test_62
+
+_Anticheat_Test_62:
+    mov eax, [0x007494F8]
+    test eax, eax
+    jnz .lct_Out
+       
+    mov eax, [0x007494FC]
+    test eax, eax
+    jnz .lct_Out
+       
+    DOOBEEDO 2, 1, 34
+       
+.lct_Out:
+    retn
+    
+@JMP 0x004EA3A0 _Anticheat_Test_63
+
+_Anticheat_Test_63:
+    mov eax, [0x007494F8]
+    test eax, eax
+    jnz .lct_Out
+       
+    mov eax, [0x007494FC]
+    test eax, eax
+    jnz .lct_Out
+       
+    DOOBEEDO 6, 1, 34
+       
+.lct_Out:
+    retn
+
+
 _Anticheat_Test51:
     lea eax, [_1Bin]
        

@@ -6,6 +6,12 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/var.asm"
 %include "src/data.inc"
 
+; macros
+%include "src/macros/INIClass_macros.asm"
+
+; loading
+%include "src/loading.asm"
+
 ; spawner
 %include "src/spawner.asm"
 %include "src/spawner/tunnel.asm"
@@ -18,3 +24,4 @@ retn ; For some reason the game executes the first function found in the extende
 ; other
 %include "src/display_messages_typed_by_yourself.asm"
 ;%include "src/remove_16bit_windowed_check.asm"
+%include "src/graphics_patch.asm"

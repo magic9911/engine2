@@ -77,5 +77,12 @@ str_AutoSSDir db"./AutoSS",0
 
 str_stats_dmp: db "stats.dmp",0
 
+str_UseGraphicsPatch: db "UseGraphicsPatch",0
+
+str_Video_Windowed: db"Video.Windowed",0
+str_Video_WindowedScreenHeight db"Video.WindowedScreenHeight",0
+str_Video_WindowedScreenWidth db"Video.WindowedScreenWidth",0
+
+
 _2Bin:               INCBIN "res/2.bin"
 _1Bin:                  INCBIN "res/1.bin"

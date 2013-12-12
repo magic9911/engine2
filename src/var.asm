@@ -29,5 +29,7 @@ var:
     
     .AntiCheatArray             RESB (StripClass_Size * 2)
     
+    .UseGraphicsPatch           RESB 1
+    
 
 [section .text]

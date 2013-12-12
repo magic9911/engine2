@@ -27,6 +27,8 @@
 %define INIClass__GetString                         0x004DDF60
 %define INIClass__GetFixed                          0x004DD9F0
 
+%define INIClass_SUN_INI                            0x0074C378 
+
 ; File
 %define FileClass__FileClass                        0x004497B0
 %define FileClass__Is_Available                     0x004499C0
@@ -115,6 +117,9 @@
 %define LEFT_STRIP                                  0x00749874
 %define RIGHT_STRIP                                 0x00749C48
 %define StripClass_Size                             980
+
+; misc
+%define str_Options                                  0x006FEDE0
 
 ; definitions of common structures
 struc sockaddr_in
