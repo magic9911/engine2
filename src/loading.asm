@@ -4,9 +4,11 @@
 _WinMain_Read_SUN_INI_Read_Extra_Options:
     call INIClass__GetBool
     
+    pushad
     INIClass_Get_Bool INIClass_SUN_INI, str_Options, str_UseGraphicsPatch, 1
     mov byte [var.UseGraphicsPatch], al
     
+    popad
     jmp 0x006010CE
     
 _WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference:
