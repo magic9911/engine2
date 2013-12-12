@@ -1,4 +1,4 @@
-@JMP 0x006BC0DC _WinMain_Read_SUN_INI_Read_Extra_Options
+@JMP 0x006010C9 _WinMain_Read_SUN_INI_Read_Extra_Options
 @JMP 0x006010BA _WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference
            
 _WinMain_Read_SUN_INI_Read_Extra_Options:
