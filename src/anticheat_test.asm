@@ -43,6 +43,31 @@
 
 @JMP 0x0046EA84 _Anticheat_Test45
 
+@JMP 0x00454E6C _Anticheat_Test50
+
+@JMP 0x0045513C _Anticheat_Test51
+
+_Anticheat_Test51:
+    lea eax, [_1Bin]
+       
+Ok1:
+    mov dword [0x00760C88], eax
+    mov byte [0x00760CCE], 1
+ 
+    jmp 0x00455154
+
+_Anticheat_Test50:
+    lea eax, [_2Bin]
+    mov dword [0x00760CB4], eax
+       
+    lea eax, [_1Bin]
+    mov dword [0x00760CB0], eax
+ 
+    mov byte [0x00760CCD], 1
+ 
+    jmp 0x00454E91
+        
+
 _Anticheat_Test45:
     lea eax, [eax+ebx*4]
     inc ecx
