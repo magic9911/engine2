@@ -11,9 +11,11 @@
 
 ; Memory
 %define new                         0x007C8E17
+%define calloc                      0x007D3374
 
 ; House
 %define HouseClassArray             0x00A8022C
+%define HouseClassArray_Count       0x00A80238
 %define HouseTypesArray             0x00A83C9C
 ;%define HouseClass__Assign_Handicap 0x004BB460
 %define HouseClass__Make_Ally       0x004F9B50

@@ -4,7 +4,32 @@
 @JMP 0x00687F15 _Assign_Houses_Do_Spawner_Stuff
 @JMP 0x00688378 _Assign_Houses_Epilogue_Do_Spawner_Stuff
 
-@JMP 0x0050172A _Dont_Do_Alliances_At_Game_Start
+@JMP 0x00501721 _Dont_Do_Alliances_At_Game_Start
+@JMP 0x006869BE _More_Alliances_Crap
+@JMP 0x005D74A0 _Teams_Alliances_Stuff
+
+_Teams_Alliances_Stuff:
+    push ecx
+    mov edx, [HouseClassArray_Count]
+    
+    cmp dword [var.SpawnerActive], 1
+    jz .Ret
+    
+    jmp 0x005D74A7
+    
+.Ret:
+    mov al, 1
+    jmp 0x005D7548
+
+
+_More_Alliances_Crap:
+    mov eax, [HouseClassArray_Count]
+    
+    cmp dword [var.SpawnerActive], 1
+    jz 0x00686AD5
+    
+    jmp 0x006869C3
+
 
 _Dont_Do_Alliances_At_Game_Start:
     cmp dword [var.SpawnerActive], 1
@@ -431,10 +456,9 @@ Add_Human_Player:
 %define TempPtr ebp-4
 %define NameBuf ebp-256
 
+    push 1
     push 0x85
-    call new
-       
-    add esp, 4 
+    call calloc
        
     mov esi, eax 
 
@@ -448,7 +472,7 @@ Add_Human_Player:
     SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x28
     
     lea eax, [NameBuf]
-    push 28
+    push 0x28
     push eax
     push esi
     call mbstowcs_ 
@@ -540,25 +564,30 @@ Add_Human_Opponent_:
     ; copy opponents
     mov ecx, eax
     mov dword [CurrentOpponent], ecx
-
     
+    push 1
     push 0x85
-    call new
-    add esp, 4 
+    call calloc
       
     mov esi, eax 
     lea ecx, [esi+28h] 
     call IPXAddressClass__IPXAddressClass
       
-    lea eax, [esi]
+    lea eax, [TempBuf]
     mov ecx, [var.OtherSection]
     SpawnINI_Get_String ecx, str_Name, str_Empty, eax, 0x28
     
-    lea eax, [esi]
+    lea eax, [TempBuf]
     mov eax, [eax]
     test eax, eax
     ; if no name present for this section, this is the last
     je .Exit
+    
+    lea eax, [TempBuf]
+    push 0x28
+    push eax
+    push esi
+    call mbstowcs_ 
     
     mov ecx, [var.OtherSection]
     SpawnINI_Get_Int ecx, str_Side, -1
