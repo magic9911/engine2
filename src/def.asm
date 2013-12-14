@@ -10,6 +10,7 @@
 
 ; Memory
 %define new                                         0x006B51D7
+%define memcpy                                      0x006B63F0
 
 ; House
 %define HouseClassArray                             0x007E155C

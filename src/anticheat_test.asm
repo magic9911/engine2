@@ -24,28 +24,150 @@
 @JMP 0x005C22EC _Anticheat_Test22
 @JMP 0x005C265A _Anticheat_Test23
 
-;@JMP 0x005F4645 _Anticheat_Test30
-@JMP 0x005F468C _Anticheat_Test31
+;;@JMP 0x005F4645 _Anticheat_Test30
+;@JMP 0x005F468C _Anticheat_Test31
 
-@JMP 0x005F4E7B _Anticheat_Test32
-@JMP 0x005F4E8F _Anticheat_Test33
-@JMP 0x005F50F1 _Anticheat_Test34
-@JMP 0x005F5168 _Anticheat_Test35
-@JMP 0x005F51F8 _Anticheat_Test36
-@JMP 0x005F56E0 _Anticheat_Test37
-@JMP 0x005F5720 _Anticheat_Test38
-@JMP 0x005F58D0 _Anticheat_Test39
-@JMP 0x005F464E _Anticheat_Test40
-@JMP 0x005F59DD _Anticheat_Test41
-@JMP 0x005F5DD1 _Anticheat_Test42
-@JMP 0x005F5E9D _Anticheat_Test43
-@JMP 0x005F2C90 _Anticheat_Test44
+;@JMP 0x005F4E7B _Anticheat_Test32
+;@JMP 0x005F4E8F _Anticheat_Test33
+;@JMP 0x005F50F1 _Anticheat_Test34
+;@JMP 0x005F5168 _Anticheat_Test35
+;@JMP 0x005F51F8 _Anticheat_Test36
+;@JMP 0x005F56E0 _Anticheat_Test37
+;@JMP 0x005F5720 _Anticheat_Test38
+;@JMP 0x005F58D0 _Anticheat_Test39
+;@JMP 0x005F464E _Anticheat_Test40
+;@JMP 0x005F59DD _Anticheat_Test41
+;@JMP 0x005F5DD1 _Anticheat_Test42
+;@JMP 0x005F5E9D _Anticheat_Test43
+;@JMP 0x005F2C90 _Anticheat_Test44
+;@JMP 0x005F57FF _Anticheat_Test46
 
 @JMP 0x0046EA84 _Anticheat_Test45
 
 @JMP 0x00454E6C _Anticheat_Test50
 
 @JMP 0x0045513C _Anticheat_Test51
+
+@JMP 0x005F2E7A _Anticheat_Test60
+@JMP 0x005F2E83 _Anticheat_Test61
+@JMP 0x005F3E5A _Anticheat_Test62
+
+@JMP 0x005F3CB9 _Anticheat_Test63
+;@JMP 0x005F59B9 _Anticheat_Test64
+
+Test_Stuff:
+;    mov ecx, [eax+esi+0x4C]
+;    cmp ecx, [edx+esi+0x4C]
+;    jnz .Crash
+    
+    add esi, 0x50
+    mov edi, 950
+;    mov edi, 900
+    add edi, esi
+    sub edi, 0x50
+    
+.Loop:
+    mov ecx, [edx+esi]
+    mov [eax+esi], ecx
+    mov ecx, [edx+esi+4]
+    mov [eax+esi+4], ecx
+    
+    cmp esi, edi
+    jge .Ret
+    add esi, 0x0c
+    jmp .Loop
+   
+.Ret:
+    retn
+    
+.Crash:
+    int3
+
+_Anticheat_Test64:
+    pushad
+
+    mov eax, LEFT_STRIP
+    mov edx, var.AntiCheatArray
+    call Test_Stuff
+    
+    mov eax, RIGHT_STRIP
+  ;  mov edx, var.AntiCheatArray+980
+  ;  call Test_Stuff
+
+    popad
+    
+    push ebx
+    push ebp
+    mov ebp, [ecx+30h]
+    push esi
+    jmp 0x005F59BF
+
+_Anticheat_Test63:
+;    cmp dword [var.AntiCheatArray+0x38], -1
+;    jnz .Ret
+
+    pushad
+
+    mov eax, LEFT_STRIP
+    mov edx, var.AntiCheatArray
+    mov esi, 0
+    call Test_Stuff
+    
+    mov eax, LEFT_STRIP
+    mov edx, var.AntiCheatArray
+    mov esi, 980
+    call Test_Stuff
+
+    popad
+.Ret:
+    call 0x005F4910
+    jmp 0x005F3CBE
+    
+_Anticheat_Test62:
+    push (StripClass_Size * 2)
+    push LEFT_STRIP
+    push var.AntiCheatArray
+    call memcpy
+    add esp, 0x0c
+    pop esi
+    pop ebx
+    retn
+
+_Anticheat_Test61:
+    push (StripClass_Size * 2)
+    push LEFT_STRIP
+    push var.AntiCheatArray
+    call memcpy
+    add esp, 0x0c
+
+    xor     al, al
+    pop     esi
+    retn    8
+
+_Anticheat_Test60:
+    call dword [edx+34h]
+    
+    push (StripClass_Size * 2)
+    push LEFT_STRIP
+    push var.AntiCheatArray
+    call memcpy
+    add esp, 0x0c
+    
+    mov al, 1
+    pop esi
+    retn 8
+
+_Anticheat_Test46:
+    call memcpy
+    add esp, 4
+    
+    lea edi, [esi+50h]
+    push edi
+    
+    call memcpy
+    add esp, 0Ch
+    
+    jmp 0x005F5807
 
  
 %macro DOOBEEDO 3      ;<dirtype>, <unk01>, <step>
@@ -260,14 +382,26 @@ _Anticheat_Test38:
     jmp .Ret
 
 _Anticheat_Test37:
+    push eax
+    
     cmp esi, RIGHT_STRIP
     jz  .Right_Strip
 
     lea eax, [var.AntiCheatArray+eax*4+50h]
     
+
 .Ret:
     mov ebp, [eax]
-    jmp 0x005F56E6
+    mov [ebx], ebp
+    
+    pop eax
+    lea eax, [esi+eax*4+50h]
+    
+    mov ebp, [eax+4]
+    mov [ebx+4], ebp
+    mov eax, [eax+8]
+    mov [ebx+8], eax
+    jmp 0x005F56F4
     
 .Right_Strip:
     lea eax, [var.AntiCheatArray+StripClass_Size+eax*4+50h]
