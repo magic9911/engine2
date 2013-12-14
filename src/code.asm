@@ -22,6 +22,7 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/anticheat_test.asm"
 
 ; other
+%include "src/no-cd.asm"
 %include "src/display_messages_typed_by_yourself.asm"
 ;%include "src/remove_16bit_windowed_check.asm"
 %include "src/graphics_patch.asm"

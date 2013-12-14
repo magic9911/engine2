@@ -31,5 +31,7 @@ var:
     
     .UseGraphicsPatch           RESB 1
     
+    .IsNoCD                     RESB 1
+    
 
 [section .text]

@@ -8,6 +8,12 @@ _WinMain_Read_SUN_INI_Read_Extra_Options:
     INIClass_Get_Bool INIClass_SUN_INI, str_Options, str_UseGraphicsPatch, 1
     mov byte [var.UseGraphicsPatch], al
     
+    INIClass_Get_Bool INIClass_SUN_INI, str_Options, str_NoCD, 0
+    cmp al, 0
+    jz .Dont_Set_NoCD
+    mov byte [var.IsNoCD], al
+.Dont_Set_NoCD: 
+    
     popad
     jmp 0x006010CE
     
