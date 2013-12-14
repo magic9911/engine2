@@ -5,7 +5,7 @@
 @JMP 0x00688378 _Assign_Houses_Epilogue_Do_Spawner_Stuff
 
 @JMP 0x00501721 _Dont_Do_Alliances_At_Game_Start
-@JMP 0x006869BE _More_Alliances_Crap
+@JMP 0x00686A9E _More_Alliances_Crap
 @JMP 0x005D74A0 _Teams_Alliances_Stuff
 
 _Teams_Alliances_Stuff:
@@ -23,12 +23,12 @@ _Teams_Alliances_Stuff:
 
 
 _More_Alliances_Crap:
-    mov eax, [HouseClassArray_Count]
-    
+    mov ecx, [HouseClassArray]
+ 
     cmp dword [var.SpawnerActive], 1
-    jz 0x00686AD5
+    jz 0x00686AC6
     
-    jmp 0x006869C3
+    jmp 0x00686AA4
 
 
 _Dont_Do_Alliances_At_Game_Start:
@@ -135,7 +135,7 @@ Initialize_Spawn:
     mov dword [SessionType], 5
     
 
-    SpawnINI_Get_Int str_Settings, str_UnitCount, 1
+    SpawnINI_Get_Int str_Settings, str_UnitCount, 0
     mov dword [UnitCount], eax
       
     SpawnINI_Get_Int str_Settings, str_TechLevel, 10
