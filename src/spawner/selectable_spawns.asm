@@ -6,6 +6,9 @@
 _Create_Units_First_Spawn_Check_If_Not_Selected:
     call 0x005BE080 ;    RandomClass::operator()(int,int) 
 ;    pushad
+
+    cmp dword [var.SpawnLocationsArray+0*4], -1
+    jnz .First_Spawn_Selected
   
     cmp dword [var.SpawnerActive], 0
     jz .Ret
@@ -30,6 +33,10 @@ _Create_Units_First_Spawn_Check_If_Not_Selected:
 .Find_Another_Spawn:
 ;    popad
     jmp 0x005DEAC2
+    
+.First_Spawn_Selected:
+    mov eax, [var.SpawnLocationsArray+0*4]
+    jmp 0x005DEADC
 
 _Create_Units_Set_Selected_Spawn_Locations:
     mov [esp+0x90], ecx
