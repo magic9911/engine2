@@ -15,7 +15,8 @@ var:
     .HouseCountriesArray        RESD 8
     .HouseHandicapsArray        RESD 8
     .SpawnLocationsArray        RESD 8
-
+    .IsSpectatorArray           RESD 8
+    
     .TunnelId                   RESD 1
     .TunnelIp                   RESD 1
     .TunnelPort                 RESD 1
@@ -32,6 +33,8 @@ var:
     .UseGraphicsPatch           RESB 1
     
     .IsNoCD                     RESB 1
+    
+    .SpectatorStuffInit         RESB 1
     
 
 [section .text]

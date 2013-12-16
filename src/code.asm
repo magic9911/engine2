@@ -17,6 +17,7 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/spawner/tunnel.asm"
 %include "src/spawner/nethack.asm"
 %include "src/spawner/selectable_spawns.asm"
+%include "src/spawner/spectators.asm"
 ;%include "src/spawner/statistics.asm"
 ;%include "src/spawner/auto_ss.asm"
 %include "src/anticheat_test.asm"
@@ -26,4 +27,4 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/display_messages_typed_by_yourself.asm"
 ;%include "src/remove_16bit_windowed_check.asm"
 %include "src/graphics_patch.asm"
-%include "src/force_lowest_detail_level.asm"
+%include "src/force_medium_detail_level.asm"

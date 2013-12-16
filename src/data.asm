@@ -70,6 +70,8 @@ str_Multi6_Alliances db "Multi6_Alliances",0
 str_Multi7_Alliances db "Multi7_Alliances",0
 str_Multi8_Alliances db "Multi8_Alliances",0
 
+str_IsSpectator     db "IsSpectator",0
+
 str_message_fmt db "%s: %s",0
 
 str_AutoSSFileNameFormat db"AUTOSS\\AutoSS-%d-%d_%d.PCX",0

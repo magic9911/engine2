@@ -132,6 +132,25 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
 .Dont_Set_Country_%3:
 %endmacro
 
+
+; args <House number>, <identifier>
+%macro Set_Spectator 2
+    
+    cmp dword [var.IsSpectatorArray+4*%1], 0
+    jz .No_Spectator_%2
+
+    mov edi, [HouseClassArray]
+    mov edi, [edi+%1*4]
+    
+    xor eax, eax
+    cmp dword [var.IsSpectatorArray+4*%1], 1
+    sete al
+    
+    mov byte [edi+0x0CB], 1
+
+.No_Spectator_%2:
+%endmacro
+
 ; args <House number>, <DifficultyType>
 %macro Set_House_Handicap 3
     mov eax, %2
@@ -368,7 +387,16 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     Set_House_Handicap 5, dword [var.HouseHandicapsArray+20], f
     Set_House_Handicap 6, dword [var.HouseHandicapsArray+24], g
     Set_House_Handicap 7, dword [var.HouseHandicapsArray+28], h
-  
+    
+    Set_Spectator 0, a
+    Set_Spectator 1, b
+    Set_Spectator 2, c
+    Set_Spectator 3, d
+    Set_Spectator 4, e
+    Set_Spectator 5, f
+    Set_Spectator 6, g
+    Set_Spectator 7, h
+    
 .Ret:  
     popad
     jmp 0x005E08E8
@@ -453,6 +481,7 @@ Initialize_Spawn:
     call Load_House_Countries_Spawner
     call Load_House_Handicaps_Spawner
     call Load_Spawn_Locations_Spawner
+    call Load_Spectators_Spawner
     
     mov byte [GameActive], 1 ; needs to be set here or the game gets into an infinite loop trying to create spawning units
 

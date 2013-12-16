@@ -73,6 +73,7 @@
 %define PlayerPtr                                   0x007E2284
 %define MessageListClass__Add_Message               0x00572FE0
 %define Get_Message_Delay_Or_Duration               0x006B2330
+%define Message_Input_Player_Dead                   0x007E24E4
 
 ; Network
 %define UDPInterfaceClass__UDPInterfaceClass        0x006A1E70
