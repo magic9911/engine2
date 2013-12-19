@@ -1,9 +1,33 @@
 @HOOK 0x005DE8F9 _Create_Units_Dont_Create_For_Dead_Houses
 @HOOK 0x005B9CFE _sub_5B9B90_Set_Up_Spectator_Player_Stuff
 @HOOK 0x004BC608 HouseClass__AI_Spectator_Stuff
+@HOOK 0x00633E76 _TechnoClass__Visual_Character_Spectator_Stuff
+@HOOK 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
+
+_BuildingClass__Visual_Character_Spectator_Stuff:
+    cmp dword [var.IsSpectatorArray+0], 1
+    jz 0x004384DF
+    
+    mov ecx, [PlayerPtr]
+    test ecx, ecx
+    jz 0x00438549
+    
+    jmp 0x0043852A
+
+_TechnoClass__Visual_Character_Spectator_Stuff:
+    cmp dword [var.IsSpectatorArray+0], 1
+    jz 0x00633EAC
+
+    mov ecx, [PlayerPtr]
+    test ecx, ecx
+    jz 0x00633CFE
+    jmp 0x00633E84
 
 HouseClass__AI_Spectator_Stuff:
     call 0x004C9560
+    
+    cmp dword [PlayerPtr], esi
+    jnz .Ret
     
     cmp byte [var.SpectatorStuffInit], 0
     jnz .Ret
