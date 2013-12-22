@@ -45,6 +45,18 @@
 @JMP 0x004BF7B6 0x004BF7BF
 @JMP 0x004BF7F0 0x004BF7F9
 
+@JMP 0x005ED477 _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active
+
+_sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active:
+    cmp dword [var.IsSpawnArgPresent], 1
+    jz  .Ret
+    
+    call SessionClass__Read_Scenario_Descriptions
+
+.Ret:
+    call [timeGetTime]
+    jmp 0x005ED482
+
 _Init_Game_Check_Spawn_Arg_No_Intro:
     pushad
 
@@ -174,9 +186,17 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
     mov esi, [HouseClassArray] ; HouseClassArray
     mov edi, [esi+4*%1]
     
-    push eax
-    mov ecx, edi
-    call HouseClass__Make_Ally ; void HouseClass::Make_Ally(HousesType)
+    mov eax, [esi+4*eax]
+    
+    
+    mov esi, [edi+0x578]
+    mov ecx, [eax+0x20]
+    
+    mov eax, 1
+    shl eax, cl
+    or  esi, eax
+    mov [edi+0x578], esi
+
 
 .Dont_Make_Ally_%3:
 %endmacro

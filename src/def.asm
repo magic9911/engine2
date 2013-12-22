@@ -7,6 +7,7 @@
 %define LoadLibraryA                                0x006CA16C
 %define GetProcAddress                              0x006CA174
 %define _sprintf                                    0x006B52EE
+%define timeGetTime                                 0x006CA4EC ; idata pointer
 
 ; Memory
 %define new                                         0x006B51D7

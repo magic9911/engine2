@@ -3,6 +3,21 @@
 @HOOK 0x004BC608 HouseClass__AI_Spectator_Stuff
 @HOOK 0x00633E76 _TechnoClass__Visual_Character_Spectator_Stuff
 @HOOK 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
+@HOOK 0x004C968E _sub_4C9560_Spectator_Stuff
+
+_sub_4C9560_Spectator_Stuff:
+    cmp dword [PlayerPtr], esi
+    jnz .Ret
+    
+    cmp dword [var.IsSpectatorArray+0], 1
+    jz .Ret
+    
+    call 0x005BC080
+    jmp 0x004C9693
+    
+.Ret:
+    add esp, 4
+    jmp 0x004C9693
 
 _BuildingClass__Visual_Character_Spectator_Stuff:
     cmp dword [var.IsSpectatorArray+0], 1
