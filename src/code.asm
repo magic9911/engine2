@@ -27,4 +27,4 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/display_messages_typed_by_yourself.asm"
 ;%include "src/remove_16bit_windowed_check.asm"
 %include "src/graphics_patch.asm"
-%include "src/force_medium_detail_level.asm"
+%include "src/fix_wce_errors.asm"
