@@ -47,6 +47,21 @@
 
 @JMP 0x005ED477 _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active
 
+@JMP 0x004C06EF _HouseClass__AI_Attack_Stuff_Alliance_Check
+
+_HouseClass__AI_Attack_Stuff_Alliance_Check:
+    cmp esi, edi
+    jz 0x004C0777
+    
+    push esi
+    mov ecx, edi
+    call 0x004BDA20 ; HouseClass::Is_Ally
+    cmp al, 1
+    jz 0x004C0777
+    
+.Ret:
+    jmp 0x004C06F7
+
 _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active:
     cmp dword [var.IsSpawnArgPresent], 1
     jz  .Ret
@@ -186,16 +201,20 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
     mov esi, [HouseClassArray] ; HouseClassArray
     mov edi, [esi+4*%1]
     
-    mov eax, [esi+4*eax]
+    push eax
+    mov ecx, edi
+    call HouseClass__Make_Ally
+    
+;    mov eax, [esi+4*eax]
     
     
-    mov esi, [edi+0x578]
-    mov ecx, [eax+0x20]
+;    mov esi, [edi+0x578]
+;    mov ecx, [eax+0x20]
     
-    mov eax, 1
-    shl eax, cl
-    or  esi, eax
-    mov [edi+0x578], esi
+;    mov eax, 1
+;    shl eax, cl
+;    or  esi, eax
+;    mov [edi+0x578], esi
 
 
 .Dont_Make_Ally_%3:
