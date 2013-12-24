@@ -392,9 +392,9 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     Set_House_Country 2, dword [var.HouseCountriesArray+8], c
     Set_House_Country 3, dword [var.HouseCountriesArray+12], d
     Set_House_Country 4, dword [var.HouseCountriesArray+16], e
-    Set_House_Country 6, dword [var.HouseCountriesArray+20], f
-    Set_House_Country 7, dword [var.HouseCountriesArray+24], g
-    Set_House_Country 8, dword [var.HouseCountriesArray+28], h
+    Set_House_Country 5, dword [var.HouseCountriesArray+20], f
+    Set_House_Country 6, dword [var.HouseCountriesArray+24], g
+    Set_House_Country 7, dword [var.HouseCountriesArray+28], h
     
     Set_House_Color 0, dword [var.HouseColorsArray+0], a
     Set_House_Color 1, dword [var.HouseColorsArray+4], b

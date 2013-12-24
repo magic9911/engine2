@@ -1,6 +1,6 @@
 @HOOK 0x005DE8F9 _Create_Units_Dont_Create_For_Dead_Houses
 @HOOK 0x005B9CFE _sub_5B9B90_Set_Up_Spectator_Player_Stuff
-@HOOK 0x004BC608 HouseClass__AI_Spectator_Stuff
+@HOOK 0x004BC608 _HouseClass__AI_Spectator_Stuff
 @HOOK 0x00633E76 _TechnoClass__Visual_Character_Spectator_Stuff
 @HOOK 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
 @HOOK 0x004C968E _sub_4C9560_Spectator_Stuff
@@ -9,7 +9,9 @@ _sub_4C9560_Spectator_Stuff:
     cmp dword [PlayerPtr], esi
     jnz .Ret
     
-    cmp dword [var.IsSpectatorArray+0], 1
+    mov edi, [PlayerPtr]
+    mov edi, [ecx+0x20]
+    cmp dword [var.IsSpectatorArray+edi*4], 1
     jz .Ret
     
     call 0x005BC080
@@ -20,7 +22,9 @@ _sub_4C9560_Spectator_Stuff:
     jmp 0x004C9693
 
 _BuildingClass__Visual_Character_Spectator_Stuff:
-    cmp dword [var.IsSpectatorArray+0], 1
+    mov ecx, [PlayerPtr]
+    mov ecx, [ecx+0x20]
+    cmp dword [var.IsSpectatorArray+ecx*4], 1
     jz 0x004384DF
     
     mov ecx, [PlayerPtr]
@@ -30,7 +34,9 @@ _BuildingClass__Visual_Character_Spectator_Stuff:
     jmp 0x0043852A
 
 _TechnoClass__Visual_Character_Spectator_Stuff:
-    cmp dword [var.IsSpectatorArray+0], 1
+    mov ecx, [PlayerPtr]
+    mov ecx, [ecx+0x20]
+    cmp dword [var.IsSpectatorArray+ecx*4], 1
     jz 0x00633EAC
 
     mov ecx, [PlayerPtr]
@@ -38,7 +44,7 @@ _TechnoClass__Visual_Character_Spectator_Stuff:
     jz 0x00633CFE
     jmp 0x00633E84
 
-HouseClass__AI_Spectator_Stuff:
+_HouseClass__AI_Spectator_Stuff:
     call 0x004C9560
     
     cmp dword [PlayerPtr], esi
@@ -46,7 +52,11 @@ HouseClass__AI_Spectator_Stuff:
     
     cmp byte [var.SpectatorStuffInit], 0
     jnz .Ret
-    cmp dword [var.IsSpectatorArray+0], 0
+    
+    
+    mov ecx, [PlayerPtr]
+    mov ecx, [ecx+0x20]
+    cmp dword [var.IsSpectatorArray+ecx*4], 0
     jz .Ret
     
     mov byte [0x00749808], 1

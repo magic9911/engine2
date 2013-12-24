@@ -1,11 +1,55 @@
-@JMP 0x005B4FAE _Execute_DoList_Send_Statistics_Game_Leave
-@JMP 0x005B4FD3 _Execute_DoList_Send_Statistics_Game_Leave2
 @JMP 0x004BAC2C _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff
 @JMP 0x0060A79C _Send_Statistics_Packet_Write_Statistics_Dump
 @JMP 0x005B4333 _sub_5B4290_Send_Statistics_Spawner
 @JMP 0x005B1E94 _Queue_AI_Multiplayer_Send_Statistics_Spawner
 @JMP 0x00509220 _sub_508A40_Send_Statistics_Spawner1
 @JMP 0x0050927A _sub_508A40_Send_Statistics_Spawner2
+
+@JMP 0x005B4FAE _Execute_DoList_Send_Statistics_Game_Leave
+@JMP 0x005B4FD3 _Execute_DoList_Send_Statistics_Game_Leave2
+
+_Execute_DoList_Send_Statistics_Game_Leave2:
+    mov edx, [SessionType]
+
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+    cmp dword [SessionType], 0
+    jz .Normal_Code
+    
+    jmp .Send
+    
+.Send:
+ jmp 0x005B4FDE
+
+.Dont_Send:
+ jmp 0x005B500C
+ 
+.Normal_Code:
+    mov edx, [SessionType]
+    cmp edx, 4
+    jnz .Dont_Send
+    jmp .Send
+
+
+_Execute_DoList_Send_Statistics_Game_Leave:
+    mov edx, [SessionType]
+
+    cmp dword [var.SpawnerActive], 0
+    jz .Normal_Code
+    cmp dword [SessionType], 0
+    jz .Normal_Code
+    
+    jmp 0x005B4FB9
+
+.Dont_Send:
+    jmp 0x005B500C
+    
+.Normal_Code:
+    mov edx, [SessionType]
+    cmp edx, 4
+    jnz .Dont_Send
+    jmp 0x005B4FB9
+
 
 _sub_508A40_Send_Statistics_Spawner2:
     cmp dword [var.SpawnerActive], 0
@@ -160,40 +204,3 @@ _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff:
 .Dont_Allocate:
     jmp 0x004BADB0
 
-_Execute_DoList_Send_Statistics_Game_Leave2:
-    cmp dword [var.SpawnerActive], 0
-    jz .Normal_Code
-    cmp dword [SessionType], 0
-    jz .Normal_Code
-    
-    jmp .Send
-    
-.Send:
- jmp 0x005B4FDE
-
-.Dont_Send:
- jmp 0x005B500C
- 
-.Normal_Code:
-    mov edx, [SessionType]
-    cmp edx, 4
-    jnz .Dont_Send
-    jmp .Send
-
-
-_Execute_DoList_Send_Statistics_Game_Leave:
-    cmp dword [var.SpawnerActive], 0
-    jz .Normal_Code
-    cmp dword [SessionType], 0
-    jz .Normal_Code
-    
-    jmp 0x005B4FB9
-
-.Dont_Send:
-    jmp 0x005B500C
-    
-.Normal_Code:
-    mov edx, [SessionType]
-    cmp edx, 4
-    jnz .Dont_Send
-    jmp 0x005B4FB9
