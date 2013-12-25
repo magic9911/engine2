@@ -63,9 +63,6 @@
 %define GameIDNumber                                0x00867014
 %define PlayerColor                                 0x007E24DC
 
-; Network
-%define ListenPort                                  0x0070FCF0
-
 ; Random
 %define Seed                                        0x007E4934
 %define Init_Random                                 0x004E38A0
@@ -78,6 +75,7 @@
 %define Message_Input_Player_Dead                   0x007E24E4
 
 ; Network
+%define ListenPort                                  0x0070FCF0
 %define UDPInterfaceClass__UDPInterfaceClass        0x006A1E70
 %define WinsockInterface_this                       0x0074C8D8
 %define WinsockInterfaceClass__Init                 0x006A1180

@@ -871,14 +871,14 @@ Add_Human_Player:
     ; Player side
     SpawnINI_Get_Int str_Settings, str_Side, 0
     mov dword [esi+0x35], eax ; side
-    mov ebx, eax
+    push eax
     
     ; Sidebar hack for mods which add new sides and new sidebars for them
     ; this will not fuck invert al which is needed for normal TS sidebar loading
     ; as GDI needs 1 and Nod 0 for sidebar (which is the opposite of their side index)
     SpawnINI_Get_Bool str_Settings, str_SidebarHack, 0
     cmp al, 1
-    mov eax, ebx
+    pop eax
     jz  .Sidebar_Hack
 
     ; Invert AL to set byte related to what sidebar and speech graphics to load
