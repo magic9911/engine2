@@ -15,6 +15,7 @@
 
 ; House
 %define HouseClassArray                             0x007E155C
+%define HouseClassArray_Count                       0x007E1568
 %define HouseTypesArray                             0x007E21D4
 %define HouseClass__Assign_Handicap                 0x004BB460
 %define HouseClass__Make_Ally                       0x004BDB30
@@ -105,6 +106,8 @@
 %define NameNodeVector                              0x007E3E90
 %define NameNodeVector_Add                          0x0044D690
 %define SessionClass__Read_Scenario_Descriptions    0x005EE7D0
+%define DifficultyMode1                             0x07281664
+%define DifficultyMode2                             0x07281660
 
 ; Save games
 %define Load_Game                                   0x005D6910

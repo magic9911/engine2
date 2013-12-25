@@ -9,9 +9,9 @@ _sub_4C9560_Spectator_Stuff:
     cmp dword [PlayerPtr], esi
     jnz .Ret
     
-    mov edi, [PlayerPtr]
-    mov edi, [ecx+0x20]
-    cmp dword [var.IsSpectatorArray+edi*4], 1
+    mov esi, [PlayerPtr]
+    mov esi, [esi+0x20]
+    cmp dword [var.IsSpectatorArray+esi*4], 1
     jz .Ret
     
     call 0x005BC080

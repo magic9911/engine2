@@ -44,6 +44,9 @@ str_SaveGameName    db "SaveGameName",0
 str_MultipleFactory db "MultipleFactory",0
 str_AlliesAllowed   db "AlliesAllowed",0
 
+str_DifficultyMode1 db "DifficultyMode1",0
+str_DifficultyMode2 db "DifficultyMode2",0
+
 str_Multi1          db "Multi1",0
 str_Multi2          db "Multi2",0
 str_Multi3          db "Multi3",0

@@ -49,6 +49,22 @@
 
 @JMP 0x004C06EF _HouseClass__AI_Attack_Stuff_Alliance_Check
 
+@JMP 0x005DE3D7 _Assign_Houses_AI_Countries
+
+_Assign_Houses_AI_Countries:
+    mov ebp, [HouseClassArray_Count]
+    cmp dword [var.HouseCountriesArray+ebp*4], -1
+    jz  .Ret
+  
+    mov ecx, [var.HouseCountriesArray+ebp*4]  
+    mov ecx,[edx+ecx*4]
+  
+.Ret:
+    push ecx
+    mov ecx, eax
+    call 0x004BA0B0 ; HouseClass::HouseClass(HousesType)
+    jmp 0x005DE3DF
+
 _HouseClass__AI_Attack_Stuff_Alliance_Check:
     cmp esi, edi
     jz 0x004C0777
@@ -387,14 +403,14 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     cmp dword [var.SpawnerActive], 0
     jz  .Ret
     
-    Set_House_Country 0, dword [var.HouseCountriesArray+0], a
-    Set_House_Country 1, dword [var.HouseCountriesArray+4], b
-    Set_House_Country 2, dword [var.HouseCountriesArray+8], c
-    Set_House_Country 3, dword [var.HouseCountriesArray+12], d
-    Set_House_Country 4, dword [var.HouseCountriesArray+16], e
-    Set_House_Country 5, dword [var.HouseCountriesArray+20], f
-    Set_House_Country 6, dword [var.HouseCountriesArray+24], g
-    Set_House_Country 7, dword [var.HouseCountriesArray+28], h
+;    Set_House_Country 0, dword [var.HouseCountriesArray+0], a
+;    Set_House_Country 1, dword [var.HouseCountriesArray+4], b
+;    Set_House_Country 2, dword [var.HouseCountriesArray+8], c
+;    Set_House_Country 3, dword [var.HouseCountriesArray+12], d
+;    Set_House_Country 4, dword [var.HouseCountriesArray+16], e
+;    Set_House_Country 5, dword [var.HouseCountriesArray+20], f
+;    Set_House_Country 6, dword [var.HouseCountriesArray+24], g
+;    Set_House_Country 7, dword [var.HouseCountriesArray+28], h
     
     Set_House_Color 0, dword [var.HouseColorsArray+0], a
     Set_House_Color 1, dword [var.HouseColorsArray+4], b
@@ -571,6 +587,12 @@ Initialize_Spawn:
      
     SpawnINI_Get_Bool str_Settings, str_MultiEngineer, 0
     mov byte [MultiEngineer], al
+    
+    SpawnINI_Get_Int str_Settings, str_DifficultyMode1, 1
+    mov dword [DifficultyMode1], eax
+    
+    SpawnINI_Get_Int str_Settings, str_DifficultyMode2, 1
+    mov dword [DifficultyMode2], eax
      
     ; tunnel ip
     lea eax, [TempBuf]
