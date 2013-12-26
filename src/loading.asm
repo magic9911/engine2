@@ -17,7 +17,7 @@ _WinMain_Read_RA2md_INI_Read_Windowed_Option:
     mov byte [var.IsNoCD], al
 .Dont_Set_NoCD: 
  
-    INIClass_Get_Bool INIClass_RA2md_INI, str_Options, str_UseGraphicsPatch, 1
+    INIClass_Get_Bool INIClass_RA2md_INI, str_Video, str_UseGraphicsPatch, 1
     mov byte [var.UseGraphicsPatch], al
     
     INIClass_Get_Bool INIClass_RA2md_INI, str_Video, str_Windowed, 0
