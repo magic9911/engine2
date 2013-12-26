@@ -16,6 +16,7 @@ var:
     .HouseHandicapsArray        RESD 8
     .SpawnLocationsArray        RESD 8
     .IsSpectatorArray           RESD 8
+    .UsedSpawnsArray            RESD 8
     
     .TunnelId                   RESD 1
     .TunnelIp                   RESD 1

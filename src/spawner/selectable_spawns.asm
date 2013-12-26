@@ -78,17 +78,29 @@ _Create_Units_Selectable_Spawning_Locations:
     mov byte [esp+edi+0x90], 1 ; Set the currenly used spawn as used
  
     mov eax, [esp+0x24] ; House number to generate for
+    
+    mov dword [var.UsedSpawnsArray+4*edi], eax
+    
     cmp dword [var.SpawnLocationsArray+eax*4], -1
     jz .Normal_Code
+    
+    mov dword [var.UsedSpawnsArray+4*edi], -1
 
+    mov edx, eax
+    
     mov eax, dword [var.SpawnLocationsArray+eax*4]
     mov byte [esp+edi+0x90], 0 ; Set the spawn the gamed wanted to use as unused
     mov byte [esp+eax+0x90], 1 ; Set the spawn we want to use as used
+    
+    
+    mov dword [var.UsedSpawnsArray+4*eax], edx
     
     mov dword edx, [esp+0x7C]  ; SpawnLocationsArray
     mov dword edx, [edx+eax*4] ; Get our spawn location
     
     mov dword [esp+0x20], edx ; Set spawn location to use
+    
+
     
 .Normal_Code:
     mov edi, [esp+0x10] ; HouseClass to generate for

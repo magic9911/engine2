@@ -5,7 +5,31 @@
 @HOOK 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
 @HOOK 0x004C968E _sub_4C9560_Spectator_Stuff
 @HOOK 0x005DE717 _Create_Units_Dont_Count_Spectators_When_Counting_Players
+@HOOK 0x004BF71B _HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish
 
+_HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish:
+
+    cmp [PlayerPtr], eax
+    jnz .Normal_Code
+    
+    cmp dword [SessionType], 5
+    jnz .Normal_Code
+    
+    push eax
+    mov eax, [eax+0x20]
+    
+    cmp dword [var.IsSpectatorArray+eax*4], 1
+    pop eax
+    
+    jz .Dont_Count
+    
+.Normal_Code:
+    cmp byte [eax+0CBh], 0
+    jmp 0x004BF722
+
+.Dont_Count:
+    jmp 0x004BF74A
+    
 _Create_Units_Dont_Count_Spectators_When_Counting_Players:
     lea  eax, [edx+ecx]
     

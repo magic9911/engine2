@@ -92,4 +92,4 @@ str_Video_WindowedScreenWidth db"Video.WindowedScreenWidth",0
 str_NoCD db"NoCD",0
 
 _2Bin:               INCBIN "res/2.bin"
-_1Bin:                  INCBIN "res/1.bin"
+_1Bin:               INCBIN "res/1.bin"

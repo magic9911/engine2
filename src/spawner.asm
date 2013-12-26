@@ -53,6 +53,30 @@
 
 @JMP 0x004C3630 _HouseClass__Computer_Paranoid_Disable_With_Spawner
 
+@JMP 0x005DDAF1 _Read_Scenario_INI_Dont_Create_Units_Earlier
+@JMP 0x005DDEDD _Read_Scenario_INI_Dont_Create_Units_Earlier_Dont_Create_Twice
+
+_Read_Scenario_INI_Dont_Create_Units_Earlier:
+    call 0x0058C980
+    
+    cmp dword [SessionType], 0
+    jz  .Ret
+    
+    push    0
+    push    0x0070CAA8 ; offset aOfficial ; "Official"
+    push    0x007020A8 ; offset aBasic   ; "Basic"
+    mov     ecx, ebp
+    call    INIClass__GetBool
+    mov     cl, al
+    call    0x005DD290 ; Create_Units(int)
+
+.Ret:
+    jmp 0x005DDAF6
+
+
+_Read_Scenario_INI_Dont_Create_Units_Earlier_Dont_Create_Twice:
+    jmp 0x005DDEF8
+
 _HouseClass__Computer_Paranoid_Disable_With_Spawner:
     cmp dword [var.IsSpawnArgPresent], 1
     jz  .Ret
@@ -101,8 +125,21 @@ _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active:
     call [timeGetTime]
     jmp 0x005ED482
 
+    
+Init_Game_Spawner:
+    lea eax, [var.UsedSpawnsArray]
+    push 32             ; Size
+    push 0xFF              ; Val
+    push eax             ; Dst
+    call memset
+    add esp, 0Ch
+   
+    retn
+   
 _Init_Game_Check_Spawn_Arg_No_Intro:
     pushad
+    
+    call Init_Game_Spawner
 
     call [GetCommandLineA]
     push str_SpawnArg
