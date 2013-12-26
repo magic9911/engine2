@@ -51,6 +51,19 @@
 
 @JMP 0x005DE3D7 _Assign_Houses_AI_Countries
 
+@JMP 0x004C3630 _HouseClass__Computer_Paranoid_Disable_With_Spawner
+
+_HouseClass__Computer_Paranoid_Disable_With_Spawner:
+    cmp dword [var.IsSpawnArgPresent], 1
+    jz  .Ret
+
+.Normal_Code:
+    mov ecx, [HouseClassArray_Count]
+    jmp 0x004C3636
+    
+.Ret:
+    jmp 0x004C3700 ; jump to RETN instruction
+
 _Assign_Houses_AI_Countries:
     mov ebp, [HouseClassArray_Count]
     cmp dword [var.HouseCountriesArray+ebp*4], -1
@@ -730,13 +743,17 @@ Initialize_Spawn:
     xor edx, edx 
     mov ecx, ScenarioName
     call Start_Scenario
-    
+
+    ; modify some RulesClass (RULES.INI stuff) settings
     mov esi, [0x0074C488] ; RulesClass pointer
 
+    ; Load MultipleFactory from SPAWN.INI if not missing
+    ; Else use the value already loaded from a RULES.INI file
     SpawnINI_Get_Fixed str_Settings, str_MultipleFactory, dword [esi+2B0h], dword [esi+2B4h]
     fstp qword [esi+2B0h]
     
-    mov byte [esi+0F48h], 0 ; Disable Paranoid RulesClass setting
+    ; THIS ONE DOESN'T SEEM TO WORK
+;    mov byte [esi+0F48h], 0 ; Disable Paranoid RulesClass setting
     
 .Dont_Load_Scenario:
 
