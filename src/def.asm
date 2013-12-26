@@ -123,8 +123,9 @@
 %define RIGHT_STRIP                                 0x00749C48
 %define StripClass_Size                             980
 
-; misc
-%define str_Options                                  0x006FEDE0
+; strings
+%define str_Video                                   0x00706D9C
+%define str_Options                                 0x006FEDE0
 
 ; definitions of common structures
 struc sockaddr_in

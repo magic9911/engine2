@@ -5,7 +5,7 @@ _WinMain_Read_SUN_INI_Read_Extra_Options:
     call INIClass__GetBool
     
     pushad
-    INIClass_Get_Bool INIClass_SUN_INI, str_Options, str_UseGraphicsPatch, 1
+    INIClass_Get_Bool INIClass_SUN_INI, str_Video, str_UseGraphicsPatch, 1
     mov byte [var.UseGraphicsPatch], al
     
     INIClass_Get_Bool INIClass_SUN_INI, str_Options, str_NoCD, 1
