@@ -56,6 +56,17 @@
 @JMP 0x005DDAF1 _Read_Scenario_INI_Dont_Create_Units_Earlier
 @JMP 0x005DDEDD _Read_Scenario_INI_Dont_Create_Units_Earlier_Dont_Create_Twice
 
+@JMP 0x0065860D _UnitClass__Read_INI_Jump_Out_When_Units_Section_Missing
+
+_UnitClass__Read_INI_Jump_Out_When_Units_Section_Missing:
+    cmp eax, ebx
+    jle .Jump_Out
+    
+    jmp 0x00658613
+    
+.Jump_Out:
+    jmp 0x00658A10
+
 _Read_Scenario_INI_Dont_Create_Units_Earlier:
     call 0x0058C980
     

@@ -7,6 +7,9 @@ _Create_Units_First_Spawn_Check_If_Not_Selected:
     call 0x005BE080 ;    RandomClass::operator()(int,int) 
 ;    pushad
 
+    cmp dword [var.IsSpectatorArray+0*4], 1
+    jz .Ret
+
     cmp dword [var.SpawnLocationsArray+0*4], -1
     jnz .First_Spawn_Selected
   
