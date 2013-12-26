@@ -4,6 +4,37 @@
 @HOOK 0x00633E76 _TechnoClass__Visual_Character_Spectator_Stuff
 @HOOK 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
 @HOOK 0x004C968E _sub_4C9560_Spectator_Stuff
+@HOOK 0x005DE717 _Create_Units_Dont_Count_Spectators_When_Counting_Players
+
+_Create_Units_Dont_Count_Spectators_When_Counting_Players:
+    lea  eax, [edx+ecx]
+    
+    push ebx
+    push esi
+
+    mov esi, 0
+    mov ebx, 0
+    
+.Loop:
+    cmp dword [var.IsSpectatorArray+esi*4], 0
+    jz .Next_Iter
+    
+    inc ebx
+    
+.Next_Iter:
+    inc esi
+    cmp esi, 8  
+    jl .Loop
+    
+    
+.Out_Loop:
+    sub eax, ebx
+    
+    pop esi
+    pop ebx
+    
+    cmp edi, eax
+    jmp 0x005DE71C
 
 _sub_4C9560_Spectator_Stuff:
     cmp dword [PlayerPtr], esi
