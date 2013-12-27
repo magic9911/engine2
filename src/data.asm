@@ -74,6 +74,15 @@ str_Multi6_Alliances db "Multi6_Alliances",0
 str_Multi7_Alliances db "Multi7_Alliances",0
 str_Multi8_Alliances db "Multi8_Alliances",0
 
+str_Spawn1              db "Spawn1",0
+str_Spawn2              db "Spawn2",0
+str_Spawn3              db "Spawn3",0
+str_Spawn4              db "Spawn4",0
+str_Spawn5              db "Spawn5",0
+str_Spawn6              db "Spawn6",0
+str_Spawn7              db "Spawn7",0
+str_Spawn8              db "Spawn8",0
+
 str_IsSpectator     db "IsSpectator",0
 
 str_message_fmt db "%s: %s",0

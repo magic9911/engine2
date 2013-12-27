@@ -8,6 +8,7 @@ retn ; For some reason the game executes the first function found in the extende
 
 ; macros
 %include "src/macros/INIClass_macros.asm"
+%include "src/macros/string_macros.asm"
 
 ; loading
 %include "src/loading.asm"
@@ -28,3 +29,5 @@ retn ; For some reason the game executes the first function found in the extende
 ;%include "src/remove_16bit_windowed_check.asm"
 %include "src/graphics_patch.asm"
 %include "src/fix_wce_errors.asm"
+%include "src/multiplayer_units_placing.asm"
+

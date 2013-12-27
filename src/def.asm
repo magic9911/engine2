@@ -8,6 +8,8 @@
 %define GetProcAddress                              0x006CA174
 %define _sprintf                                    0x006B52EE
 %define timeGetTime                                 0x006CA4EC ; idata pointer
+%define __strcmpi                                   0x006B73A0
+%define _strtok                                     0x006B602A
 
 ; Memory
 %define new                                         0x006B51D7
@@ -22,6 +24,7 @@
 %define HouseClass__Make_Ally                       0x004BDB30
 %define Assign_Houses                               0x005DE210
 %define Get_MP_Color                                0x005EEF70
+%define HouseType_From_Name                         0x004CDEF0
 
 ; INI
 %define INIClass__INIClass                          0x004E8A30
@@ -126,6 +129,7 @@
 ; strings
 %define str_Video                                   0x00706D9C
 %define str_Options                                 0x006FEDE0
+%define str_Delim                                   0x006F2F34
 
 ; definitions of common structures
 struc sockaddr_in
