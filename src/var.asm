@@ -26,16 +26,13 @@ var:
     .SaveGameNameBuf            RESB 60
     
     .DoingAutoSS                RESD 1
-    
     .Anticheat1                 RESD 1
-    
     .AntiCheatArray             RESB (StripClass_Size * 2)
     
     .UseGraphicsPatch           RESB 1
-    
     .IsNoCD                     RESB 1
-    
     .SpectatorStuffInit         RESB 1
+    .OldUnitClassArrayCount     RESD 1
     
 
 [section .text]

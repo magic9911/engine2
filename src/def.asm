@@ -26,6 +26,9 @@
 %define Get_MP_Color                                0x005EEF70
 %define HouseType_From_Name                         0x004CDEF0
 
+; Arrays
+%define UnitClassArray_Count                        0x007B3468
+
 ; INI
 %define INIClass__INIClass                          0x004E8A30
 %define INIClass__Load                              0x00449F30

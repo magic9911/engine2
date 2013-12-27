@@ -1,6 +1,64 @@
-@JMP 0x00658658 _UnitClass__Read_INI_Get_HouseType_From_Name
+@JMP 0x00658658 _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX
+@JMP 0x00434843 _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX
+@JMP 0x004D7B9A _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX
+@JMP 0x006585C0 _UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue
+@JMP 0x006589C8 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition
 
-_UnitClass__Read_INI_Get_HouseType_From_Name:
+; loop check needs to be i < UnitClassArray_Count - OldUnitClassArray_Count
+_UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition:
+    mov edi, [UnitClassArray_Count]
+    sub edi, [var.OldUnitClassArrayCount]
+    jmp 0x00658A0B
+    
+_UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue:
+    push eax
+
+    mov dword eax, [UnitClassArray_Count]
+    mov dword [var.OldUnitClassArrayCount], eax
+    
+    pop eax
+    sub esp, 192
+    jmp 0x006585C6
+
+_InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX:
+    call Check_For_Spawn_Fake_HouseType_Name
+    cmp eax, -1
+    jz .Normal_Code
+    
+    mov eax, [var.UsedSpawnsArray+eax*4]
+    cmp eax, -1
+    jz .Normal_Code
+    
+    mov esi, [HouseClassArray]
+    mov eax, [esi+eax*4]
+
+    mov edi, eax
+    jmp 0x004D7BD5
+
+.Normal_Code:
+    call HouseType_From_Name
+    jmp 0x004D7B9F
+
+_BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX:
+    call Check_For_Spawn_Fake_HouseType_Name
+    cmp eax, -1
+    jz .Normal_Code
+    
+    mov eax, [var.UsedSpawnsArray+eax*4]
+    cmp eax, -1
+    jz .Normal_Code
+    
+    mov esi, [HouseClassArray]
+    mov eax, [esi+eax*4]
+    
+    jmp 0x00434851
+
+
+.Normal_Code:
+    call HouseType_From_Name
+    jmp 0x00434848 
+
+_UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     call Check_For_Spawn_Fake_HouseType_Name
     cmp eax, -1
     jz .Normal_Code
