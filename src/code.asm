@@ -5,7 +5,7 @@ section .text
 %include "src/var.asm"
 
 ; macro
-%include "src/macros/INIclass_macros.asm"
+%include "src/macros/INIClass_macros.asm"
 %include "src/macros/spawner_macros.asm"
 %include "src/macros/patch.asm"
 
