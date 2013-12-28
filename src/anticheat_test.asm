@@ -55,6 +55,36 @@
 @JMP 0x005F3CB9 _Anticheat_Test63
 ;@JMP 0x005F59B9 _Anticheat_Test64
 
+;@JMP 0x0047649D _Anticheat_Test70
+@JMP 0x00478974 _Anticheat_Test80
+
+_Anticheat_Test80:    
+    push eax
+    push ecx
+    
+    mov ecx, [0x0074C8F0]
+    call 0x006A6930
+    mov ecx, [0x0074C258]
+    cmp eax, ecx
+    
+    pop ecx
+    pop eax
+    
+    jge .Ret
+    
+    mov al, [ebx+11A8h]
+    jmp 0x0047897A
+    
+.Ret:
+    xor dl, dl
+    jmp 0x00478A3C
+
+_Anticheat_Test70:
+    mov esi, ecx
+    mov byte [esi+0x11A8], 0
+    cmp bp, word [0x007A2048]
+    jmp 0x004764A6
+
 Test_Stuff:
 ;    mov ecx, [eax+esi+0x4C]
 ;    cmp ecx, [edx+esi+0x4C]
