@@ -1,2 +1,1 @@
-del src\*.inc
-del gamemd.exe
+del gamemd.exe patch.o

@@ -1,8 +1,6 @@
-copy /V gamemd.dat gamemd.exe /B
-timeout /T:3
-tools\petool.exe gamemd.exe add .pcode rxc 102400
-tools\petool.exe gamemd.exe add .pdata ri 102400
-timeout /T:3
-tools\petool.exe gamemd.exe add .pvar rwu 102400
-tools\linker.exe src\data.asm src\data.inc gamemd.exe tools\nasm.exe
-tools\linker.exe src\code.asm src\code.inc gamemd.exe tools\nasm.exe
+tools\nasm.exe -f elf src\patch.asm -o patch.o
+tools\ld.exe -T gamemd.lds --subsystem=windows -o gamemd.exe
+tools\petool.exe patch gamemd.exe
+tools\petool.exe setdd gamemd.exe 1 0x40F0E0 320
+tools\strip.exe -R .patch gamemd.exe
+tools\petool.exe dump gamemd.exe 

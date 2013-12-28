@@ -14,9 +14,11 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-@CALL 0x007B3D75 NetHack_SendTo
-@CALL 0x007B3EEC NetHack_RecvFrom
+section .patch
+@CALL 0x007B3D75, NetHack_SendTo
+@CALL 0x007B3EEC, NetHack_RecvFrom
 
+section .text
 NetHack_SendTo:
 %push
     push ebp

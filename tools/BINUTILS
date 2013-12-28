@@ -1,0 +1,3 @@
+extracted from binutils-2.23.2-1-mingw32-bin.tar.lzma mingw32/bin
+ld.exe and strip.exe stripped using supplied strip.exe to reduce space
+zlib1.dll from zlib.net

@@ -1,4 +1,4 @@
-[absolute 0xBC5000]
+section .bss
 
 ; max number of players in static address list
 %define AddressList_length 8
@@ -31,4 +31,4 @@ var:
     .OtherSection               RESD 1
     .Anticheat1                 RESD 1
     
-[section .text]
+section .text
