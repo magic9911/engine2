@@ -1,4 +1,4 @@
-@JMP 0x006BC0DC _WinMain_Read_RA2md_INI_Read_Windowed_Option
+@JMP 0x006BC0DC, _WinMain_Read_RA2md_INI_Read_Windowed_Option
 
 section .rdata
 str_Windowed                db"Windowed",0
@@ -18,7 +18,7 @@ _WinMain_Read_RA2md_INI_Read_Windowed_Option:
     INIClass_Get_Bool INIClass_RA2md_INI, str_Options, str_NoCD, 0
     cmp al, 0
     jz .Dont_Set_NoCD
-    mov byte [IsNoCxbD], al
+    mov byte [IsNoCD], al
 .Dont_Set_NoCD: 
  
     INIClass_Get_Bool INIClass_RA2md_INI, str_Video, str_UseGraphicsPatch, 1
