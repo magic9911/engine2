@@ -1,8 +1,10 @@
 ; AlexB's graphics patch
 ; Source: http://www.stuffhost.de/files/cnc/
 
+section .patch
 @JMP 0x004BA61F _Graphics_Patch
 
+section .text
 _Graphics_Patch:
     cmp byte [var.UseGraphicsPatch], 1
     jz  .Ret

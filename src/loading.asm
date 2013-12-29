@@ -1,5 +1,7 @@
+section .patch
 @JMP 0x006BC0DC _WinMain_Read_RA2md_INI_Read_Windowed_Option
 
+section .text
 %define INIClass_RA2md_INI  0x008870C0
 %define str_Options         0x008254DC
 %define str_Video           0x00833160
