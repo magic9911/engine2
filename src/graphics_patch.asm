@@ -1,7 +1,6 @@
 ; AlexB's graphics patch
 ; Source: http://www.stuffhost.de/files/cnc/
 
-section .patch
 @JMP 0x004BA61F, _Graphics_Patch
 
 section .rdata

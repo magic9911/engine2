@@ -1,4 +1,3 @@
-section .patch
 @JMP 0x006BC0DC _WinMain_Read_RA2md_INI_Read_Windowed_Option
 
 section .rdata

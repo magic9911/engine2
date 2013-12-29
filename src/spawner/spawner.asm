@@ -1,4 +1,3 @@
-section .patch
 @JMP 0x0052C5D3, _Init_Game_Check_Spawn_Arg_No_Intro
 @JMP 0x0052D9A0, _Select_Game_Init_Spawner
 @JMP 0x004FCBD0, _HouseClass__Flag_To_Lose_RETN_Patch ; for debugging

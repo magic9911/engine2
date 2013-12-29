@@ -15,22 +15,28 @@
 ;
 
 %macro @CLEAR 3
+    [section .patch]
     dd %1
     dd %3 - %1
     times (%3 - %1) db %2
+    __SECT__
 %endmacro
 
 ; FIXME: do both near and far jumps
 %macro @JMP 2
+    [section .patch]
     dd %1           ; patch address
     dd 5            ; length of the patch
     db 0xE9         ; far jump
     dd %2 - %1 - 5  ; relative offset
+    __SECT__
 %endmacro
 
 %macro @CALL 2
+    [section .patch]
     dd %1           ; patch addrss
     dd 5            ; length of the patch
     db 0xE8         ; far call
     dd %2 - %1 - 5  ; relative offset
+    __SECT__
 %endmacro

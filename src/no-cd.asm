@@ -1,7 +1,6 @@
 ; Info taken from Ares source code
 ; https://github.com/Ares-Developers/Ares/blob/master/src/Misc/CopyProtection.cpp
 
-section .patch
 @JMP 0x004A80D0, _CD_AlwaysFindYR
 @JMP 0x004790E0, _CD_AlwaysAvailable
 @JMP 0x00479110, _CD_NeverAsk

@@ -1,27 +1,28 @@
 section .text
 
 ; imported routines
-%include "include/c.inc"
-%include "include/FileClass.inc"
-%include "include/House.inc"
-%include "include/INIClass.inc"
-%include "include/Message.inc"
-%include "include/Mouse.inc"
-%include "include/Network.inc"
-%include "include/Players.inc"
-%include "include/Random.inc"
-%include "include/SaveGame.inc"
-%include "include/Scenario.inc"
-%include "include/session.inc"
-%include "include/socket.inc"
-%include "include/win.inc"
+%include "c.inc"
+%include "FileClass.inc"
+%include "House.inc"
+%include "INIClass.inc"
+%include "Message.inc"
+%include "Mouse.inc"
+%include "Network.inc"
+%include "Players.inc"
+%include "Random.inc"
+%include "SaveGame.inc"
+%include "Scenario.inc"
+%include "session.inc"
+%include "socket.inc"
+%include "win.inc"
 
 ; variables
 %include "src/var.asm"
 
 ; macro
-%include "src/macros/spawner_macros.asm"
-%include "src/macros/patch.asm"
+%include "macros/spawner.inc"
+%include "macros/patch.inc"
+%include "macros/string.inc"
 
 ;%include "src/loading.asm"
 

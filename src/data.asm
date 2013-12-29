@@ -1,89 +1,84 @@
-section .rdata
+StringZ gcanyonmap,       "blitz_test.map"
+StringZ debugplayer,      "debugplayer"
+StringZ debugplayer2,     "debugplayer2"
+StringZ wsock32_dll,      "wsock32.dll"
+StringZ inet_addr,        "inet_addr"
+StringZ localhost,        "127.0.0.1"
+StringZ spawn_ini,        "SPAWN.INI"
+StringZ Settings,         "Settings"
+StringZ UnitCount,        "UnitCount"
+StringZ Scenario,         "Scenario"
+StringZ Empty,            ""
+StringZ GameSpeed,        "GameSpeed"
+StringZ Seed,             "Seed"
+StringZ TechLevel,        "TechLevel"
+StringZ AIPlayers,        "AIPlayers"
+StringZ AIDifficulty,     "AIDifficulty"
+StringZ BuildOffAlly,     "BuildOffAlly"
+StringZ SuperWeapons,     "SuperWeapons"
+StringZ HarvesterTruce,   "HarvesterTruce"
+StringZ GameMode,         "GameMode"
+StringZ BridgeDestroy,    "BridgeDestroy"
+StringZ FogOfWar,         "FogOfWar"
+StringZ Crates,           "Crates"
+StringZ ShortGame,        "ShortGame"
+StringZ Bases,            "Bases"
+StringZ MCVRedeploy,      "MCVRedeploy"
+StringZ Credits,          "Credits"
+StringZ Name,             "Name"
+StringZ Side,             "Side"
+StringZ Color,            "Color"
+StringZ OtherSectionFmt,  "Other%d"
 
-str_gcanyonmap      db "blitz_test.map", 0 
-str_debugplayer     db "debugplayer",0
-str_debugplayer2    db "debugplayer2",0
-str_wsock32_dll     db "wsock32.dll",0
-str_inet_addr       db "inet_addr",0
-str_localhost       db "127.0.0.1",0
-str_spawn_ini       db "SPAWN.INI",0
-str_Settings        db "Settings",0
-str_UnitCount       db "UnitCount",0
-str_Scenario        db "Scenario",0
-str_Empty           db "",0
-str_GameSpeed       db "GameSpeed",0
-str_Seed            db "Seed",0
-str_TechLevel       db "TechLevel",0
-str_AIPlayers       db "AIPlayers",0
-str_AIDifficulty    db "AIDifficulty",0
-str_BuildOffAlly    db "BuildOffAlly",0
-str_SuperWeapons    db "SuperWeapons",0
-str_HarvesterTruce  db "HarvesterTruce",0
-str_GameMode        db "GameMode",0
-str_BridgeDestroy   db "BridgeDestroy",0
-str_FogOfWar        db "FogOfWar",0
-str_Crates          db "Crates",0
-str_ShortGame       db "ShortGame",0
-str_Bases           db "Bases",0
-str_MCVRedeploy     db "MCVRedeploy",0
-str_Credits         db "Credits",0
-str_Name            db "Name",0
-str_Side            db "Side",0
-str_Color           db "Color",0
-str_OtherSectionFmt db "Other%d",0
+StringZ Other1,           "Other1"
+StringZ Other2,           "Other2"
+StringZ Other3,           "Other3"
+StringZ Other4,           "Other4"
+StringZ Other5,           "Other5"
+StringZ Other6,           "Other6"
+StringZ Other7,           "Other7"
 
-str_Other1          db"Other1",0
-str_Other2          db"Other2",0
-str_Other3          db"Other3",0
-str_Other4          db"Other4",0
-str_Other5          db"Other5",0
-str_Other6          db"Other6",0
-str_Other7          db"Other7",0
+StringZ Port,             "Port"
+StringZ Ip,               "Ip"
+StringZ SpawnArg,         "-SPAWN"
+StringZ MultiEngineer,    "MultiEngineer"
+StringZ Firestorm,        "Firestorm"
+StringZ HouseColors,      "HouseColors"
+StringZ HouseCountries,   "HouseCountries"
+StringZ HouseHandicaps,   "HouseHandicaps"
+StringZ Tunnel,           "Tunnel"
+StringZ SpawnLocations,   "SpawnLocations"
+StringZ IsSinglePlayer,   "IsSinglePlayer"
+StringZ LoadSaveGame,     "LoadSaveGame"
+StringZ SaveGameName,     "SaveGameName"
+StringZ MultipleFactory,  "MultipleFactory"
+StringZ AlliesAllowed,    "AlliesAllowed"
 
-str_Port            db "Port",0
-str_Ip              db "Ip",0
-str_SpawnArg        db "-SPAWN",0
-str_MultiEngineer   db "MultiEngineer",0
-str_Firestorm       db "Firestorm",0
-str_HouseColors     db "HouseColors",0
-str_HouseCountries  db "HouseCountries",0
-str_HouseHandicaps  db "HouseHandicaps",0
-str_Tunnel          db "Tunnel",0
-str_SpawnLocations  db "SpawnLocations",0
-str_IsSinglePlayer  db "IsSinglePlayer",0
-str_LoadSaveGame    db "LoadSaveGame",0
-str_SaveGameName    db "SaveGameName",0
-str_MultipleFactory db "MultipleFactory",0
-str_AlliesAllowed   db "AlliesAllowed",0
+StringZ Multi1,           "Multi1"
+StringZ Multi2,           "Multi2"
+StringZ Multi3,           "Multi3"
+StringZ Multi4,           "Multi4"
+StringZ Multi5,           "Multi5"
+StringZ Multi6,           "Multi6"
+StringZ Multi7,           "Multi7"
+StringZ Multi8,           "Multi8"
 
-str_Multi1          db "Multi1",0
-str_Multi2          db "Multi2",0
-str_Multi3          db "Multi3",0
-str_Multi4          db "Multi4",0
-str_Multi5          db "Multi5",0
-str_Multi6          db "Multi6",0
-str_Multi7          db "Multi7",0
-str_Multi8          db "Multi8",0
+StringZ HouseAllyOne,     "HouseAllyOne"
+StringZ HouseAllyTwo,     "HouseAllyTwo"
+StringZ HouseAllyThree,   "HouseAllyThree"
+StringZ HouseAllyFour,    "HouseAllyFour"
+StringZ HouseAllyFive,    "HouseAllyFive"
+StringZ HouseAllySix,     "HouseAllySix"
+StringZ HouseAllySeven,   "HouseAllySeven"
+StringZ HouseAllyEight,   "HouseAllyEight"
 
-str_HouseAllyOne 		db "HouseAllyOne",0
-str_HouseAllyTwo 		db "HouseAllyTwo",0
-str_HouseAllyThree 		db "HouseAllyThree",0
-str_HouseAllyFour 		db "HouseAllyFour",0
-str_HouseAllyFive 		db "HouseAllyFive",0
-str_HouseAllySix 		db "HouseAllySix",0
-str_HouseAllySeven	 	db "HouseAllySeven",0
-str_HouseAllyEight      db "HouseAllyEight",0
+StringZ Multi1_Alliances, "Multi1_Alliances"
+StringZ Multi2_Alliances, "Multi2_Alliances"
+StringZ Multi3_Alliances, "Multi3_Alliances"
+StringZ Multi4_Alliances, "Multi4_Alliances"
+StringZ Multi5_Alliances, "Multi5_Alliances"
+StringZ Multi6_Alliances, "Multi6_Alliances"
+StringZ Multi7_Alliances, "Multi7_Alliances"
+StringZ Multi8_Alliances, "Multi8_Alliances"
 
-str_Multi1_Alliances db "Multi1_Alliances",0
-str_Multi2_Alliances db "Multi2_Alliances",0
-str_Multi3_Alliances db "Multi3_Alliances",0
-str_Multi4_Alliances db "Multi4_Alliances",0
-str_Multi5_Alliances db "Multi5_Alliances",0
-str_Multi6_Alliances db "Multi6_Alliances",0
-str_Multi7_Alliances db "Multi7_Alliances",0
-str_Multi8_Alliances db "Multi8_Alliances",0
-
-str_IsSpectator  db "IsSpectator",0
-
-
-
+StringZ IsSpectator,      "IsSpectator"

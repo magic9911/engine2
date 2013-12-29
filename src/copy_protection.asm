@@ -1,4 +1,3 @@
-section .patch
 
 ; FIXME: this call terminates the game for me at least -hifi
 @CLEAR 0x006BD6A0, 0x90, 0x006BD71D
