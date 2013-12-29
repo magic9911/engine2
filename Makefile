@@ -25,7 +25,7 @@ $(BUILD_DIR)/%.exe: %.lds %.dat $(BUILD_DIR)/patch.o       $(PETOOL)
 
 include $(TOOLS_DIR)/Makefile
 
-clean: clean_tools
+clean:
 	rm -f *.exe *.o
 
 .PHONY: default clean
