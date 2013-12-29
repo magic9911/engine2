@@ -4,9 +4,6 @@ section .bss
 %define AddressList_length 8
 
 var:
-    .IsNoCD                     RESB 1
-    .UseGraphicsPatch           RESB 1
-    
     .SpawnerActive              RESD 1
     .INIClass_SPAWN             RESB 256 ; FIXME: make this a local variable
     .inet_addr                  RESD 1

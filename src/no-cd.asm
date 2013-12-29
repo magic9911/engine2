@@ -9,6 +9,12 @@ section .patch
 @JMP 0x00531236, _Init_Secondary_MixFiles_Continue_When_Movies_Missing
 @JMP 0x006BE719, _WinMain_Fix_Crash_When_NoCD_Enabled
 
+section .rdata
+str_NoCD db "NoCD",0
+
+section .bss
+IsNoCD resb 1
+
 section .text
 ; add NULL pointer check
 _WinMain_Fix_Crash_When_NoCD_Enabled:
@@ -26,14 +32,14 @@ _Init_Secondary_MixFiles_Continue_When_Movies_Missing:
     jmp 0x00531269
 
 _Init_Game_NoCD_Check:
-    cmp byte [var.IsNoCD], 1
+    cmp byte [IsNoCD], 1
     jz 0x0052C5BF
     cmp eax, ebx
     jnz 0x0052C5BF
     jmp 0x0052C3BB 
 
 _CD_NeverAsk:
-    cmp byte [var.IsNoCD], 0
+    cmp byte [IsNoCD], 0
     jz .Normal_Code
 
 .NoCD:
@@ -48,7 +54,7 @@ _CD_NeverAsk:
     jmp 0x00479115
 
 _CD_AlwaysAvailable:
-    cmp byte [var.IsNoCD], 0
+    cmp byte [IsNoCD], 0
     jz .Normal_Code
 
 .NoCD:
@@ -61,7 +67,7 @@ _CD_AlwaysAvailable:
     jmp 0x004790E7
 
 _CD_AlwaysFindYR:
-    cmp byte [var.IsNoCD], 0
+    cmp byte [IsNoCD], 0
     jz .Normal_Code
 
 .NoCD: 

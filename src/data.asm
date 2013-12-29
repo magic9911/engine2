@@ -1,9 +1,5 @@
 section .rdata
 
-str_NoCD                    db"NoCD",0
-str_UseGraphicsPatch        db"UseGraphicsPatch",0
-str_Windowed                db"Windowed",0
-
 str_gcanyonmap      db "blitz_test.map", 0 
 str_debugplayer     db "debugplayer",0
 str_debugplayer2    db "debugplayer2",0
