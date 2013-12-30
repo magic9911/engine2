@@ -1,5 +1,8 @@
-spawn.bat
-# temporary files due to linking
-/src/*.inc
+# object files
+/*.o
 # patched executables
 /*.exe
+
+# misc junk
+*~
+\#*\#
