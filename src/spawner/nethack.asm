@@ -53,12 +53,12 @@ NetHack_SendTo:
     mov word [edx], 2
 
     ; sin_port
-    mov ax, word [ecx * ListAddress_size + var.AddressList + ListAddress.port]
+    mov ax, word [ecx * ListAddress_size + AddressList + ListAddress.port]
     lea edx, [TempDest + sockaddr_in.sin_port]
     mov word [edx], ax
 
     ; sin_addr
-    mov eax, dword [ecx * ListAddress_size + var.AddressList + ListAddress.ip]
+    mov eax, dword [ecx * ListAddress_size + AddressList + ListAddress.ip]
     lea edx, [TempDest + sockaddr_in.sin_addr]
     mov dword [edx], eax
 
@@ -135,16 +135,16 @@ NetHack_RecvFrom:
     ; compare ip
     mov edx, [src_addr]
     mov edx, [edx + sockaddr_in.sin_addr]
-    cmp edx, [ecx * ListAddress_size + var.AddressList + ListAddress.ip]
+    cmp edx, [ecx * ListAddress_size + AddressList + ListAddress.ip]
     jne .next
 
-    cmp dword [var.PortHack], 1
+    cmp dword [PortHack], 1
     je .skipPort
     ; compare port
     mov edx,[src_addr]
     mov dx, [edx + sockaddr_in.sin_port]
     and edx, 0xffff
-    cmp dx, [ecx * ListAddress_size + var.AddressList + ListAddress.port]
+    cmp dx, [ecx * ListAddress_size + AddressList + ListAddress.port]
     jne .next
 .skipPort:
 

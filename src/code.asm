@@ -16,16 +16,14 @@ section .text
 %include "socket.inc"
 %include "win.inc"
 
-; variables
-%include "src/var.asm"
-
 ; macro
 %include "macros/patch.inc"
 %include "macros/string.inc"
 
 %include "src/loading.asm"
 
-; spawner
+%push spawner
+%include "src/spawner/spawn_ini.asm"
 %include "src/spawner/spawner.asm"
 %include "src/spawner/tunnel.asm"
 %include "src/spawner/nethack.asm"
@@ -35,6 +33,7 @@ section .text
 %include "src/spawner/selectable_spawns.asm"
 %include "src/spawner/predetermined_alliances.asm"
 %include "src/spawner/spectators.asm"
+%pop
 
 ; misc
 %include "src/copy_protection.asm"

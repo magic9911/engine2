@@ -10,14 +10,38 @@
 
 %push
 
-%include "src/spawner/spawn_ini_macros.inc"
+section .bss
+
+%$SpawnerActive              resd 1
+%$inet_addr                  resd 1
+%$IsDoingAlliancesSpawner    resb 1
+%$IsSpawnArgPresent          resd 1
+
+;HouseColorsArray           resd 8
+;HouseCountriesArray        resd 8
+;HouseHandicapsArray        resd 8
+;SpawnLocationsArray        resd 8
+
+%define AddressList_length 8
+TunnelId                     resd 1
+TunnelIp                     resd 1
+TunnelPort                   resd 1
+AddressList                  resb (ListAddress_size * AddressList_length)
+PortHack                     resd 1
+SaveGameNameBuf              resb 60
+
+;DoingAutoSS                  resd 1
+
+%$OtherSection               resd 1
+;Anticheat1                   resd 1
+
 
 section .text
 _Teams_Alliances_Stuff:
     push ecx
     mov edx, [HouseClassArray_Count]
 
-    cmp dword [var.SpawnerActive], 1
+    cmp dword [%$SpawnerActive], 1
     jz .Ret
 
     jmp 0x005D74A7
@@ -30,14 +54,14 @@ _Teams_Alliances_Stuff:
 _More_Alliances_Crap:
     mov ecx, [HouseClassArray]
 
-    cmp dword [var.SpawnerActive], 1
+    cmp dword [%$SpawnerActive], 1
     jz 0x00686AC6
 
     jmp 0x00686AA4
 
 
 _Dont_Do_Alliances_At_Game_Start:
-    cmp dword [var.SpawnerActive], 1
+    cmp dword [%$SpawnerActive], 1
     jz .Skip
 
 .Normal_Code:
@@ -51,7 +75,7 @@ _Dont_Do_Alliances_At_Game_Start:
     jmp 0x00501736
 
 _Dont_Make_Enemy_At_Game_Start:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [%$SpawnerActive], 0
     jz .Normal_Code
 
     add esp, 8
@@ -62,7 +86,7 @@ _Dont_Make_Enemy_At_Game_Start:
     jmp 0x0050172F
 
 _Assign_Houses_Epilogue_Do_Spawner_Stuff:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [%$SpawnerActive], 0
     jz .Ret
 
     call Load_Predetermined_Alliances
@@ -76,7 +100,7 @@ _Assign_Houses_Epilogue_Do_Spawner_Stuff:
 _Assign_Houses_Do_Spawner_Stuff:
     pushad
 
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [%$SpawnerActive], 0
     jz .Ret
 
     call Load_Selectable_Countries
@@ -111,14 +135,14 @@ Initialize_Spawn:
 
 %define TempBuf     ebp-128
 
-    cmp dword [var.IsSpawnArgPresent], 0
+    cmp dword [%$$IsSpawnArgPresent], 0
     je .Exit_Error
 
-    cmp dword [var.SpawnerActive], 1
+    cmp dword [%$$SpawnerActive], 1
     jz .Ret_Exit
 
-    mov dword [var.SpawnerActive], 1
-    mov dword [var.PortHack], 1 ; default enabled
+    mov dword [%$$SpawnerActive], 1
+    mov dword [PortHack], 1 ; default enabled
 
     call Load_SPAWN_INI
     cmp eax, 0
@@ -132,7 +156,7 @@ Initialize_Spawn:
     push eax
     call [GetProcAddress]
 
-    mov [var.inet_addr], eax
+    mov [%$$inet_addr], eax
 
     mov byte [GameActive], 1 ; needs to be set here or the game gets into an infinite loop trying to create spawning units
 
@@ -194,24 +218,24 @@ Initialize_Spawn:
 
     lea eax, [TempBuf]
     push eax
-    call [var.inet_addr]
-    mov [var.TunnelIp], eax
+    call [%$$inet_addr]
+    mov [TunnelIp], eax
 
     ; tunnel port
     SpawnINI__GetInt str_Tunnel, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
-    mov [var.TunnelPort], eax
+    mov [TunnelPort], eax
 
     ; tunnel id
     SpawnINI__GetInt str_Settings, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
-    mov [var.TunnelId], eax
+    mov [TunnelId], eax
 
-    cmp dword [var.TunnelPort],0
+    cmp dword [TunnelPort],0
     jne .nosetport
     SpawnINI__GetInt str_Settings, str_Port, 1234
     mov word [ListenPort], ax
@@ -398,10 +422,10 @@ _Init_Game_Check_Spawn_Arg_No_Intro:
 
     mov ebx, 1 ; HACK DONT CHECK -SPAWN
 
-    mov [var.IsSpawnArgPresent], ebx
+    mov [%$IsSpawnArgPresent], ebx
     popad
 
-    cmp dword [var.IsSpawnArgPresent], 0
+    cmp dword [%$IsSpawnArgPresent], 0
     jz .Normal_Code
 
 
@@ -433,7 +457,7 @@ Load_SPAWN_INI:
     je .error
 
     ; initialize INIClass
-    mov ecx, var.INIClass_SPAWN
+    mov ecx, INIClass_SPAWN
     call INIClass__INIClass
 
     ; load FileClass to INIClass
@@ -441,7 +465,7 @@ Load_SPAWN_INI:
     push 0
     lea eax, [TempFileClass]
     push eax
-    Mov ecx, var.INIClass_SPAWN
+    Mov ecx, INIClass_SPAWN
     call INIClass__Load
 
     mov eax, 1
@@ -552,7 +576,7 @@ Load_Sides_Stuff:
 %push
 
 %macro Add_Human_Opponent 2
-    mov dword [var.OtherSection], %2
+    mov dword [%$$OtherSection], %2
     mov eax, %1
     call Add_Human_Opponent_
 %endmacro
@@ -592,7 +616,7 @@ Add_Human_Opponent_:
     call IPXAddressClass__IPXAddressClass
 
     lea eax, [TempBuf]
-    mov ecx, [var.OtherSection]
+    mov ecx, [%$$OtherSection]
     SpawnINI__GetString ecx, str_Name, str_Empty, eax, 0x28
 
     lea eax, [TempBuf]
@@ -607,14 +631,14 @@ Add_Human_Opponent_:
     push esi
     call mbstowcs
 
-    mov ecx, [var.OtherSection]
+    mov ecx, [%$$OtherSection]
     SpawnINI__GetInt ecx, str_Side, -1
     mov dword [esi+0x4B], eax ; side
 
     cmp eax,-1
     je .Exit
 
-    mov ecx, [var.OtherSection]
+    mov ecx, [%$$OtherSection]
     SpawnINI__GetInt ecx, str_Color, -1
     mov dword [esi+0x53], eax  ; color
 
@@ -631,18 +655,18 @@ Add_Human_Opponent_:
     mov [esi + 0x28 + SpawnAddress.pad2], word 0
 
     lea eax, [TempBuf]
-    mov ecx, [var.OtherSection]
+    mov ecx, [%$$OtherSection]
     SpawnINI__GetString ecx, str_Ip, str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
-    call [var.inet_addr]
+    call [%$$inet_addr]
 
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    mov [ecx * ListAddress_size + var.AddressList + ListAddress.ip], eax
+    mov [ecx * ListAddress_size + AddressList + ListAddress.ip], eax
 
-    mov ecx, [var.OtherSection]
+    mov ecx, [%$$OtherSection]
     SpawnINI__GetInt ecx, str_Port, 0
     and eax, 0xffff
 
@@ -653,12 +677,12 @@ Add_Human_Opponent_:
     ; disable PortHack if different port than own
     cmp ax, [ListenPort]
     je .samePort
-    mov dword [var.PortHack], 0
+    mov dword [PortHack], 0
 .samePort:
 
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    mov [ecx * ListAddress_size + var.AddressList + ListAddress.port], ax
+    mov [ecx * ListAddress_size + AddressList + ListAddress.port], ax
 
     mov dword [esi+0x73], -1
 
