@@ -118,3 +118,9 @@ _SessionClass__Read_Scenario_Descriptions                            = 0x0069998
 /* Mouse */
 _WWMouseClas_Mouse                                                   = 0x00887640;
 _MouseClass_Map                                                      = 0x0087F7E8;
+
+/* misc */
+_INIClass_RA2md_INI                                                  = 0x008870C0;
+_str_Options                                                         = 0x008254DC;
+_str_Video                                                           = 0x00833160;
+_WindowedMode                                                        = 0x0089F978;
