@@ -25,6 +25,7 @@
 %define Assign_Houses                               0x005DE210
 %define Get_MP_Color                                0x005EEF70
 %define HouseType_From_Name                         0x004CDEF0
+%define Read_Scenario_Houses                        0x004C2E40
 
 ; Arrays
 %define UnitClassArray_Count                        0x007B3468

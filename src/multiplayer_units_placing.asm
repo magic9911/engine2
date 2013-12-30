@@ -3,6 +3,18 @@
 @JMP 0x004D7B9A _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX
 @JMP 0x006585C0 _UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue
 @JMP 0x006589C8 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition
+;@JMP 0x005DD92A _Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer
+
+@JMP 0x0043485F 0x00434874 ; jump past check in BuildingClass::Read_INI() preventing multiplayer building spawning for player
+
+;_Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer:
+;    cmp dword [SessionType], 0
+;    jnz .Ret
+
+;    call Read_Scenario_Houses
+
+;.Ret:
+;    jmp 0x005DD92F
 
 ; loop check needs to be i < UnitClassArray_Count - OldUnitClassArray_Count
 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition:
@@ -50,6 +62,8 @@ _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     
     mov esi, [HouseClassArray]
     mov eax, [esi+eax*4]
+    
+    mov esi, eax
     
     jmp 0x00434851
 
@@ -105,6 +119,7 @@ Check_For_Spawn_Fake_HouseType_Name:
     cmp eax, 0
     jz .Ret
     
+    mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn3
     cmp eax, 0

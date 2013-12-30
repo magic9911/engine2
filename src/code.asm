@@ -30,4 +30,5 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/graphics_patch.asm"
 %include "src/fix_wce_errors.asm"
 %include "src/multiplayer_units_placing.asm"
+%include "src/no_options_menu_animation.asm"
 
