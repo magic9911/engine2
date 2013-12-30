@@ -11,28 +11,28 @@
 %endmacro
 
 Load_Spectators:
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi1, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi1, 0
     Set_Spectator 0, al, a
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi2, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi2, 0
     Set_Spectator 1, al, b
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi3, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi3, 0
     Set_Spectator 2, al, c
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi4, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi4, 0
     Set_Spectator 3, al, d
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi5, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi5, 0
     Set_Spectator 4, al, e
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi6, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi6, 0
     Set_Spectator 5, al, f
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi7, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi7, 0
     Set_Spectator 6, al, g
     
-    SpawnINI_Get_Bool str_IsSpectator, str_Multi8, 0
+    SpawnINI__GetBool str_IsSpectator, str_Multi8, 0
     Set_Spectator 7, al, h
     
     retn

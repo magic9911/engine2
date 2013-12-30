@@ -8,6 +8,10 @@
 @JMP 0x00686A9E, _More_Alliances_Crap
 @JMP 0x005D74A0, _Teams_Alliances_Stuff
 
+%push
+
+%include "src/spawner/spawn_ini_macros.inc"
+
 section .text
 _Teams_Alliances_Stuff:
     push ecx
@@ -136,57 +140,57 @@ Initialize_Spawn:
     mov dword [SessionType], 5
 
 
-    SpawnINI_Get_Int str_Settings, str_UnitCount, 0
+    SpawnINI__GetInt str_Settings, str_UnitCount, 0
     mov dword [UnitCount], eax
 
-    SpawnINI_Get_Int str_Settings, str_TechLevel, 10
+    SpawnINI__GetInt str_Settings, str_TechLevel, 10
     mov dword [TechLevel], eax
 
-    SpawnINI_Get_Int str_Settings, str_AIPlayers, 0
+    SpawnINI__GetInt str_Settings, str_AIPlayers, 0
     mov dword [AIPlayers], eax
 
-    SpawnINI_Get_Int str_Settings, str_AIDifficulty, 1
+    SpawnINI__GetInt str_Settings, str_AIDifficulty, 1
     mov dword [AIDifficulty], eax
 
-    SpawnINI_Get_Bool str_Settings, str_BuildOffAlly, 0
+    SpawnINI__GetBool str_Settings, str_BuildOffAlly, 0
     mov dword [BuildOffAlly], eax
 
-    SpawnINI_Get_Bool str_Settings, str_SuperWeapons, 1
+    SpawnINI__GetBool str_Settings, str_SuperWeapons, 1
     mov byte [SuperWeapons], al
 
-    SpawnINI_Get_Bool str_Settings, str_HarvesterTruce, 0
+    SpawnINI__GetBool str_Settings, str_HarvesterTruce, 0
     mov byte [HarvesterTruce], al
 
-    SpawnINI_Get_Bool str_Settings, str_BridgeDestroy, 1
+    SpawnINI__GetBool str_Settings, str_BridgeDestroy, 1
     mov byte [BridgeDestroy], al
 
-    SpawnINI_Get_Bool str_Settings, str_FogOfWar, 0
+    SpawnINI__GetBool str_Settings, str_FogOfWar, 0
     mov byte [FogOfWar], al
 
-    SpawnINI_Get_Bool str_Settings, str_Crates, 0
+    SpawnINI__GetBool str_Settings, str_Crates, 0
     mov byte [Crates], al
 
-    SpawnINI_Get_Bool str_Settings, str_ShortGame, 0
+    SpawnINI__GetBool str_Settings, str_ShortGame, 0
     mov byte [ShortGame], al
 
-    SpawnINI_Get_Bool str_Settings, str_Bases, 1
+    SpawnINI__GetBool str_Settings, str_Bases, 1
     mov byte [Bases], al
 
-    SpawnINI_Get_Bool str_Settings, str_MCVRedeploy, 1
+    SpawnINI__GetBool str_Settings, str_MCVRedeploy, 1
     mov byte [MCVRedeploy], al
 
-    SpawnINI_Get_Int str_Settings, str_Credits, 10000
+    SpawnINI__GetInt str_Settings, str_Credits, 10000
     mov dword [Credits], eax
 
-    SpawnINI_Get_Int str_Settings, str_GameSpeed, 0
+    SpawnINI__GetInt str_Settings, str_GameSpeed, 0
     mov dword [GameSpeed], eax
 
-    SpawnINI_Get_Bool str_Settings, str_MultiEngineer, 0
+    SpawnINI__GetBool str_Settings, str_MultiEngineer, 0
     mov byte [MultiEngineer], al
 
     ; tunnel ip
     lea eax, [TempBuf]
-    SpawnINI_Get_String str_Tunnel, str_Ip, str_Empty, eax, 32
+    SpawnINI__GetString str_Tunnel, str_Ip, str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
@@ -194,14 +198,14 @@ Initialize_Spawn:
     mov [var.TunnelIp], eax
 
     ; tunnel port
-    SpawnINI_Get_Int str_Tunnel, str_Port, 0
+    SpawnINI__GetInt str_Tunnel, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
     mov [var.TunnelPort], eax
 
     ; tunnel id
-    SpawnINI_Get_Int str_Settings, str_Port, 0
+    SpawnINI__GetInt str_Settings, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
@@ -209,7 +213,7 @@ Initialize_Spawn:
 
     cmp dword [var.TunnelPort],0
     jne .nosetport
-    SpawnINI_Get_Int str_Settings, str_Port, 1234
+    SpawnINI__GetInt str_Settings, str_Port, 1234
     mov word [ListenPort], ax
 .nosetport:
 
@@ -223,11 +227,11 @@ Initialize_Spawn:
 
     ; scenario
     lea eax, [ScenarioName] ; FIXME: name this
-    SpawnINI_Get_String str_Settings, str_Scenario, str_Empty, eax, 32
+    SpawnINI__GetString str_Settings, str_Scenario, str_Empty, eax, 32
 
     ; Needs to be done after SessionClass is set, or the seed value will be overwritten
     ; inside the Init_Random() call if sessiontype == SKIRMISH
-    SpawnINI_Get_Int str_Settings, str_Seed, 0
+    SpawnINI__GetInt str_Settings, str_Seed, 0
     mov dword [Seed], eax
     call Init_Random
 
@@ -282,7 +286,7 @@ Initialize_Spawn:
 
     call 0x0061F210 ; Load_Country_Flags_And_Stuff
 
-    SpawnINI_Get_Int str_Settings, str_GameMode, 1
+    SpawnINI__GetInt str_Settings, str_GameMode, 1
     mov ecx, eax
     call Set_Game_Mode
     mov [GameMode], eax
@@ -470,10 +474,10 @@ Add_Human_Player:
     call IPXAddressClass__IPXAddressClass
 
 ;    lea eax, [esi]
-;    SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x14
+;    SpawnINI__GetString str_Settings, str_Name, str_Empty, eax, 0x14
 
     lea eax, [NameBuf]
-    SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x28
+    SpawnINI__GetString str_Settings, str_Name, str_Empty, eax, 0x28
 
     lea eax, [NameBuf]
     push 0x28
@@ -482,7 +486,7 @@ Add_Human_Player:
     call mbstowcs
 
     ; Player side
-    SpawnINI_Get_Int str_Settings, str_Side, 0
+    SpawnINI__GetInt str_Settings, str_Side, 0
     mov dword [esi+0x4B], eax ; side
 
     ; Invert AL to set byte related to what sidebar and speech graphics to load
@@ -498,7 +502,7 @@ Add_Human_Player:
 .Past_AL_Invert:
 ;    mov byte [0x7E2500], al ; For side specific mix files loading and stuff, without sidebar and speech hack
 
-    SpawnINI_Get_Int str_Settings, str_Color, 0
+    SpawnINI__GetInt str_Settings, str_Color, 0
     mov dword [esi+0x53], eax  ; color
     mov dword [PlayerColor], eax
 
@@ -545,6 +549,14 @@ Load_Sides_Stuff:
 .Ret:
     retn
 
+%push
+
+%macro Add_Human_Opponent 2
+    mov dword [var.OtherSection], %2
+    mov eax, %1
+    call Add_Human_Opponent_
+%endmacro
+
 Add_Human_Opponents:
     Add_Human_Opponent 1, str_Other1
     Add_Human_Opponent 2, str_Other2
@@ -554,6 +566,8 @@ Add_Human_Opponents:
     Add_Human_Opponent 6, str_Other6
     Add_Human_Opponent 7, str_Other7
 retn
+
+%pop
 
 Add_Human_Opponent_:
 %push
@@ -579,7 +593,7 @@ Add_Human_Opponent_:
 
     lea eax, [TempBuf]
     mov ecx, [var.OtherSection]
-    SpawnINI_Get_String ecx, str_Name, str_Empty, eax, 0x28
+    SpawnINI__GetString ecx, str_Name, str_Empty, eax, 0x28
 
     lea eax, [TempBuf]
     mov eax, [eax]
@@ -594,14 +608,14 @@ Add_Human_Opponent_:
     call mbstowcs
 
     mov ecx, [var.OtherSection]
-    SpawnINI_Get_Int ecx, str_Side, -1
+    SpawnINI__GetInt ecx, str_Side, -1
     mov dword [esi+0x4B], eax ; side
 
     cmp eax,-1
     je .Exit
 
     mov ecx, [var.OtherSection]
-    SpawnINI_Get_Int ecx, str_Color, -1
+    SpawnINI__GetInt ecx, str_Color, -1
     mov dword [esi+0x53], eax  ; color
 
     cmp eax,-1
@@ -618,7 +632,7 @@ Add_Human_Opponent_:
 
     lea eax, [TempBuf]
     mov ecx, [var.OtherSection]
-    SpawnINI_Get_String ecx, str_Ip, str_Empty, eax, 32
+    SpawnINI__GetString ecx, str_Ip, str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
@@ -629,7 +643,7 @@ Add_Human_Opponent_:
     mov [ecx * ListAddress_size + var.AddressList + ListAddress.ip], eax
 
     mov ecx, [var.OtherSection]
-    SpawnINI_Get_Int ecx, str_Port, 0
+    SpawnINI__GetInt ecx, str_Port, 0
     and eax, 0xffff
 
     push eax
@@ -661,4 +675,6 @@ Add_Human_Opponent_:
     mov esp,ebp
     pop ebp
     retn
+%pop
+
 %pop

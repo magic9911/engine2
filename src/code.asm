@@ -20,11 +20,10 @@ section .text
 %include "src/var.asm"
 
 ; macro
-%include "macros/spawner.inc"
 %include "macros/patch.inc"
 %include "macros/string.inc"
 
-;%include "src/loading.asm"
+%include "src/loading.asm"
 
 ; spawner
 %include "src/spawner/spawner.asm"
@@ -38,6 +37,6 @@ section .text
 %include "src/spawner/spectators.asm"
 
 ; misc
-;%include "src/copy_protection.asm"
-;%include "src/no-cd.asm"
-;%include "src/graphics_patch.asm"
+%include "src/copy_protection.asm"
+%include "src/no-cd.asm"
+%include "src/graphics_patch.asm"
