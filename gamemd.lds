@@ -1,6 +1,5 @@
 /* GNU ld linker script for gamemd.exe */
-start = 0x7CD80F;
-ENTRY(start);
+ENTRY(_start);
 SECTIONS
 {
     .text           0x401000   : { gamemd.dat(.text) }

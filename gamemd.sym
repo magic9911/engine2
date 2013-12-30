@@ -1,3 +1,5 @@
+_start                                                               = 0x007CD80F;
+
 /* winapi */
 _sendto                                                              = 0x007C89B0;
 _recvfrom                                                            = 0x007C89AA;
