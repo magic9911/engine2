@@ -4,8 +4,7 @@
 ;
 
 %include "include/macros/patch.inc"
-
-@JMP 0x006B7E21, sodoff
+%include "include/macros/proc.inc"
 
 __imp_MessageBoxA equ 0x006CA458
 
@@ -13,15 +12,17 @@ section .rdata
     title db "Oi!", 0
     message db "Sod off you bloody drunk!", 0
 
-section .text
-    sodoff:
-        PUSH 0x30
-        PUSH title
-        PUSH message
-        PUSH 0
-        CALL [__imp_MessageBoxA]
-        MOV EAX,1
-        RETN
-
 section .bss
-	TestValue: resb 0x40
+        TestValue: resb 0x40
+
+@LJMP 0x006B7E21, sodoff
+
+CODE_START sodoff
+    push 0x30
+    push title
+    push message
+    push 0
+    call [__imp_MessageBoxA]
+    mov  eax, 1
+    retn
+CODE_END
