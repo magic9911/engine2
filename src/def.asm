@@ -112,8 +112,7 @@
 %define NameNodeVector                              0x007E3E90
 %define NameNodeVector_Add                          0x0044D690
 %define SessionClass__Read_Scenario_Descriptions    0x005EE7D0
-%define DifficultyMode1                             0x07281664
-%define DifficultyMode2                             0x07281660
+%define ScenarioStuff                               0x007E2438
 
 ; Save games
 %define Load_Game                                   0x005D6910
