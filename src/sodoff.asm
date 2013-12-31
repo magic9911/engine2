@@ -3,8 +3,8 @@
 ;  - from hifi, with love <3
 ;
 
-%include "include/macros/patch.inc"
-%include "include/macros/proc.inc"
+%include "macros/patch.inc"
+%include "macros/proc.inc"
 
 __imp_MessageBoxA equ 0x006CA458
 
@@ -13,7 +13,7 @@ section .rdata
     message db "Sod off you bloody drunk!", 0
 
 section .bss
-        TestValue: resb 0x40
+    TestValue: resb 0x40
 
 @LJMP 0x006B7E21, sodoff
 
