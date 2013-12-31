@@ -10,6 +10,8 @@ NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _
 
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
+PATCH_OBJ = $(foreach o,sodoff gameres,$(BUILD_DIR)/$(o).o)
+
 default: game.exe
 
 $(BUILD_DIR)/%res.o: res/%.rc
@@ -18,9 +20,9 @@ $(BUILD_DIR)/%res.o: res/%.rc
 $(BUILD_DIR)/%.o: src/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<
 
-$(BUILD_DIR)/%.exe: %.lds %.dat $(BUILD_DIR)/sodoff.o $(BUILD_DIR)/gameres.o $(PETOOL)
+$(BUILD_DIR)/%.exe: %.lds %.dat $(PATCH_OBJ)
 	i686-w64-mingw32-ld -T $< --just-symbols=$(basename $@).sym \
-		--file-alignment=0x1000 --subsystem=windows -o $@
+		--file-alignment=0x1000 --subsystem=windows -o $@ $(PATCH_OBJ)
 	$(PETOOL) patch $@
 	$(PETOOL) setdd $@ 1 0x2EC050 280
 	$(PETOOL) setvs $@ .data 1552244
