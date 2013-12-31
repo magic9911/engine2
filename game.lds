@@ -1,6 +1,6 @@
 /* GNU ld linker script for Game.dat */
-start = 0x6B7E21;
-ENTRY(start);
+
+ENTRY(_start);
 
 SECTIONS
 {
@@ -9,8 +9,8 @@ SECTIONS
     .data      0x6EE000        :   { game.dat(.data); }
     /DISCARD/                  :   { game.dat(.rsrc) }
 
-    .hp_code   0x869000        :   { sodoff.o(.text);  . = 0x200000; }
-    .hp_data   0xA69000        :   { sodoff.o(.rdata); . = 0x100000; }
+    .hp_code   0x869000        :   { sodoff.o(.text);  . = 0x200000; } =0x90
+    .hp_data   0xA69000        :   { sodoff.o(.rdata); . = 0x100000; } =0x00
     .hp_var    0xB69000        :   { sodoff.o(.bss);   . = 0x8000; }
 
     .rsrc      0xB71000        :   { gameres.o(.rsrc) }
