@@ -1,15 +1,19 @@
-%macro CODE_START 1
-    [section .text]
-    %1:
-    %push __proc
+%macro PROC 1
+    %ifctx __proc
+        %error "can't nest procedures"
+    %else
+        [section .text]
+        %1:
+        %push __proc
+    %endif
 %endmacro
 
-%macro CODE_END 0
+%macro ENDPROC 0
     %ifctx __proc
         align   16, db 0xCC
         %pop
         __SECT__
     %else
-        %error "expected `CODE_START' before `CODE_END'"
+        %error "no corrosponding `PROC'"
     %endif
 %endmacro

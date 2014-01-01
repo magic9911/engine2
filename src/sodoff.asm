@@ -17,7 +17,7 @@ section .bss
 
 @LJMP 0x006B7E21, sodoff
 
-CODE_START sodoff
+PROC sodoff
     push 0x30
     push title
     push message
@@ -25,4 +25,4 @@ CODE_START sodoff
     call [__imp_MessageBoxA]
     mov  eax, 1
     retn
-CODE_END
+ENDPROC

@@ -14,53 +14,57 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-%macro @START 1
-    [section .patch]
-    %push __patch
-    dd %1                 ; patch addrss
-    dd %$end - %$start    ; length of the patch
-  %$start:
+%macro @PATCH 1
+    %ifctx __patch
+        %error "can't nest patches"
+    %else
+        [section .patch]
+        %push __patch
+        dd %1                 ; patch addrss
+        dd %$end - %$start    ; length of the patch
+      %$start:
+    %endif
 %endmacro
 
-%macro @END 0
+%macro @ENDPATCH 0
     %ifctx __patch
       %$end:
         %pop
         __SECT__
     %else
-        %error "expected `CODE_START' before `CODE_END'"
+        %error "no corrosponding `@PATCH'"
     %endif
 %endmacro
 
 %macro @SET 2
-    @START %1
+    @PATCH %1
     %2
-    @END
+    @ENDPATCH
 %endmacro
 
 %macro @CLEAR 3
-    @START %1
+    @PATCH %1
     times (%3 - %1) db %2 ; patch data
-    @END
+    @ENDPATCH
 %endmacro
 
 %macro @SJMP 2
-    @START %1
+    @PATCH %1
     db 0xEB               ; short jump
     db %2 - %1 - 2        ; relative offset
-    @END
+    @ENDPATCH
 %endmacro
 
 %macro @LJMP 2
-    @START %1
+    @PATCH %1
     db 0xE9               ; far jump
     dd %2 - %1 - 5        ; relative offset
-    @END
+    @ENDPATCH
 %endmacro
 
 %macro @CALL 2
-    @START %1
+    @PATCH %1
     db 0xE8               ; far call
     dd %2 - %1 - 5        ; relative offset
-    @END
+    @ENDPATCH
 %endmacro
