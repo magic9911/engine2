@@ -10,17 +10,10 @@ NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _
 
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
+EXE       = game
 PATCH_OBJ = $(foreach o,sodoff gameres,$(BUILD_DIR)/$(o).o)
 
-default: game.exe
-
-$(BUILD_DIR)/%res.o: res/%.rc
-	$(WINDRES) --preprocessor=type $< $@
-
-$(BUILD_DIR)/%.o: src/%.asm
-	$(NASM) $(NFLAGS) -o $@ $<
-
-$(BUILD_DIR)/%.exe: %.lds %.dat $(PATCH_OBJ)
+$(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 	i686-w64-mingw32-ld -T $< --just-symbols=$(basename $@).sym \
 		--file-alignment=0x1000 --subsystem=windows -o $@ $(PATCH_OBJ)
 	$(PETOOL) patch $@
@@ -29,9 +22,15 @@ $(BUILD_DIR)/%.exe: %.lds %.dat $(PATCH_OBJ)
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
 
+$(BUILD_DIR)/%res.o: res/%.rc
+	$(WINDRES) --preprocessor=type $< $@
+
+$(BUILD_DIR)/%.o: src/%.asm
+	$(NASM) $(NFLAGS) -o $@ $<
+
 include $(TOOLS_DIR)/Makefile
 
 clean:
 	rm -f *.exe *.o
 
-.PHONY: default clean
+.PHONY: clean
