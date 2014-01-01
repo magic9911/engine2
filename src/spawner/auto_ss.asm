@@ -1,5 +1,5 @@
-@JMP 0x00509383 _Main_Loop_Auto_SS
-@JMP 0x004EAC39 _ScreenCaptureCommand__Activate_AutoSS_File_Name
+@LJMP 0x00509383, _Main_Loop_Auto_SS
+@LJMP 0x004EAC39, _ScreenCaptureCommand__Activate_AutoSS_File_Name
 
 ; TODO NEED TO CHECK FOR SESSION == 3 AND SPAWNER ACTIVE
 

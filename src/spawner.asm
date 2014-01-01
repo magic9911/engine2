@@ -34,29 +34,29 @@
 
 %endmacro
 
-@JMP 0x004E1DE0 _Select_Game_Init_Spawner
-;@JMP 0x00609470 _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
-@JMP 0x005E08E3 _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
-@JMP 0x004BDDB1 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
-@JMP 0x004E078C _Init_Game_Check_Spawn_Arg_No_Intro
+@LJMP 0x004E1DE0, _Select_Game_Init_Spawner
+;@LJMP 0x00609470, _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
+@LJMP 0x005E08E3, _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
+@LJMP 0x004BDDB1, _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner
+@LJMP 0x004E078C, _Init_Game_Check_Spawn_Arg_No_Intro
 
 ; Inside HouseClass::Mplayer_Defeated skip some checks which makes game continue
 ; even if there are only allied AI players left, in skirmish
-@JMP 0x004BF7B6 0x004BF7BF
-@JMP 0x004BF7F0 0x004BF7F9
+@LJMP 0x004BF7B6, 0x004BF7BF
+@LJMP 0x004BF7F0, 0x004BF7F9
 
-@JMP 0x005ED477 _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active
+@LJMP 0x005ED477, _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active
 
-@JMP 0x004C06EF _HouseClass__AI_Attack_Stuff_Alliance_Check
+@LJMP 0x004C06EF, _HouseClass__AI_Attack_Stuff_Alliance_Check
 
-@JMP 0x005DE3D7 _Assign_Houses_AI_Countries
+@LJMP 0x005DE3D7, _Assign_Houses_AI_Countries
 
-@JMP 0x004C3630 _HouseClass__Computer_Paranoid_Disable_With_Spawner
+@LJMP 0x004C3630, _HouseClass__Computer_Paranoid_Disable_With_Spawner
 
-@JMP 0x005DDAF1 _Read_Scenario_INI_Dont_Create_Units_Earlier
-@JMP 0x005DDEDD _Read_Scenario_INI_Dont_Create_Units_Earlier_Dont_Create_Twice
+@LJMP 0x005DDAF1, _Read_Scenario_INI_Dont_Create_Units_Earlier
+@LJMP 0x005DDEDD, _Read_Scenario_INI_Dont_Create_Units_Earlier_Dont_Create_Twice
 
-@JMP 0x0065860D _UnitClass__Read_INI_Jump_Out_When_Units_Section_Missing
+@LJMP 0x0065860D, _UnitClass__Read_INI_Jump_Out_When_Units_Section_Missing
 
 _UnitClass__Read_INI_Jump_Out_When_Units_Section_Missing:
     cmp eax, ebx

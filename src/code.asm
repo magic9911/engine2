@@ -1,10 +1,9 @@
-[org 0x0086922B]
+section .text
 
-retn ; For some reason the game executes the first function found in the extended EXE space during exit
+%include "macros/patch.inc"
 
 %include "src/def.asm"
 %include "src/var.asm"
-%include "src/data.inc"
 
 ; macros
 %include "src/macros/INIClass_macros.asm"
@@ -31,4 +30,3 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/fix_wce_errors.asm"
 %include "src/multiplayer_units_placing.asm"
 %include "src/no_options_menu_animation.asm"
-

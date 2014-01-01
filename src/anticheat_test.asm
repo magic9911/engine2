@@ -1,62 +1,62 @@
-@JMP 0x00408EAA _Anticheat_Test1
-@JMP 0x006157E0 _Anticheat_Test2
-@JMP 0x00596D9F _Anticheat_Test3
+@LJMP 0x00408EAA, _Anticheat_Test1
+@LJMP 0x006157E0, _Anticheat_Test2
+@LJMP 0x00596D9F, _Anticheat_Test3
 
 ; Minimap/radar hacks
-@JMP 0x005BBF68 _Anticheat_Test4
-@JMP 0x005BC040 _Anticheat_Test5
-@JMP 0x005BBFE8 _Anticheat_Test6
-@JMP 0x005B899E _Anticheat_Test7
-@JMP 0x005B8C70 _Anticheat_Test8
-@JMP 0x005B8E9E _Anticheat_Test9
-@JMP 0x005B914D _Anticheat_Test10
-@JMP 0x005B916B _Anticheat_Test11
-@JMP 0x005BB153 _Anticheat_Test12
-@JMP 0x005BBEE8 _Anticheat_Test13
-@JMP 0x005BBF89 _Anticheat_Test14
-@JMP 0x005BC040 _Anticheat_Test15
-@JMP 0x005BC050 _Anticheat_Test16
-@JMP 0x005BC0B3 _Anticheat_Test17
-@JMP 0x005BC150 _Anticheat_Test18
-@JMP 0x005BC170 _Anticheat_Test19
-@JMP 0x005BC1E7 _Anticheat_Test20
-@JMP 0x005B91A6 _Anticheat_Test21
-@JMP 0x005C22EC _Anticheat_Test22
-@JMP 0x005C265A _Anticheat_Test23
+@LJMP 0x005BBF68, _Anticheat_Test4
+@LJMP 0x005BC040, _Anticheat_Test5
+@LJMP 0x005BBFE8, _Anticheat_Test6
+@LJMP 0x005B899E, _Anticheat_Test7
+@LJMP 0x005B8C70, _Anticheat_Test8
+@LJMP 0x005B8E9E, _Anticheat_Test9
+@LJMP 0x005B914D, _Anticheat_Test10
+@LJMP 0x005B916B, _Anticheat_Test11
+@LJMP 0x005BB153, _Anticheat_Test12
+@LJMP 0x005BBEE8, _Anticheat_Test13
+@LJMP 0x005BBF89, _Anticheat_Test14
+@LJMP 0x005BC040, _Anticheat_Test15
+@LJMP 0x005BC050, _Anticheat_Test16
+@LJMP 0x005BC0B3, _Anticheat_Test17
+@LJMP 0x005BC150, _Anticheat_Test18
+@LJMP 0x005BC170, _Anticheat_Test19
+@LJMP 0x005BC1E7, _Anticheat_Test20
+@LJMP 0x005B91A6, _Anticheat_Test21
+@LJMP 0x005C22EC, _Anticheat_Test22
+@LJMP 0x005C265A, _Anticheat_Test23
 
-;;@JMP 0x005F4645 _Anticheat_Test30
-;@JMP 0x005F468C _Anticheat_Test31
+;;@LJMP 0x005F4645, _Anticheat_Test30
+;@LJMP 0x005F468C, _Anticheat_Test31
 
-;@JMP 0x005F4E7B _Anticheat_Test32
-;@JMP 0x005F4E8F _Anticheat_Test33
-;@JMP 0x005F50F1 _Anticheat_Test34
-;@JMP 0x005F5168 _Anticheat_Test35
-;@JMP 0x005F51F8 _Anticheat_Test36
-;@JMP 0x005F56E0 _Anticheat_Test37
-;@JMP 0x005F5720 _Anticheat_Test38
-;@JMP 0x005F58D0 _Anticheat_Test39
-;@JMP 0x005F464E _Anticheat_Test40
-;@JMP 0x005F59DD _Anticheat_Test41
-;@JMP 0x005F5DD1 _Anticheat_Test42
-;@JMP 0x005F5E9D _Anticheat_Test43
-;@JMP 0x005F2C90 _Anticheat_Test44
-;@JMP 0x005F57FF _Anticheat_Test46
+;@LJMP 0x005F4E7B, _Anticheat_Test32
+;@LJMP 0x005F4E8F, _Anticheat_Test33
+;@LJMP 0x005F50F1, _Anticheat_Test34
+;@LJMP 0x005F5168, _Anticheat_Test35
+;@LJMP 0x005F51F8, _Anticheat_Test36
+;@LJMP 0x005F56E0, _Anticheat_Test37
+;@LJMP 0x005F5720, _Anticheat_Test38
+;@LJMP 0x005F58D0, _Anticheat_Test39
+;@LJMP 0x005F464E, _Anticheat_Test40
+;@LJMP 0x005F59DD, _Anticheat_Test41
+;@LJMP 0x005F5DD1, _Anticheat_Test42
+;@LJMP 0x005F5E9D, _Anticheat_Test43
+;@LJMP 0x005F2C90, _Anticheat_Test44
+;@LJMP 0x005F57FF, _Anticheat_Test46
 
-@JMP 0x0046EA84 _Anticheat_Test45
+@LJMP 0x0046EA84, _Anticheat_Test45
 
-@JMP 0x00454E6C _Anticheat_Test50
+@LJMP 0x00454E6C, _Anticheat_Test50
 
-@JMP 0x0045513C _Anticheat_Test51
+@LJMP 0x0045513C, _Anticheat_Test51
 
-@JMP 0x005F2E7A _Anticheat_Test60
-@JMP 0x005F2E83 _Anticheat_Test61
-@JMP 0x005F3E5A _Anticheat_Test62
+@LJMP 0x005F2E7A, _Anticheat_Test60
+@LJMP 0x005F2E83, _Anticheat_Test61
+@LJMP 0x005F3E5A, _Anticheat_Test62
 
-@JMP 0x005F3CB9 _Anticheat_Test63
-;@JMP 0x005F59B9 _Anticheat_Test64
+@LJMP 0x005F3CB9, _Anticheat_Test63
+;@LJMP 0x005F59B9, _Anticheat_Test64
 
-;@JMP 0x0047649D _Anticheat_Test70
-@JMP 0x00478974 _Anticheat_Test80
+;@LJMP 0x0047649D, _Anticheat_Test70
+@LJMP 0x00478974, _Anticheat_Test80
 
 _Anticheat_Test80:    
     push eax
@@ -213,7 +213,7 @@ _Anticheat_Test46:
         pop     ecx
 %endmacro
 
-@JMP 0x004EA280 _Anticheat_Test_60
+@LJMP 0x004EA280, _Anticheat_Test_60
 
 _Anticheat_Test_60:
     mov eax, [0x007494F8]
@@ -229,7 +229,7 @@ _Anticheat_Test_60:
 .lct_Out:
     retn
     
-@JMP 0x004EA2E0 _Anticheat_Test_61
+@LJMP 0x004EA2E0, _Anticheat_Test_61
 
 _Anticheat_Test_61:
     mov eax, [0x007494F8]
@@ -245,7 +245,7 @@ _Anticheat_Test_61:
 .lct_Out:
     retn
 
-@JMP 0x004EA340 _Anticheat_Test_62
+@LJMP 0x004EA340, _Anticheat_Test_62
 
 _Anticheat_Test_62:
     mov eax, [0x007494F8]
@@ -261,7 +261,7 @@ _Anticheat_Test_62:
 .lct_Out:
     retn
     
-@JMP 0x004EA3A0 _Anticheat_Test_63
+@LJMP 0x004EA3A0, _Anticheat_Test_63
 
 _Anticheat_Test_63:
     mov eax, [0x007494F8]

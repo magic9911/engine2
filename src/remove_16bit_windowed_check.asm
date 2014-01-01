@@ -1,4 +1,4 @@
-@JMP 0x0060142F _WinMain_Remove_16bit_Windowed_Mode_Check
+@LJMP 0x0060142F, _WinMain_Remove_16bit_Windowed_Mode_Check
 
 _WinMain_Remove_16bit_Windowed_Mode_Check:
     mov eax, 1

@@ -1,4 +1,4 @@
-@JMP 0x00509D2F _Message_Input_Display_Messages_Typed_By_Yourself
+@LJMP 0x00509D2F, _Message_Input_Display_Messages_Typed_By_Yourself
 
 _Message_Input_Display_Messages_Typed_By_Yourself:
 %push

@@ -1,11 +1,11 @@
-@JMP 0x00658658 _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX
-@JMP 0x00434843 _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX
-@JMP 0x004D7B9A _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX
-@JMP 0x006585C0 _UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue
-@JMP 0x006589C8 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition
-;@JMP 0x005DD92A _Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer
+@LJMP 0x00658658, _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX
+@LJMP 0x00434843, _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX
+@LJMP 0x004D7B9A, _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX
+@LJMP 0x006585C0, _UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue
+@LJMP 0x006589C8, _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition
+;@LJMP 0x005DD92A, _Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer
 
-@JMP 0x0043485F 0x00434874 ; jump past check in BuildingClass::Read_INI() preventing multiplayer building spawning for player
+@LJMP 0x0043485F, 0x00434874 ; jump, past check in BuildingClass::Read_INI() preventing multiplayer building spawning for player
 
 ;_Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer:
 ;    cmp dword [SessionType], 0

@@ -1,7 +1,7 @@
-@JMP 0x004754A0 _CD_AlwaysFindTS
-@JMP 0x0044E7A0 _CD_AlwaysAvailable
-@JMP 0x0044E7C0 _CD_NeverAsk
-@JMP 0x004E0469 _Init_Game_NoCD_Check
+@LJMP 0x004754A0, _CD_AlwaysFindTS
+@LJMP 0x0044E7A0, _CD_AlwaysAvailable
+@LJMP 0x0044E7C0, _CD_NeverAsk
+@LJMP 0x004E0469, _Init_Game_NoCD_Check
 
 _Init_Game_NoCD_Check:
     cmp byte [var.IsNoCD], 1

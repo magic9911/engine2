@@ -1,4 +1,4 @@
-[absolute 0xA89000]
+[section .bss]
 
 ; max number of players in static address list
 %define AddressList_length 8
@@ -33,6 +33,5 @@ var:
     .IsNoCD                     RESB 1
     .SpectatorStuffInit         RESB 1
     .OldUnitClassArrayCount     RESD 1
-    
 
-[section .text]
+__SECT__

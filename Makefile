@@ -1,30 +1,36 @@
-NFLAGS=-I./include/
-CC?=gcc
-DAT=dta.dat
-EXE=dta.exe
-NASM?=nasm$(EXT)
-REV=$(shell sh -c 'git rev-parse --short @{0}')
-CFLAGS=-m32 -pedantic -O2 -Wall -DREV=\"$(REV)\"
+# if you are on windows you can use build.cmd instead of make
 
-all: dta.exe build
+BUILD_DIR = .
+# should be tools repo
+TOOLS_DIR = ../petool
 
-tools: linker$(EXT) extpe$(EXT)
+WINDRES   = i686-w64-mingw32-windres
+NASM     ?= nasm
+NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _
 
-dta.exe: $(DAT) extpe$(EXT)
-	cp $(DAT) $(EXE)
+PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
-build: linker$(EXT)
-	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)
+EXE       = game
+PATCH_OBJ = $(foreach o,patch gameres,$(BUILD_DIR)/$(o).o)
 
-$(DAT):
-	@echo "You are missing the required cnc95.dat from 1.06c patch"
-	@false
+$(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
+	i686-w64-mingw32-ld -T $< --just-symbols=$(basename $@).sym \
+		--file-alignment=0x1000 --subsystem=windows -o $@ $(PATCH_OBJ)
+	$(PETOOL) patch $@
+	$(PETOOL) setdd $@ 1 0x2EC050 280
+	$(PETOOL) setvs $@ .data 1552244
+#	strip -R .patch $@
+	$(PETOOL) dump  $@
 
-linker$(EXT): tools/linker.c
-	$(CC) $(CFLAGS) -o linker$(EXT) tools/linker.c
+$(BUILD_DIR)/%res.o: res/%.rc
+	$(WINDRES) --preprocessor=type $< $@
 
-extpe$(EXT): tools/extpe.c tools/pe.h
-	$(CC) $(CFLAGS) -o extpe$(EXT) tools/extpe.c
+$(BUILD_DIR)/%.o: src/%.asm
+	$(NASM) $(NFLAGS) -o $@ $<
+
+include $(TOOLS_DIR)/Makefile
 
 clean:
-	rm -rf extpe$(EXT) linker$(EXT) $(EXE) src/*.map src/*.bin src/*.inc
+	rm -f *.exe *.o
+
+.PHONY: clean

@@ -1,7 +1,7 @@
-@JMP 0x005DEBCD _Create_Units_Selectable_Spawning_Locations
-@JMP 0x005DEAF7 _Create_Units_First_Spawn_EDI_Patch
-@JMP 0x005DE8CB _Create_Units_Set_Selected_Spawn_Locations
-@JMP 0x005DEAD7 _Create_Units_First_Spawn_Check_If_Not_Selected
+@LJMP 0x005DEBCD, _Create_Units_Selectable_Spawning_Locations
+@LJMP 0x005DEAF7, _Create_Units_First_Spawn_EDI_Patch
+@LJMP 0x005DE8CB, _Create_Units_Set_Selected_Spawn_Locations
+@LJMP 0x005DEAD7, _Create_Units_First_Spawn_Check_If_Not_Selected
 
 _Create_Units_First_Spawn_Check_If_Not_Selected:
     call 0x005BE080 ;    RandomClass::operator()(int,int) 

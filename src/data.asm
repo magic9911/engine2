@@ -1,4 +1,4 @@
-[org 0xA69000]
+section .rdata
 
 str_gcanyonmap      db "blitz_test.map", 0 
 str_debugplayer     db "debugplayer",0

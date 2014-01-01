@@ -1,7 +1,7 @@
 ; AlexB's graphics patch
 ; Source: http://www.stuffhost.de/files/cnc/
 
-@JMP 0x0048AC2F _Graphics_Patch
+@LJMP 0x0048AC2F, _Graphics_Patch
 
 _Graphics_Patch:
     cmp byte [var.UseGraphicsPatch], 1
