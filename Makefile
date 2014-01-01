@@ -4,24 +4,29 @@ BUILD_DIR = .
 # should be tools repo
 TOOLS_DIR = ../petool
 
+WINDRES   = i686-w64-mingw32-windres
 NASM     ?= nasm
 NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _
 
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
-default: gamemd.exe
+EXE       = gamemd
+PATCH_OBJ = $(foreach o,patch,$(BUILD_DIR)/$(o).o)
 
-$(BUILD_DIR)/%.o: src/%.asm
-	$(NASM) $(NFLAGS) -o $@ $<
-
-$(BUILD_DIR)/%.exe: %.lds %.dat $(BUILD_DIR)/patch.o       $(PETOOL)
+$(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 	i686-w64-mingw32-ld -T $< --just-symbols=$(basename $@).sym \
-		--file-alignment=4096 --subsystem=windows -o $@
+		--file-alignment=0x1000 --subsystem=windows -o $@ $(PATCH_OBJ)
 	$(PETOOL) patch $@
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
 	$(PETOOL) setvs $@ .data 3670600
 	strip -R .patch $@
 	$(PETOOL) dump  $@
+
+$(BUILD_DIR)/%res.o: res/%.rc
+	$(WINDRES) --preprocessor=type $< $@
+
+$(BUILD_DIR)/%.o: src/%.asm
+	$(NASM) $(NFLAGS) -o $@ $<
 
 include $(TOOLS_DIR)/Makefile
 
