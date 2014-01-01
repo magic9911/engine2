@@ -20,6 +20,6 @@
 
 ; Remove the douchebag blowing up your base, taken from Ares Source code
 
-@JMP 0x0055CFDF, 0x0055D059
+@LJMP 0x0055CFDF, 0x0055D059
 
 section .text ; because we are chaining includes

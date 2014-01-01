@@ -1,12 +1,12 @@
 ; Info taken from Ares source code
 ; https://github.com/Ares-Developers/Ares/blob/master/src/Misc/CopyProtection.cpp
 
-@JMP 0x004A80D0, _CD_AlwaysFindYR
-@JMP 0x004790E0, _CD_AlwaysAvailable
-@JMP 0x00479110, _CD_NeverAsk
-@JMP 0x0052C3B3, _Init_Game_NoCD_Check
-@JMP 0x00531236, _Init_Secondary_MixFiles_Continue_When_Movies_Missing
-@JMP 0x006BE719, _WinMain_Fix_Crash_When_NoCD_Enabled
+@LJMP 0x004A80D0, _CD_AlwaysFindYR
+@LJMP 0x004790E0, _CD_AlwaysAvailable
+@LJMP 0x00479110, _CD_NeverAsk
+@LJMP 0x0052C3B3, _Init_Game_NoCD_Check
+@LJMP 0x00531236, _Init_Secondary_MixFiles_Continue_When_Movies_Missing
+@LJMP 0x006BE719, _WinMain_Fix_Crash_When_NoCD_Enabled
 
 section .rdata
 str_NoCD db "NoCD",0

@@ -14,29 +14,57 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-%macro @CLEAR 3
-    [section .patch]
-    dd %1
-    dd %3 - %1
-    times (%3 - %1) db %2
-    __SECT__
+%macro @PATCH 1
+    %ifctx __patch
+        %error "can't nest patches"
+    %else
+        [section .patch]
+        %push __patch
+        dd %1                 ; patch addrss
+        dd %$end - %$start    ; length of the patch
+      %$start:
+    %endif
 %endmacro
 
-; FIXME: do both near and far jumps
-%macro @JMP 2
-    [section .patch]
-    dd %1           ; patch address
-    dd 5            ; length of the patch
-    db 0xE9         ; far jump
-    dd %2 - %1 - 5  ; relative offset
-    __SECT__
+%macro @ENDPATCH 0
+    %ifctx __patch
+      %$end:
+        %pop
+        __SECT__
+    %else
+        %error "no corrosponding `@PATCH'"
+    %endif
+%endmacro
+
+%macro @SET 2
+    @PATCH %1
+    %2
+    @ENDPATCH
+%endmacro
+
+%macro @CLEAR 3
+    @PATCH %1
+    times (%3 - %1) db %2 ; patch data
+    @ENDPATCH
+%endmacro
+
+%macro @SJMP 2
+    @PATCH %1
+    db 0xEB               ; short jump
+    db %2 - %1 - 2        ; relative offset
+    @ENDPATCH
+%endmacro
+
+%macro @LJMP 2
+    @PATCH %1
+    db 0xE9               ; far jump
+    dd %2 - %1 - 5        ; relative offset
+    @ENDPATCH
 %endmacro
 
 %macro @CALL 2
-    [section .patch]
-    dd %1           ; patch addrss
-    dd 5            ; length of the patch
-    db 0xE8         ; far call
-    dd %2 - %1 - 5  ; relative offset
-    __SECT__
+    @PATCH %1
+    db 0xE8               ; far call
+    dd %2 - %1 - 5        ; relative offset
+    @ENDPATCH
 %endmacro

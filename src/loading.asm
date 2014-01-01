@@ -1,4 +1,4 @@
-@JMP 0x006BC0DC, _WinMain_Read_RA2md_INI_Read_Windowed_Option
+@LJMP 0x006BC0DC, _WinMain_Read_RA2md_INI_Read_Windowed_Option
 
 section .rdata
 str_Windowed                db"Windowed",0
