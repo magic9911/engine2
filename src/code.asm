@@ -1,8 +1,5 @@
 section .text
 
-; macros
-%include "macros/patch.inc"
-
 ; extern symbols
 %include "c.inc"
 %include "socket.inc"
@@ -23,6 +20,10 @@ section .text
 
 %include "Sidebar.inc"
 %include "misc_instances.inc"
+
+; macros
+%include "macros/patch.inc"
+%include "macros/string.inc"
 
 ; bss
 %include "src/var.asm"
