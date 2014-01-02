@@ -1,5 +1,3 @@
-# if you are on windows you can use build.cmd instead of make
-
 BUILD_DIR = .
 # should be tools repo
 TOOLS_DIR = ../petool
