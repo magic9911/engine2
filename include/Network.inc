@@ -1,0 +1,23 @@
+; Network
+extern ListenPort
+extern UDPInterfaceClass__UDPInterfaceClass
+extern WinsockInterface_this
+extern WinsockInterfaceClass__Init
+extern UDPInterfaceClass__Open_Socket
+extern WinsockInterfaceClass__Start_Listening
+extern WinsockInterfaceClass__Discard_In_Buffers
+extern WinsockInterfaceClass__Discard_Out_Buffers
+extern IPXManagerClass_this
+extern IPXManagerClass__Set_Timing
+extern IPXAddressClass__IPXAddressClass
+
+extern MaxAhead
+extern MaxMaxAhead
+extern FrameSendRate
+extern LatencyFudge
+extern RequestedFPS
+extern ProtocolVersion
+
+extern Init_Network
+extern NameNodes_CurrentSize
+extern HumanPlayers

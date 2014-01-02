@@ -1,0 +1,6 @@
+; File
+extern FileClass__FileClass
+extern FileClass__Is_Available
+extern FileClass__Open
+extern FileClass__Close
+extern FileClass__Write

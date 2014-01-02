@@ -1,0 +1,8 @@
+; Scenario
+extern ScenarioName
+extern Start_Scenario
+extern NameNodeVector
+extern NameNode
+extern NameNodeVector_Add
+extern SessionClass__Read_Scenario_Descriptions
+extern ScenarioStuff

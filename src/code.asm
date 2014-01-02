@@ -2,11 +2,27 @@ section .text
 
 ; macros
 %include "macros/patch.inc"
-%include "src/macros/INIClass_macros.asm"
-%include "src/macros/string_macros.asm"
 
-; symbols
-%include "src/def.asm"
+; extern symbols
+%include "c.inc"
+%include "socket.inc"
+
+%include "win.inc"
+
+%include "FileClass.inc"
+%include "INIClass.inc"
+%include "House.inc"
+%include "session.inc"
+%include "Message.inc"
+%include "Mouse.inc"
+%include "Network.inc"
+%include "Random.inc"
+%include "Scenario.inc"
+%include "SaveGame.inc"
+%include "Statistics.inc"
+
+%include "Sidebar.inc"
+%include "misc_instances.inc"
 
 ; bss
 %include "src/var.asm"
