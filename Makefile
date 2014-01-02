@@ -4,9 +4,19 @@ BUILD_DIR = .
 # should be tools repo
 TOOLS_DIR = ../petool
 
+PCFLAGS   = -m32 -I$(BUILD_DIR)/include/ -std=gnu99 -Wall -Wextra -DREV=\"$(REV)\"
+PCC       = i686-w64-mingw32-gcc
+
+ifdef DEBUG
+PCFLAGS  += -g
+else
+PCFLAGS  += -O2
+endif
+
 WINDRES   = i686-w64-mingw32-windres
+
 NASM     ?= nasm
-NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _
+NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
@@ -25,8 +35,12 @@ $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 $(BUILD_DIR)/%res.o: res/%.rc
 	$(WINDRES) --preprocessor=type $< $@
 
+$(BUILD_DIR)/%.o: src/%.c
+	$(PCC) $(PCFLAGS) -o $@ $<
+
 $(BUILD_DIR)/%.o: src/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<
+
 
 include $(TOOLS_DIR)/Makefile
 
