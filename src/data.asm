@@ -98,6 +98,8 @@ str_Video_Windowed: db"Video.Windowed",0
 str_Video_WindowedScreenHeight db"Video.WindowedScreenHeight",0
 str_Video_WindowedScreenWidth db"Video.WindowedScreenWidth",0
 
+str_InternetDisabled db"This version of Tiberian Sun only supports online play on CnCNet 5  (www.cncnet.org)",0
+
 str_NoCD db"NoCD",0
 
 _2Bin:               INCBIN "res/2.bin"

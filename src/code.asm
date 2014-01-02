@@ -32,3 +32,4 @@ section .text
 %include "src/fix_wce_errors.asm"
 %include "src/multiplayer_units_placing.asm"
 %include "src/no_options_menu_animation.asm"
+%include "src/internet_cncnet.asm"

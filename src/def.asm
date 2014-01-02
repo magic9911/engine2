@@ -112,8 +112,7 @@ extern Start_Scenario
 extern NameNodeVector
 extern NameNodeVector_Add
 extern SessionClass__Read_Scenario_Descriptions
-extern DifficultyMode1
-extern DifficultyMode2
+extern ScenarioStuff
 
 ; Save games
 extern Load_Game

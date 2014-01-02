@@ -648,13 +648,7 @@ Initialize_Spawn:
      
     SpawnINI_Get_Bool str_Settings, str_MultiEngineer, 0
     mov byte [MultiEngineer], al
-    
-    SpawnINI_Get_Int str_Settings, str_DifficultyMode1, 1
-    mov dword [DifficultyMode1], eax
-    
-    SpawnINI_Get_Int str_Settings, str_DifficultyMode2, 1
-    mov dword [DifficultyMode2], eax
-     
+         
     ; tunnel ip
     lea eax, [TempBuf]
     SpawnINI_Get_String str_Tunnel, str_Ip, str_Empty, eax, 32
@@ -712,9 +706,20 @@ Initialize_Spawn:
     
     SpawnINI_Get_Bool str_Settings, str_IsSinglePlayer, 0
     cmp al, 0
-    jz   .Not_Single_Player
+    jz .Not_Single_Player
     
     mov dword [SessionType], 0 ; single player
+    
+    SpawnINI_Get_Int str_Settings, str_DifficultyMode1, 1
+    push eax
+    
+    SpawnINI_Get_Int str_Settings, str_DifficultyMode2, 1
+    
+    pop edx
+    mov ebx, [ScenarioStuff]
+    
+    mov dword [ebx+0x60C], edx ; DifficultyMode1
+    mov dword [ebx+0x608], eax ; DifficultyMode2
    
 .Not_Single_Player:
         

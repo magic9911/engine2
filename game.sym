@@ -114,8 +114,7 @@ _Start_Scenario                                                     = 0x005DB170
 _NameNodeVector                                                     = 0x007E3E90;
 _NameNodeVector_Add                                                 = 0x0044D690;
 _SessionClass__Read_Scenario_Descriptions                           = 0x005EE7D0;
-_DifficultyMode1                                                    = 0x07281664;
-_DifficultyMode2                                                    = 0x07281660;
+_ScenarioStuff                                                      = 0x007E2438;
 
 /* Save games */
 _Load_Game                                                          = 0x005D6910;
