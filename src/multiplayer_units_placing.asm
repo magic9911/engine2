@@ -87,7 +87,7 @@ _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     mov esi, eax
     push str_Delim ; ","
     push ebx             ; Str
-    call _strtok
+    call strtok
     add esp, 8
     mov ecx, eax        ; Str2
     call 0x0065BB30

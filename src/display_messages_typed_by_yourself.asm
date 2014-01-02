@@ -21,7 +21,7 @@ _Message_Input_Display_Messages_Typed_By_Yourself:
     push str_message_fmt    ; %s: %s
     lea esi, [TempBuf]
     push esi
-    call _sprintf
+    call sprintf
     add esp, 10h
 
 ; Calculate message duration

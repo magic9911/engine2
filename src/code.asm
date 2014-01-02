@@ -1,13 +1,15 @@
 section .text
 
-%include "macros/patch.inc"
-
-%include "src/def.asm"
-%include "src/var.asm"
-
 ; macros
+%include "macros/patch.inc"
 %include "src/macros/INIClass_macros.asm"
 %include "src/macros/string_macros.asm"
+
+; symbols
+%include "src/def.asm"
+
+; bss
+%include "src/var.asm"
 
 ; loading
 %include "src/loading.asm"

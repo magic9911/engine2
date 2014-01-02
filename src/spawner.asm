@@ -155,7 +155,7 @@ _Init_Game_Check_Spawn_Arg_No_Intro:
     call [GetCommandLineA]
     push str_SpawnArg
     push eax
-    call stristr_
+    call stristr
     add esp, 8
     xor ebx, ebx
     cmp eax, 0  
@@ -1001,7 +1001,7 @@ Add_Human_Opponents:
     push str_OtherSectionFmt ; Other%d
     lea eax, [OtherSection]
     push eax
-    call _sprintf
+    call sprintf
     add esp, 0x0C
     
     push 0x4D 
