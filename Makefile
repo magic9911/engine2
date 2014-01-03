@@ -1,12 +1,25 @@
-# if you are on windows you can use build.cmd instead of make
-
 BUILD_DIR = .
 # should be tools repo
 TOOLS_DIR = ../petool
 
+COMFLAGS  = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\"
+
+PCFLAGS   = -std=gnu99 $(COMFLAGS)
+PCC       = i686-w64-mingw32-gcc
+
+ifdef DEBUG
+PCFLAGS  += -g
+else
+PCFLAGS  += -O2
+endif
+
+PCXXFLAGS = -std=gnu++98 $(COMFLAGS)
+PCXX      = i686-w64-mingw32-g++
+
 WINDRES   = i686-w64-mingw32-windres
+
 NASM     ?= nasm
-NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _
+NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
@@ -19,14 +32,21 @@ $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 	$(PETOOL) patch $@
 	$(PETOOL) setdd $@ 1 0x2EC050 280
 	$(PETOOL) setvs $@ .data 1552244
-#	strip -R .patch $@
+	strip -R .patch $@
 	$(PETOOL) dump  $@
 
 $(BUILD_DIR)/%res.o: res/%.rc
 	$(WINDRES) --preprocessor=type $< $@
 
+$(BUILD_DIR)/%.o: src/%.cpp
+	$(PCXX) $(PCXXFLAGS) -o $@ $<
+
+$(BUILD_DIR)/%.o: src/%.c
+	$(PCC) $(PCFLAGS) -o $@ $<
+
 $(BUILD_DIR)/%.o: src/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<
+
 
 include $(TOOLS_DIR)/Makefile
 
