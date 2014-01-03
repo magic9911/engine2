@@ -2,7 +2,9 @@ BUILD_DIR = .
 # should be tools repo
 TOOLS_DIR = ../petool
 
-PCFLAGS   = -m32 -I$(BUILD_DIR)/include/ -std=gnu99 -Wall -Wextra -DREV=\"$(REV)\"
+COMFLAGS  = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\"
+
+PCFLAGS   = -std=gnu99 $(COMFLAGS)
 PCC       = i686-w64-mingw32-gcc
 
 ifdef DEBUG
@@ -10,6 +12,9 @@ PCFLAGS  += -g
 else
 PCFLAGS  += -O2
 endif
+
+PCXXFLAGS = -std=gnu++98 $(COMFLAGS)
+PCXX      = i686-w64-mingw32-g++
 
 WINDRES   = i686-w64-mingw32-windres
 
@@ -32,6 +37,9 @@ $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 
 $(BUILD_DIR)/%res.o: res/%.rc
 	$(WINDRES) --preprocessor=type $< $@
+
+$(BUILD_DIR)/%.o: src/%.cpp
+	$(PCXX) $(PCXXFLAGS) -o $@ $<
 
 $(BUILD_DIR)/%.o: src/%.c
 	$(PCC) $(PCFLAGS) -o $@ $<
