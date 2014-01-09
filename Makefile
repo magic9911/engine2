@@ -32,7 +32,7 @@ $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 		$(PATCH_OBJ) --just-symbols=$(basename $@).sym
 	$(PETOOL) patch $@
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
-	$(PETOOL) setvs $@ .data 3670600
+	$(PETOOL) setvs $@ .data 0x367BE4
 	strip -R .patch $@
 	$(PETOOL) dump  $@
 
