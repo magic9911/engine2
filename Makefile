@@ -2,16 +2,16 @@ BUILD_DIR = .
 # should be tools repo
 TOOLS_DIR = ../petool
 
-COMFLAGS  = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\"
+COMFLAGS  = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\" -masm=intel
 
 PCFLAGS   = -std=gnu99 $(COMFLAGS)
 PCC       = i686-w64-mingw32-gcc
 PLD       = ld
 
 ifdef DEBUG
-PCFLAGS  += -g
+COMFLAGS += -g
 else
-PCFLAGS  += -O2
+COMFLAGS += -O2
 endif
 
 PCXXFLAGS = -std=gnu++98 $(COMFLAGS)
@@ -28,8 +28,8 @@ EXE       = gamemd
 PATCH_OBJ = $(foreach o,patch,$(BUILD_DIR)/$(o).o)
 
 $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
-	$(PLD) -T $< --just-symbols=$(basename $@).sym -mi386pe \
-		--file-alignment=0x1000 --subsystem=windows -o $@ $(PATCH_OBJ)
+	$(PLD) -T $< -mi386pe --file-alignment=0x1000 --subsystem=windows -o $@ \
+		$(PATCH_OBJ) --just-symbols=$(basename $@).sym
 	$(PETOOL) patch $@
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
 	$(PETOOL) setvs $@ .data 3670600
