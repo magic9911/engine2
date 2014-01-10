@@ -58,6 +58,27 @@
 ;@JMP 0x0047649D _Anticheat_Test70
 @JMP 0x00478974 _Anticheat_Test80
 
+;@JMP 0x0060B74F _Anticheat_Test90
+
+@JMP 0x0060C175  _AntiCheat_Test95
+
+_AntiCheat_Test95:
+    cmp byte [esi+29h], 0
+    jz .Ret
+    
+    call 0x004C53C0
+    
+.Ret:
+    jmp 0x0060C17A
+
+_Anticheat_Test90:
+    
+
+    test al, al
+    jnz 0x0060B7A2
+    
+    jmp 0x0060B756
+
 _Anticheat_Test80:    
     push eax
     push ecx

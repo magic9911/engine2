@@ -13,6 +13,9 @@ retn ; For some reason the game executes the first function found in the extende
 ; loading
 %include "src/loading.asm"
 
+; savegame
+%include "src/savegame.asm"
+
 ; spawner
 %include "src/spawner.asm"
 %include "src/spawner/tunnel.asm"
