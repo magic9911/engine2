@@ -33,7 +33,7 @@ $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
 	$(PETOOL) patch $@
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
 	$(PETOOL) setvs $@ .data 0x367BE4
-	strip -R .patch $@
+#	strip -R .patch $@
 	$(PETOOL) dump  $@
 
 $(BUILD_DIR)/%res.o: res/%.rc
