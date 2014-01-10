@@ -25,14 +25,13 @@ NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
 EXE       = gamemd
-PATCH_OBJ = $(foreach o,callsites patch trollmain,$(BUILD_DIR)/$(o).o)
+OBJS      = $(foreach o,callsites sym,$(BUILD_DIR)/$(o).o)
 
-$(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(PATCH_OBJ) $(PETOOL)
-	$(PLD) -T $< -mi386pe --file-alignment=0x1000 --subsystem=windows -o $@ \
-		$(PATCH_OBJ) --just-symbols=$(basename $@).sym
-	$(PETOOL) patch $@
+$(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(OBJS) $(PETOOL)
+	$(PLD) -T $< -mi386pe --file-alignment=0x1000 --subsystem=windows -o $@ $(OBJS)
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
 	$(PETOOL) setvs $@ .data 0x367BE4
+	$(PETOOL) patch $@
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
 
@@ -47,7 +46,6 @@ $(BUILD_DIR)/%.o: src/%.c
 
 $(BUILD_DIR)/%.o: src/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<
-
 
 include $(TOOLS_DIR)/Makefile
 
