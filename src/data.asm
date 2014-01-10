@@ -44,6 +44,7 @@ str_SaveGameName    db "SaveGameName",0
 str_MultipleFactory db "MultipleFactory",0
 str_AlliesAllowed   db "AlliesAllowed",0
 str_SidebarHack     db "SidebarHack",0
+str_BuildOffAlly    db "BuildOffAlly",0
 
 str_DifficultyMode1 db "DifficultyMode1",0
 str_DifficultyMode2 db "DifficultyMode2",0

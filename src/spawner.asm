@@ -623,7 +623,10 @@ Initialize_Spawn:
     mov byte [BridgeDestroy], al
       
     SpawnINI_Get_Bool str_Settings, str_FogOfWar, 0
-    mov byte [FogOfWar], al     
+    mov byte [FogOfWar], al
+    
+    SpawnINI_Get_Bool str_Settings, str_BuildOffAlly, 0
+    mov byte [var.BuildOffAlly], al
  
     SpawnINI_Get_Bool str_Settings, str_Crates, 0
     mov byte [Crates], al

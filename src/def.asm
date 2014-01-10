@@ -22,6 +22,7 @@
 %define HouseTypesArray                             0x007E21D4
 %define HouseClass__Assign_Handicap                 0x004BB460
 %define HouseClass__Make_Ally                       0x004BDB30
+%define HouseClass__Is_Ally                         0x004BD9E0
 %define Assign_Houses                               0x005DE210
 %define Get_MP_Color                                0x005EEF70
 %define HouseType_From_Name                         0x004CDEF0

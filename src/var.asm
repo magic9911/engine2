@@ -31,6 +31,7 @@ var:
     
     .UseGraphicsPatch           RESB 1
     .IsNoCD                     RESB 1
+    .BuildOffAlly               RESB 1
     .SpectatorStuffInit         RESB 1
     .OldUnitClassArrayCount     RESD 1
     
