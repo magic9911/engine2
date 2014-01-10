@@ -16,16 +16,16 @@ _WinMain_Read_RA2md_INI_Read_Windowed_Option:
     
 ; Start loading our own settings:
 
-     call_INIClass__GetBool INIClass_RA2md_INI, str_Options, str_NoCD, 0
+    call_INIClass__GetBool INIClass_RA2md_INI, str_Options, str_NoCD, 1
     cmp al, 0
     jz .Dont_Set_NoCD
     mov byte [IsNoCD], al
 .Dont_Set_NoCD: 
  
-     call_INIClass__GetBool INIClass_RA2md_INI, str_Video, str_UseGraphicsPatch, 1
+    call_INIClass__GetBool INIClass_RA2md_INI, str_Video, str_UseGraphicsPatch, 1
     mov byte [UseGraphicsPatch], al
     
-     call_INIClass__GetBool INIClass_RA2md_INI, str_Video, str_Windowed, 0
+    call_INIClass__GetBool INIClass_RA2md_INI, str_Video, str_Windowed, 0
     cmp al, 0
     jz  .Dont_Set_Windowed_Mode
     mov byte [WindowedMode], 1
