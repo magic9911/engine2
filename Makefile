@@ -28,7 +28,8 @@ EXE       = gamemd
 OBJS      = $(foreach o,callsites sym,$(BUILD_DIR)/$(o).o)
 
 $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(OBJS) $(PETOOL)
-	$(PLD) -T $< -mi386pe --file-alignment=0x1000 --subsystem=windows -o $@ $(OBJS)
+	$(PLD) -T $< -mi386pe --allow-multiple-definition --file-alignment=0x1000 \
+		--subsystem=windows -o $@ $(OBJS)
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
 	$(PETOOL) setvs $@ .data 0x367BE4
 	$(PETOOL) patch $@
