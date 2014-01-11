@@ -45,8 +45,10 @@ _Build_Off_Ally:
     cmp byte [var.BuildOffAlly], 1
     jz .Check_Ally
 
+    cmp [edx+20h], ecx
+    jnz 0x476308
  
-    jmp 0x004762EE
+    jmp 0x004762F3
     
 .Check_Ally:
     

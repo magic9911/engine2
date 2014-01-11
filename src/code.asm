@@ -14,7 +14,7 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/loading.asm"
 
 ; savegame
-;%include "src/savegame.asm"
+%include "src/savegame.asm"
 
 ;fixes
 %include "src/fix_wce_errors.asm"
@@ -27,8 +27,8 @@ retn ; For some reason the game executes the first function found in the extende
 %include "src/spawner/selectable_spawns.asm"
 %include "src/spawner/spectators.asm"
 %include "src/spawner/statistics.asm"
-;%include "src/spawner/build_off_ally.asm"
-;%include "src/spawner/auto_ss.asm"
+%include "src/spawner/build_off_ally.asm"
+%include "src/spawner/auto_ss.asm"
 %include "src/anticheat_test.asm"
 
 ; other
