@@ -1,11 +1,22 @@
-@HOOK 0x005DE8F9 _Create_Units_Dont_Create_For_Dead_Houses
-@HOOK 0x005B9CFE _sub_5B9B90_Set_Up_Spectator_Player_Stuff
-@HOOK 0x004BC608 _HouseClass__AI_Spectator_Stuff
-@HOOK 0x00633E76 _TechnoClass__Visual_Character_Spectator_Stuff
-@HOOK 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
-@HOOK 0x004C968E _sub_4C9560_Spectator_Stuff
-@HOOK 0x005DE717 _Create_Units_Dont_Count_Spectators_When_Counting_Players
-@HOOK 0x004BF71B _HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish
+@JMP 0x005DE8F9 _Create_Units_Dont_Create_For_Dead_Houses
+@JMP 0x005B9CFE _sub_5B9B90_Set_Up_Spectator_Player_Stuff
+@JMP 0x004BC608 _HouseClass__AI_Spectator_Stuff
+@JMP 0x00633E76 _TechnoClass__Visual_Character_Spectator_Stuff
+@JMP 0x00438520 _BuildingClass__Visual_Character_Spectator_Stuff
+@JMP 0x004C968E _sub_4C9560_Spectator_Stuff
+@JMP 0x005DE717 _Create_Units_Dont_Count_Spectators_When_Counting_Players
+@JMP 0x004BF71B _HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish
+@JMP 0x00479974 _DisplayClass__Encroach_Shadow_Spectator
+
+_DisplayClass__Encroach_Shadow_Spectator:
+
+    mov eax, [PlayerPtr]
+    mov eax, [eax+0x20]
+    cmp dword [var.IsSpectatorArray+eax*4], 1
+    jz 0x004799F7
+
+    call 0x0051E270
+    jmp 0x00479979
 
 _HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish:
 
