@@ -25,7 +25,7 @@ NFLAGS    = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
 EXE       = gamemd
-OBJS      = $(foreach o,callsites sym,$(BUILD_DIR)/$(o).o)
+OBJS      = $(foreach o,callsites main sym,$(BUILD_DIR)/$(o).o)
 
 $(BUILD_DIR)/$(EXE).exe: $(EXE).lds $(EXE).dat $(OBJS) $(PETOOL)
 	$(PLD) -T $< -mi386pe --allow-multiple-definition --file-alignment=0x1000 \
