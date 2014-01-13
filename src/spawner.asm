@@ -769,10 +769,9 @@ Initialize_Spawn:
     ; WOL settings
  ;   mov dword [MaxAhead], 40
  ;   mov dword [FrameSendRate], 10
- 
-;   LAN settings    
-    mov dword [MaxAhead], 15
-    mov dword [FrameSendRate], 1
+   
+    mov dword [MaxAhead], 20
+    mov dword [FrameSendRate], 4
     
     mov dword [MaxMaxAhead], 0
     mov dword [LatencyFudge], 0
