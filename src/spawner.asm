@@ -771,8 +771,8 @@ Initialize_Spawn:
  ;   mov dword [FrameSendRate], 10
  
 ;   LAN settings    
-    mov dword [MaxAhead], 20
-    mov dword [FrameSendRate], 3
+    mov dword [MaxAhead], 15
+    mov dword [FrameSendRate], 1
     
     mov dword [MaxMaxAhead], 0
     mov dword [LatencyFudge], 0
