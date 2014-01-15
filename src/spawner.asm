@@ -902,8 +902,10 @@ Initialize_Spawn:
 %pop
 
 _Select_Game_Init_Spawner:
+    push ebx
     call Initialize_Spawn
     cmp eax,-1
+    pop ebx
     ; if spawn not initialized, go to main menu
     je .Normal_Code
     
