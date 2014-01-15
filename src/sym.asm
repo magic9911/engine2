@@ -6,6 +6,9 @@
 setglob 0x007CD80F, start
 setglob 0x006BB9A0, WinMain@16
 
+; WWDebug
+setglob 0x004068E0, WWDebug_Printf
+
 ; winapi
 setglob 0x007C89B0, sendto
 setglob 0x007C89AA, recvfrom

@@ -1,5 +1,7 @@
 %include "macros/proc.inc"
 
+%include "WWDebug.inc"
+
 global WinMain@16
 
 PROC WinMain@16
@@ -20,245 +22,76 @@ PROC WinMain@16
     mov    dword [ds:0xb732f0], edi
     call   dword [ds:0x7e11d0]
     mov    [ds:0xb730e8], eax
-    push   0x98
-    push   0x67c
-    push   0x840f5c
-    call   0x4068e0
-    push   0x4c
-    push   0x67d
-    push   0x840f5c
-    call   0x4068e0
-    push   0x4c
-    push   0x67e
-    push   0x840f5c
-    call   0x4068e0
-    push   0x13
-    push   0x67f
-    push   0x840f5c
-    call   0x4068e0
-    push   0xe18
-    push   0x680
-    push   0x840f5c
-    call   0x4068e0
-    push   0x6d8
-    push   0x681
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x67c, 0x98
+    call_WWDebug_Printf 0x840f5c, 0x67d, 0x4c
+    call_WWDebug_Printf 0x840f5c, 0x67e, 0x4c
+    call_WWDebug_Printf 0x840f5c, 0x67f, 0x13
+    call_WWDebug_Printf 0x840f5c, 0x680, 0xe18
+    call_WWDebug_Printf 0x840f5c, 0x681, 0x6d8
     add    esp, 0x48
-    push   0xe10
-    push   0x682
-    push   0x840f5c
-    call   0x4068e0
-    push   0x110
-    push   0x683
-    push   0x840f5c
-    call   0x4068e0
-    push   0x1c8
-    push   0x684
-    push   0x840f5c
-    call   0x4068e0
-    push   0x378
-    push   0x685
-    push   0x840f5c
-    call   0x4068e0
-    push   0x78
-    push   0x686
-    push   0x840f5c
-    call   0x4068e0
-    push   0x720
-    push   0x687
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x682, 0xe10
+    call_WWDebug_Printf 0x840f5c, 0x683, 0x110
+    call_WWDebug_Printf 0x840f5c, 0x684, 0x1c8
+    call_WWDebug_Printf 0x840f5c, 0x685, 0x378
+    call_WWDebug_Printf 0x840f5c, 0x686, 0x78
+    call_WWDebug_Printf 0x840f5c, 0x687, 0x720
     add    esp, 0x48
-    push   0x1798
-    push   0x688
-    push   0x840f5c
-    call   0x4068e0
-    push   0x160
-    push   0x689
-    push   0x840f5c
-    call   0x4068e0
-    push   0x2f8
-    push   0x68a
-    push   0x840f5c
-    call   0x4068e0
-    push   0x148
-    push   0x68b
-    push   0x840f5c
-    call   0x4068e0
-    push   0x74
-    push   0x68c
-    push   0x840f5c
-    call   0x4068e0
-    push   0x160b8
-    push   0x68d
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x688, 0x1798
+    call_WWDebug_Printf 0x840f5c, 0x689, 0x160
+    call_WWDebug_Printf 0x840f5c, 0x68a, 0x2f8
+    call_WWDebug_Printf 0x840f5c, 0x68b, 0x148
+    call_WWDebug_Printf 0x840f5c, 0x68c, 0x74
+    call_WWDebug_Printf 0x840f5c, 0x68d, 0x160b8
     add    esp, 0x48
-    push   0x1b0
-    push   0x68e
-    push   0x840f5c
-    call   0x4068e0
-    push   0x6f0
-    push   0x68f
-    push   0x840f5c
-    call   0x4068e0
-    push   0xed0
-    push   0x690
-    push   0x840f5c
-    call   0x4068e0
-    push   0x18
-    push   0x691
-    push   0x840f5c
-    call   0x4068e0
-    push   0x556c
-    push   0x692
-    push   0x840f5c
-    call   0x4068e0
-    push   0xe18
-    push   0x693
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x68e, 0x1b0
+    call_WWDebug_Printf 0x840f5c, 0x68f, 0x6f0
+    call_WWDebug_Printf 0x840f5c, 0x690, 0xed0
+    call_WWDebug_Printf 0x840f5c, 0x691, 0x18
+    call_WWDebug_Printf 0x840f5c, 0x692, 0x556c
+    call_WWDebug_Printf 0x840f5c, 0x693, 0xe18
     add    esp, 0x48
-    push   0xb0
-    push   0x694
-    push   0x840f5c
-    call   0x4068e0
-    push   0x2bc
-    push   0x695
-    push   0x840f5c
-    call   0x4068e0
-    push   0xb0
-    push   0x696
-    push   0x840f5c
-    call   0x4068e0
-    push   0x2a4
-    push   0x697
-    push   0x840f5c
-    call   0x4068e0
-    push   0xd4
-    push   0x698
-    push   0x840f5c
-    call   0x4068e0
-    push   0xa0
-    push   0x699
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x694, 0xb0
+    call_WWDebug_Printf 0x840f5c, 0x695, 0x2bc
+    call_WWDebug_Printf 0x840f5c, 0x696, 0xb0
+    call_WWDebug_Printf 0x840f5c, 0x697, 0x2a4
+    call_WWDebug_Printf 0x840f5c, 0x698, 0xd4
+    call_WWDebug_Printf 0x840f5c, 0x699, 0xa0
     add    esp, 0x48
-    push   0xf8
-    push   0x69a
-    push   0x840f5c
-    call   0x4068e0
-    push   0xe0
-    push   0x69b
-    push   0x840f5c
-    call   0x4068e0
-    push   0x2bc
-    push   0x69c
-    push   0x840f5c
-    call   0x4068e0
-    push   0x48
-    push   0x69d
-    push   0x840f5c
-    call   0x4068e0
-    push   0xb4
-    push   0x69e
-    push   0x840f5c
-    call   0x4068e0
-    push   0xa4
-    push   0x69f
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x69a, 0xf8
+    call_WWDebug_Printf 0x840f5c, 0x69b, 0xe0
+    call_WWDebug_Printf 0x840f5c, 0x69c, 0x2bc
+    call_WWDebug_Printf 0x840f5c, 0x69d, 0x48
+    call_WWDebug_Printf 0x840f5c, 0x69e, 0xb4
+    call_WWDebug_Printf 0x840f5c, 0x69f, 0xa4
     add    esp, 0x48
-    push   0x38
-    push   0x6a0
-    push   0x840f5c
-    call   0x4068e0
-    push   0x8e8
-    push   0x6a1
-    push   0x840f5c
-    call   0x4068e0
-    push   0xe78
-    push   0x6a2
-    push   0x840f5c
-    call   0x4068e0
-    push   0x3740
-    push   0x6a3
-    push   0x840f5c
-    call   0x4068e0
-    push   0x100
-    push   0x6a4
-    push   0x840f5c
-    call   0x4068e0
-    push   0x80
-    push   0x6a5
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x6a0, 0x38
+    call_WWDebug_Printf 0x840f5c, 0x6a1, 0x8e8
+    call_WWDebug_Printf 0x840f5c, 0x6a2, 0xe78
+    call_WWDebug_Printf 0x840f5c, 0x6a3, 0x3740
+    call_WWDebug_Printf 0x840f5c, 0x6a4, 0x100
+    call_WWDebug_Printf 0x840f5c, 0x6a5, 0x80
     add    esp, 0x48
-    push   0x1b0
-    push   0x6a6
-    push   0x840f5c
-    call   0x4068e0
-    push   0x18c0
-    push   0x6a7
-    push   0x840f5c
-    call   0x4068e0
-    push   0x400
-    push   0x6a8
-    push   0x840f5c
-    call   0x4068e0
-    push   0x1
-    push   0x6a9
-    push   0x840f5c
-    call   0x4068e0
-    push   0x520
-    push   0x6aa
-    push   0x840f5c
-    call   0x4068e0
-    push   0xf0
-    push   0x6ab
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x6a6, 0x1b0
+    call_WWDebug_Printf 0x840f5c, 0x6a7, 0x18c0
+    call_WWDebug_Printf 0x840f5c, 0x6a8, 0x400
+    call_WWDebug_Printf 0x840f5c, 0x6a9, 0x1
+    call_WWDebug_Printf 0x840f5c, 0x6aa, 0x520
+    call_WWDebug_Printf 0x840f5c, 0x6ab, 0xf0
     add    esp, 0x48
-    push   0xd4
-    push   0x6ac
-    push   0x840f5c
-    call   0x4068e0
-    push   0x8
-    push   0x6ad
-    push   0x840f5c
-    call   0x4068e0
-    push   0x1c
-    push   0x6ae
-    push   0x840f5c
-    call   0x4068e0
-    push   0x4
-    push   0x6af
-    push   0x840f5c
-    call   0x4068e0
-    push   0x8
-    push   0x6b0
-    push   0x840f5c
-    call   0x4068e0
-    push   0x10
-    push   0x6b1
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x6ac, 0xd4
+    call_WWDebug_Printf 0x840f5c, 0x6ad, 0x8
+    call_WWDebug_Printf 0x840f5c, 0x6ae, 0x1c
+    call_WWDebug_Printf 0x840f5c, 0x6af, 0x4
+    call_WWDebug_Printf 0x840f5c, 0x6b0, 0x8
+    call_WWDebug_Printf 0x840f5c, 0x6b1, 0x10
     add    esp, 0x48
-    push   0x20
-    push   0x6b2
-    push   0x840f5c
-    call   0x4068e0
-    push   0x18
-    push   0x6b3
-    push   0x840f5c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f5c, 0x6b2, 0x20
+    call_WWDebug_Printf 0x840f5c, 0x6b3, 0x18
     add    esp, 0x18
     call   0x49f5c0
     test   al, al
     jne    0x6bbe56
-    push   0x840f3c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840f3c
     add    esp, 0x4
     xor    eax, eax
     mov    ecx, dword [ebp-0x10]
@@ -295,8 +128,7 @@ PROC WinMain@16
     call   dword [ds:0x7e11e0]
     mov    dword [ds:0xb0bce4], 0x0
 
-    push   0x840ef0
-    call   0x4068e0
+    call_WWDebug_Printf 0x840ef0
     add    esp, 0x4
     xor    eax, eax
     mov    ecx, dword [ebp-0x10]
@@ -307,8 +139,7 @@ PROC WinMain@16
     mov    esp, ebp
     pop    ebp
     ret    0x10
-    push   0x840ed8
-    call   0x4068e0
+    call_WWDebug_Printf 0x840ed8
     add    esp, 0x4
     mov    esi, dword [ds:0x7e11e0]
     mov    ebx, dword [ds:0x7e114c]
@@ -319,8 +150,7 @@ PROC WinMain@16
     mov    [ds:0xb0bce8], eax
     test   eax, eax
     je     0x6bbf49
-    push   0x840e90
-    call   0x4068e0
+    call_WWDebug_Printf 0x840e90
     add    esp, 0x4
     push   0x7530
     mov    eax, [ds:0xb0bce8]
@@ -328,8 +158,7 @@ PROC WinMain@16
     call   dword [ds:0x7e11dc]
     cmp    eax, 0xffffffff
     jne    0x6bbf49
-    push   0x840e6c
-    call   0x4068e0
+    call_WWDebug_Printf 0x840e6c
     add    esp, 0x4
     mov    ecx, dword [ds:0xb0bce8]
     push   ecx
@@ -355,14 +184,12 @@ PROC WinMain@16
     push   0x9c4
     call   dword [ds:0x7e11f0]
     jmp    0x6bbfa0
-    push   0x840e54
-    call   0x4068e0
+    call_WWDebug_Printf 0x840e54
     add    esp, 0x4
     mov    eax, [ds:0xb0bce8]
     test   eax, eax
     je     0x6bbeef
-    push   0x840e38
-    call   0x4068e0
+    call_WWDebug_Printf 0x840e38
     push   0x300
     push   0x300
     call   0x7cbf49
@@ -2252,10 +2079,8 @@ PROC WinMain@16
     je     0x6bd71d
     push   0x1
     call   0x7cbddc
-    push   0x840db4
-    call   0x4068e0
-    push   0x840d98
-    call   0x4068e0
+    call_WWDebug_Printf 0x840db4
+    call_WWDebug_Printf 0x840d98
     add    esp, 0x8
     mov    edi, 0x7e1a80
     or     ecx, 0xffffffff
@@ -2269,16 +2094,14 @@ PROC WinMain@16
     call   0x65c250
     lea    ecx, [ebp-0xbb8]
     call   0x535aa0
-    push   0x840d84
-    call   0x4068e0
+    call_WWDebug_Printf 0x840d84
     add    esp, 0x4
     push   0x0
     lea    eax, [ebp-0xbd8]
     push   eax
     lea    ecx, [ebp-0xbb8]
     call   0x525a10
-    push   0x840d68
-    call   0x4068e0
+    call_WWDebug_Printf 0x840d68
     add    esp, 0x4
     push   0x1
     lea    ecx, [ebp-0xddc]
@@ -2647,8 +2470,7 @@ PROC WinMain@16
     call   0x49f620
     test   al, al
     jne    0x6bdd2e
-    push   0x840bf0
-    call   0x4068e0
+    call_WWDebug_Printf 0x840bf0
     add    esp, 0x4
     push   0x1
     call   0x7cbddc
@@ -2860,8 +2682,7 @@ PROC WinMain@16
     call   0x48ccc0
     jmp    0x6be091
     mov    dword [ebp-0x4], ebx
-    push   0x840bdc
-    call   0x4068e0
+    call_WWDebug_Printf 0x840bdc
     add    esp, 0x4
     lea    edx, [ebp-0x174]
     mov    ecx, dword [ebp-0x1c]
