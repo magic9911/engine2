@@ -40,7 +40,7 @@ $(BUILD_DIR)/%.exe: org/%.lds %.dat $$($$*_OBJS) $(PETOOL)
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
 
-$(BUILD_DIR)/%res.o: res/%.rc
+$(BUILD_DIR)/%_res.o: res/%.rc
 	$(WINDRES) --preprocessor=type $< $@
 
 $(BUILD_DIR)/%.o: src/%.cpp
