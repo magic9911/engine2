@@ -1,4 +1,4 @@
-section .rdata
+[section .rdata]
 
 StringZ gcanyonmap,                 "blitz_test.map"
 StringZ debugplayer,                "debugplayer"
@@ -107,3 +107,5 @@ StringZ NoCD,                       "NoCD"
 
 _2Bin:                              incbin "res/2.bin"
 _1Bin:                              incbin "res/1.bin"
+
+__SECT__
