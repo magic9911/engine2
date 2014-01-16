@@ -24,9 +24,9 @@ NFLAGS      = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
-game_VSIZ = 0x17AF74
-game_IMPR = 1 0x2EC050 280
-game_OBJS = $(foreach o,game_callsites patch game_res game_sym,$(BUILD_DIR)/$(o).o)
+game_VSIZ   = 0x17AF74
+game_IMPR   = 1 0x2EC050 280
+game_OBJS   = $(foreach o,game_callsites patch game_res game_sym,$(BUILD_DIR)/$(o).o)
 
 
 default: $(BUILD_DIR)/game.exe
