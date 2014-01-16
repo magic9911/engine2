@@ -44,6 +44,7 @@ StringZ SaveGameName,               "SaveGameName"
 StringZ MultipleFactory,            "MultipleFactory"
 StringZ AlliesAllowed,              "AlliesAllowed"
 StringZ SidebarHack,                "SidebarHack"
+StringZ BuildOffAlly,               "BuildOffAlly"
 
 StringZ DifficultyMode1,            "DifficultyMode1"
 StringZ DifficultyMode2,            "DifficultyMode2"
@@ -93,6 +94,8 @@ StringZ AutoSSDir,                  "./AutoSS"
 StringZ stats_dmp,                  "stats.dmp"
 
 StringZ UseGraphicsPatch,           "UseGraphicsPatch"
+
+StringZ ForceLowestDetailLevel,     "ForceLowestDetailLevel"
 
 StringZ Video_Windowed,             "Video.Windowed"
 StringZ Video_WindowedScreenHeight, "Video.WindowedScreenHeight"

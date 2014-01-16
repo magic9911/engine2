@@ -49,7 +49,7 @@ _ScreenCaptureCommand__Activate_AutoSS_File_Name:
     push dword [GameIDNumber]
     push str_AutoSSFileNameFormat ; "AutoSS\\AutoSS-%d-%d_%d.PCX"
     push ecx
-    call _sprintf
+    call sprintf
     add esp, 0x14 ; AFTER PUSHING
     jmp 0x004EAC4F
 

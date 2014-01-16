@@ -4,6 +4,7 @@ extern HouseClassArray_Count
 extern HouseTypesArray
 extern HouseClass__Assign_Handicap
 extern HouseClass__Make_Ally
+extern HouseClass__Is_Ally
 extern Assign_Houses
 extern Get_MP_Color
 extern HouseType_From_Name

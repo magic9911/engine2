@@ -58,6 +58,28 @@
 ;@LJMP 0x0047649D, _Anticheat_Test70
 @LJMP 0x00478974, _Anticheat_Test80
 
+@LJMP 0x0060B74C, _Anticheat_Test90
+
+@LJMP 0x0060C175,  _AntiCheat_Test95
+
+@LJMP 0x0060B77F,  _AntiCheat_Test100
+
+_AntiCheat_Test100:
+    mov byte [esi+2Ch], 0
+    jmp 0x0060B789
+
+_AntiCheat_Test95:
+    cmp byte [esi+29h], 0
+    jz .Ret
+    
+    call 0x004C53C0
+    
+.Ret:
+    jmp 0x0060C17A
+
+_Anticheat_Test90:
+    jmp 0x0060B753
+    
 _Anticheat_Test80:    
     push eax
     push ecx

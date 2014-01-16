@@ -623,7 +623,10 @@ Initialize_Spawn:
     mov byte [BridgeDestroy], al
       
     SpawnINI_Get_Bool str_Settings, str_FogOfWar, 0
-    mov byte [FogOfWar], al     
+    mov byte [FogOfWar], al
+    
+    SpawnINI_Get_Bool str_Settings, str_BuildOffAlly, 0
+    mov byte [var.BuildOffAlly], al
  
     SpawnINI_Get_Bool str_Settings, str_Crates, 0
     mov byte [Crates], al
@@ -762,10 +765,15 @@ Initialize_Spawn:
     push 0FFFFFFFFh
     push 3Ch
     call IPXManagerClass__Set_Timing
+
+    ; WOL settings
+ ;   mov dword [MaxAhead], 40
+ ;   mov dword [FrameSendRate], 10
+   
+    mov dword [MaxAhead], 20
+    mov dword [FrameSendRate], 4
     
-    mov dword [MaxAhead], 9
     mov dword [MaxMaxAhead], 0
-    MOV dword [FrameSendRate], 3
     mov dword [LatencyFudge], 0
     mov dword [RequestedFPS], 60
     mov dword [ProtocolVersion], 2
@@ -894,8 +902,10 @@ Initialize_Spawn:
 %pop
 
 _Select_Game_Init_Spawner:
+    push ebx
     call Initialize_Spawn
     cmp eax,-1
+    pop ebx
     ; if spawn not initialized, go to main menu
     je .Normal_Code
     

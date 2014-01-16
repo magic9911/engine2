@@ -29,6 +29,7 @@ setglob 0x007E1568, HouseClassArray_Count
 setglob 0x007E21D4, HouseTypesArray
 setglob 0x004BB460, HouseClass__Assign_Handicap
 setglob 0x004BDB30, HouseClass__Make_Ally
+setglob 0x004BD9E0, HouseClass__Is_Ally
 setglob 0x005DE210, Assign_Houses
 setglob 0x005EEF70, Get_MP_Color
 setglob 0x004CDEF0, HouseType_From_Name
