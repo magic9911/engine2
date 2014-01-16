@@ -17,7 +17,7 @@ endif
 PCXXFLAGS   = -std=gnu++98 $(COMFLAGS)
 PCXX        = i686-w64-mingw32-g++
 
-WINDRES     = i686-w64-mingw32-windres
+WINDRES     = windres
 
 NASM       ?= nasm
 NFLAGS      = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
@@ -41,7 +41,7 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 	$(PETOOL) dump  $@
 
 $(BUILD_DIR)/%_res.o: res/%.rc
-	$(WINDRES) --preprocessor=type $< $@
+	$(WINDRES) $< $@
 
 $(BUILD_DIR)/%.o: src/%.cpp
 	$(PCXX) $(PCXXFLAGS) -o $@ $<
