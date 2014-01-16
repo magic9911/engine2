@@ -24,7 +24,8 @@ NFLAGS      = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
-game_DDIR = 0x367BE4
+game_VSIZ = 0x17AF74
+game_IMPR = 1 0x2EC050 280
 game_OBJS = $(foreach o,game_callsites patch game_res game_sym,$(BUILD_DIR)/$(o).o)
 
 
@@ -34,8 +35,8 @@ default: $(BUILD_DIR)/game.exe
 $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 	$(PLD) -T $< -mi386pe --file-alignment=0x1000 \
 		--subsystem=windows -o $@ $($*_OBJS)
-	$(PETOOL) setdd $@ 1 0x40f0E0 320
-	$(PETOOL) setvs $@ .data $($*_DDIR)
+	$(PETOOL) setdd $@ $($*_IMPR)
+	$(PETOOL) setvs $@ .data $($*_VSIZ)
 	$(PETOOL) patch $@
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
