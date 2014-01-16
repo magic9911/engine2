@@ -31,7 +31,7 @@ gamemd_OBJS = $(foreach o,gamemd_callsites main gamemd_sym,$(BUILD_DIR)/$(o).o)
 default: $(BUILD_DIR)/gamemd.exe
 
 .SECONDEXPANSION:
-$(BUILD_DIR)/%.exe: org/%.lds %.dat $$($$*_OBJS) $(PETOOL)
+$(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 	$(PLD) -T $< -mi386pe --allow-multiple-definition --file-alignment=0x1000 \
 		--subsystem=windows -o $@ $($*_OBJS)
 	$(PETOOL) setdd $@ 1 0x40f0E0 320
