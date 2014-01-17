@@ -17,14 +17,15 @@ endif
 PCXXFLAGS   = -std=gnu++98 $(COMFLAGS)
 PCXX        = i686-w64-mingw32-g++
 
-WINDRES     = i686-w64-mingw32-windres
+WINDRES     = windres
 
 NASM       ?= nasm
 NFLAGS      = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
-gamemd_DDIR = 0x367BE4
+gamemd_IMPR = 1 0x40f0E0 320
+gamemd_VSIZ = 0x367BE4
 gamemd_OBJS = $(foreach o,gamemd_callsites main gamemd_sym,$(BUILD_DIR)/$(o).o)
 
 
@@ -34,8 +35,8 @@ default: $(BUILD_DIR)/gamemd.exe
 $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 	$(PLD) -T $< -mi386pe --allow-multiple-definition --file-alignment=0x1000 \
 		--subsystem=windows -o $@ $($*_OBJS)
-	$(PETOOL) setdd $@ 1 0x40f0E0 320
-	$(PETOOL) setvs $@ .data $($*_DDIR)
+	$(PETOOL) setdd $@ $($*_IMPR)
+	$(PETOOL) setvs $@ .data $($*_VSIZ)
 	$(PETOOL) patch $@
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
