@@ -42,8 +42,8 @@
 
 ; Inside HouseClass::Mplayer_Defeated skip some checks which makes game continue
 ; even if there are only allied AI players left, in skirmish
-@LJMP 0x004BF7B6, 0x004BF7BF
-@LJMP 0x004BF7F0, 0x004BF7F9
+@SJMP 0x004BF7B6, 0x004BF7BF
+@SJMP 0x004BF7F0, 0x004BF7F9
 
 @LJMP 0x005ED477, _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active
 
