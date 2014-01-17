@@ -5,7 +5,7 @@
 @LJMP 0x006589C8, _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition
 ;@LJMP 0x005DD92A, _Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer
 
-@LJMP 0x0043485F, 0x00434874 ; jump, past check in BuildingClass::Read_INI() preventing multiplayer building spawning for player
+@SJMP 0x0043485F, 0x00434874 ; jump, past check in BuildingClass::Read_INI() preventing multiplayer building spawning for player
 
 ;_Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer:
 ;    cmp dword [SessionType], 0
