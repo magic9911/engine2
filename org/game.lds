@@ -7,10 +7,12 @@ SECTIONS
     .text      0x401000        :   { org/game.dat(.text) }
     .rdata     0x6CA000        :   { org/game.dat(.rdata) }
     .data      0x6EE000        :   { org/game.dat(.data); }
-    /DISCARD/                  :   { org/game.dat(.rsrc) }
+
     .hp_code   0x869000        :   { org/game.dat(.hp_code) }
     .hp_data   0xA69000        :   { org/game.dat(.hp_data) }
     .hp_var    0xA89000        :   { org/game.dat(.hp_var) }
+
+    /DISCARD/                  :   { org/game.dat(.rsrc) }
 
     .p_text    ALIGN(0x1000)   :   { *(.text); }
     .p_rdata   ALIGN(0x1000)   :   { *(.rdata); }
