@@ -51,7 +51,7 @@ section .text
 %include "src/spawner/spectators.asm"
 %include "src/spawner/statistics.asm"
 %include "src/spawner/build_off_ally.asm"
-%include "src/spawner/auto_ss.asm"
+;%include "src/spawner/auto_ss.asm"
 %include "src/anticheat_test.asm"
 
 ; other
