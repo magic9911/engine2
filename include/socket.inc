@@ -1,6 +1,8 @@
-extern sendto
-extern recvfrom
-extern htonl
+%include "macros/extern.inc"
+
+cextern sendto
+cextern recvfrom
+cextern htonl
 
 struc sockaddr_in
     .sin_family     RESW 1

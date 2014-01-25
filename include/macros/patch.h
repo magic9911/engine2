@@ -43,7 +43,7 @@ __attribute__ ((packed))
         :                                               \
         : [addr] "p" (_ADDR)                            \
         :                                               \
-        )
+    )
 
 #define LJMP(_SRC, _DST)                                \
     asm(".section .patch,\"dn\""                "\n\t"  \

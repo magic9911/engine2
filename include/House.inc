@@ -1,8 +1,10 @@
+%include "macros/extern.inc"
+
 ; House
-extern HouseClassArray
-extern HouseClassArray_Count
-extern HouseTypesArray
-;extern HouseClass__Assign_Handicap
-extern HouseClass__Make_Ally
-extern Assign_Houses
-;extern Get_MP_Color
+cextern HouseClassArray
+cextern HouseClassArray_Count
+cextern HouseTypesArray
+;cextern HouseClass__Assign_Handicap
+cextern HouseClass__Make_Ally
+cextern Assign_Houses
+;cextern Get_MP_Color

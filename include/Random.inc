@@ -1,3 +1,5 @@
+%include "macros/extern.inc"
+
 ; Random
-extern Seed
-extern Init_Random
+cextern Seed
+cextern Init_Random

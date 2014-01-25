@@ -1,4 +1,6 @@
-extern WWDebug_Printf
+%include "macros/extern.inc"
+
+cextern WWDebug_Printf
 
 %macro call_WWDebug_Printf 1-*
     %rep %0

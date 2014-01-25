@@ -1,6 +1,8 @@
+%include "macros/extern.inc"
+
 ; Players??
-extern PlayersCountries
-extern PlayersColors
-extern PlayersSpawns
-extern PlayersHandicaps
-extern PlayersTeams
+cextern PlayersCountries
+cextern PlayersColors
+cextern PlayersSpawns
+cextern PlayersHandicaps
+cextern PlayersTeams

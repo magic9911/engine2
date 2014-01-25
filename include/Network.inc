@@ -1,24 +1,26 @@
+%include "macros/extern.inc"
+
 ; Network
-extern ListenPort
+cextern ListenPort
 
-extern UDPInterfaceClass__UDPInterfaceClass
-extern WinsockInterface_this
-extern WinsockInterfaceClass__Init
-extern UDPInterfaceClass__Open_Socket
-extern WinsockInterfaceClass__Start_Listening
-extern WinsockInterfaceClass__Discard_In_Buffers
-extern WinsockInterfaceClass__Discard_Out_Buffers
-extern IPXManagerClass_this
-extern IPXManagerClass__Set_Timing
-extern IPXAddressClass__IPXAddressClass
+cextern UDPInterfaceClass__UDPInterfaceClass
+cextern WinsockInterface_this
+cextern WinsockInterfaceClass__Init
+cextern UDPInterfaceClass__Open_Socket
+cextern WinsockInterfaceClass__Start_Listening
+cextern WinsockInterfaceClass__Discard_In_Buffers
+cextern WinsockInterfaceClass__Discard_Out_Buffers
+cextern IPXManagerClass_this
+cextern IPXManagerClass__Set_Timing
+cextern IPXAddressClass__IPXAddressClass
 
-extern MaxAhead
-extern MaxMaxAhead
-extern FrameSendRate
-extern LatencyFudge
-extern RequestedFPS
-extern ProtocolVersion
+cextern MaxAhead
+cextern MaxMaxAhead
+cextern FrameSendRate
+cextern LatencyFudge
+cextern RequestedFPS
+cextern ProtocolVersion
 
-extern Init_Network
-extern NameNodes_CurrentSize
-extern HumanPlayers
+cextern Init_Network
+cextern NameNodes_CurrentSize
+cextern HumanPlayers
