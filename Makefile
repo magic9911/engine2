@@ -6,9 +6,9 @@ PCOMFLAGS   = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
 ifdef DEBUG
-PCOMFLAGS   += -g
+PCOMFLAGS  += -g
 else
-PCOMFLAGS   += -O3
+PCOMFLAGS  += -O3
 endif
 
 PCFLAGS     = -std=gnu99 $(COMFLAGS)
@@ -25,12 +25,18 @@ NFLAGS      = -f elf -I$(BUILD_DIR)/include/ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
-gamemd_IMPR = 1 0x40f0E0 320
-gamemd_VSIZ = 0x367BE4
-gamemd_OBJS = $(foreach o,gamemd_callsites patch gamemd_sym,$(BUILD_DIR)/$(o).o)
+PROGRAMS    = ts ra2
+
+ts_IMPR     = 1 0x2EC050 280
+ts_VSIZ     = 0x17AF74
+ts_OBJS     = $(foreach o,callsites res sym,$(BUILD_DIR)/ts_$(o).o)
+
+ra2_IMPR    = 1 0x40f0E0 320
+ra2_VSIZ    = 0x367BE4
+ra2_OBJS    = $(foreach o,callsites patch sym,$(BUILD_DIR)/ra2_$(o).o)
 
 
-default: $(BUILD_DIR)/gamemd.exe
+default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
 
 .SECONDEXPANSION:
 $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
@@ -42,17 +48,21 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
 
+define RULES =
+$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp	
+	$(PCXX) $(PCXXFLAGS) -o $$@ $$<		
+
+$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c		
+	$(PCC) $(PCFLAGS) -o $$@ $$<			
+
+$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm	
+	$(NASM) $(NFLAGS) -o $$@ $$<			
+endef
+
+$(foreach prog,$(PROGRAMS),$(eval $(call RULES,$(prog))))
+
 $(BUILD_DIR)/%_res.o: res/%.rc
-	$(WINDRES) --preprocessor=type $< $@
-
-$(BUILD_DIR)/%.o: src/%.cpp
-	$(PCXX) $(PCXXFLAGS) -o $@ $<
-
-$(BUILD_DIR)/%.o: src/%.c
-	$(PCC) $(PCFLAGS) -o $@ $<
-
-$(BUILD_DIR)/%.o: src/%.asm
-	$(NASM) $(NFLAGS) -o $@ $<
+	$(WINDRES) $< $@
 
 $(BUILD_DIR)/%.o: org/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<
