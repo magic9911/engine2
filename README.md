@@ -1,7 +1,7 @@
-Command and Conquer: Yuri's Revenge patch
+Westwood RTS Engine 2
 ================================================================================
-
-Random patches and CnCNet 5 spawner.
+Random enhancements and bug fixes for Westwood's "engine 2" games: Command and
+Conquer: Tiberian Sun, and Command and Conquer: Red Alert 2
 
 Building
 --------------------------------------------------------------------------------
@@ -9,11 +9,17 @@ Building
 ### Prerequisites
 
  - GNU Make
- - MinGW (really, a 32-bit portable-executable-compatible version of GCC and GNU Binutils)
+ - Clang (or GCC if it ever support the MSVC++ ABI)
  - NASM
- - PETool (itself requiring native GCC, GNU Binutils, and GNU Make)
+ - PETool (itself requiring GCC, or Clang if the makefile is fiddled with)
 
-On Unix, GNU Make, MinGW, NASM are both easily installable via your package
+On Unix, everything is installable via your package manager. On Windows, please
+install MSYS 2 (a seperate project from the original MSYS). MSYS 2 provides a
+minimal *nix environment, including a port of pacman, the Arch linux package
+manager. Once MSYS 2 is installed, installing the above packages will be just as
+easy as on Linux.
+
+GNU Make, MinGW, NASM are both easily installable via your package
 manager. On windows, first install MinGW, and then drop NASM somewhere MinGW's
 shell will find it. Note that window's MinGW release also contains GNU Make,
 Unix shell, and other components needed to emulated Unix build environment,
@@ -22,25 +28,27 @@ platforms, we recommend the MinGW-w64 release of MinGW, even though we are
 patching a 32-bit executable.
 
 PETool is a utility made by us to do the patching itself and tie some loose
-ends. Please `git clone` its repo too, in the same directory as this one --
+ends. Please `git clone` its repo too, and in the same directory as this one --
 i.e. both repositories are in the same folder. Then PETool will be built
-automatically. On Unix you will want native GCC and GNU Binutils installed to
-natively build PETool. On windows MinGW *is* the native version, so it
-will be used both for patching the game and building PETool.
+automatically when calling make to patch the games.
 
 ### Instructions
 
-Once everything is installed, just backup your executable, copy it to this repo
-under the name `gamemd.dat`, run `make`, and copy the patched executable back to
-your YR installation. Or if you rather just copy and paste some commands, do:
+Once everything is installed, just copy your YR executable to this repo under
+the name `org/ra2.dat` (TS is freeware, and thus included), run `make`, and copy
+the patched executables back to your game installations. (Make sure to backup
+your original executables!)
+
+Or if you rather just copy and paste some commands, do:
 
 ```sh
 $ cd /path/to/yr/installation
-$ cp gamemd.exe gamemd-backup.exe
+$ cp ra2.exe ra2-backup.exe
 $ cd /path/to/this/repo
-$ cp /path/to/yr/installation/gamemd.exe ./gamemd.dat
+$ cp /path/to/yr/installation/gamemd.exe ./org/ra2.dat
 $ make
-$ cp gamemd.exe /path/to/yr/installation
+$ cp ts.exe /path/to/fs/installation/
+$ cp ra2.exe /path/to/yr/installation/
 ```
 
 From the shell (MinGW shell on Windows).
