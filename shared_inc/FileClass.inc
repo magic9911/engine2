@@ -3,3 +3,6 @@
 ; File
 cextern FileClass__FileClass
 cextern FileClass__Is_Available
+cextern FileClass__Open
+cextern FileClass__Close
+cextern FileClass__Write

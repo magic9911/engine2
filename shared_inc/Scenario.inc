@@ -7,3 +7,5 @@ cextern NameNodeVector
 cextern NameNode
 cextern NameNodeVector_Add
 cextern SessionClass__Read_Scenario_Descriptions
+cextern ScenarioStuff
+

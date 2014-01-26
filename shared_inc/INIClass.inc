@@ -7,6 +7,7 @@ extern ?GetBool@INIClass@@QAE_NPBD0_N@Z
 %define INIClass__GetBool ?GetBool@INIClass@@QAE_NPBD0_N@Z
 cextern INIClass__GetInt
 cextern INIClass__GetString
+cextern INIClass__GetFixed
 
 ; args: <INIClass this>, <INI section string>, <INI key string>, <default value if missing>
 %macro call_INIClass__GetInt 4
