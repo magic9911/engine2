@@ -29,7 +29,7 @@ PROGRAMS    = ts ra2
 
 ts_IMPR     = 1 0x2EC050 280
 ts_VSIZ     = 0x17AF74
-ts_OBJS     = $(foreach o,callsites res sym,$(BUILD_DIR)/ts_$(o).o)
+ts_OBJS     = $(foreach o,callsites patch res sym,$(BUILD_DIR)/ts_$(o).o)
 
 ra2_IMPR    = 1 0x40f0E0 320
 ra2_VSIZ    = 0x367BE4

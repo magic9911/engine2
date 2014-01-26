@@ -11,7 +11,9 @@ cextern TechLevel
 cextern AIPlayers
 cextern AIDifficulty
 cextern BuildOffAlly
+cextern AlliesAllowed
 cextern BridgeDestroy
+cextern Frame
 cextern FogOfWar
 cextern Crates
 cextern ShortGame
@@ -24,3 +26,4 @@ cextern GameSpeed
 cextern MultiEngineer
 cextern PlayerColor
 cextern GameMode
+cextern GameIDNumber
