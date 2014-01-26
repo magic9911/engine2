@@ -8,14 +8,14 @@ SECTIONS
     .rdata     0x7E1000        : { org/ra2.dat(.rdata) }
     .data      0x812000        : { org/ra2.dat(.data) }
 
-    /DISCARD/                  : { org/ra2.dat(.drectve) }
     /DISCARD/                  : { org/ra2.dat(.rsrc) }
+    /DISCARD/                  : { *(.drectve) }
 
     .p_text    0xB7A000        : { *(.text) }
     .p_rdata   ALIGN(0x1000)   : { *(.rdata) }
     .p_bss     ALIGN(0x1000)   : { *(.bss) }
 
     .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
-    
+
     .patch     ALIGN(0x1000)   : { *(.patch) }
 }
