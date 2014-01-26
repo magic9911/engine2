@@ -1,3 +1,5 @@
+%include "macros/extern.inc"
+
 ; File
-extern FileClass__FileClass
-extern FileClass__Is_Available
+cextern FileClass__FileClass
+cextern FileClass__Is_Available

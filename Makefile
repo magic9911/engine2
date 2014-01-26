@@ -2,25 +2,26 @@ BUILD_DIR   = .
 # should be tools repo
 TOOLS_DIR   = ../petool
 
-COMFLAGS    = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\" -masm=intel
-
-PCFLAGS     = -std=gnu99 $(COMFLAGS)
-PCC         = i686-w64-mingw32-gcc
-PLD         = ld
+PCOMFLAGS   = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\" \
+	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
 ifdef DEBUG
-COMFLAGS   += -g
+PCOMFLAGS   += -g
 else
-COMFLAGS   += -O2
+PCOMFLAGS   += -O3
 endif
 
-PCXXFLAGS   = -std=gnu++98 $(COMFLAGS)
-PCXX        = i686-w64-mingw32-g++
+PCFLAGS     = -std=gnu99 $(COMFLAGS)
+PCC         = clang
+PLD         = ld
+
+PCXXFLAGS   = -std=gnu++98 $(PCOMFLAGS)
+PCXX        = clang++
 
 WINDRES     = windres
 
 NASM       ?= nasm
-NFLAGS      = -f elf -I$(BUILD_DIR)/include/ --prefix _ -DREV=\"$(REV)\"
+NFLAGS      = -f elf -I$(BUILD_DIR)/include/ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 

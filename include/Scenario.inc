@@ -1,7 +1,9 @@
+%include "macros/extern.inc"
+
 ; Scenario
-extern ScenarioName
-extern Start_Scenario
-extern NameNodeVector
-extern NameNode
-extern NameNodeVector_Add
-extern SessionClass__Read_Scenario_Descriptions
+cextern ScenarioName
+cextern Start_Scenario
+cextern NameNodeVector
+cextern NameNode
+cextern NameNodeVector_Add
+cextern SessionClass__Read_Scenario_Descriptions

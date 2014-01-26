@@ -1,9 +1,12 @@
+%include "macros/extern.inc"
+
 ; INIClass
-extern INIClass__INIClass
-extern INIClass__Load
-extern INIClass__GetBool
-extern INIClass__GetInt
-extern INIClass__GetString
+cextern INIClass__INIClass
+cextern INIClass__Load
+extern ?GetBool@INIClass@@QAE_NPBD0_N@Z
+%define INIClass__GetBool ?GetBool@INIClass@@QAE_NPBD0_N@Z
+cextern INIClass__GetInt
+cextern INIClass__GetString
 
 ; args: <INIClass this>, <INI section string>, <INI key string>, <default value if missing>
 %macro call_INIClass__GetInt 4

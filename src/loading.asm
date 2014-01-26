@@ -1,12 +1,12 @@
 @LJMP 0x006BC0DC, _WinMain_Read_RA2md_INI_Read_Windowed_Option
 
 section .rdata
-str_Windowed                db"Windowed",0
+StringZ Windowed, "Windowed"
 
-extern INIClass_RA2md_INI
-extern str_Options
-extern str_Video
-extern WindowedMode
+cextern INIClass_RA2md_INI
+cextern str_Options
+cextern str_Video
+cextern WindowedMode
 
 section .text
 

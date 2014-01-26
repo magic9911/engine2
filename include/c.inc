@@ -1,6 +1,8 @@
-; C(++) standard library
-extern strstr
-extern sprintf
+%include "macros/extern.inc"
 
-extern new
-extern calloc
+; C(++) standard library
+cextern strstr
+cextern sprintf
+
+cextern new
+cextern calloc

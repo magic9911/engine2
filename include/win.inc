@@ -1,5 +1,7 @@
+%include "macros/extern.inc"
+
 ; winapi
-extern GetCommandLineA
-extern LoadLibraryA
-extern GetProcAddress
-extern mbstowcs
+cextern GetCommandLineA
+cextern LoadLibraryA
+cextern GetProcAddress
+cextern mbstowcs

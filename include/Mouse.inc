@@ -1,3 +1,5 @@
+%include "macros/extern.inc"
+
 ; Mouse
-extern WWMouseClas_Mouse
-extern MouseClass_Map
+cextern WWMouseClas_Mouse
+cextern MouseClass_Map

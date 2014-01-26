@@ -1,2 +1,4 @@
+%include "macros/extern.inc"
+
 ; Save games
-;extern Load_Game
+;cextern Load_Game
