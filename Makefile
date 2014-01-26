@@ -2,7 +2,7 @@ BUILD_DIR   = .
 # should be tools repo
 TOOLS_DIR   = ../petool
 
-PCOMFLAGS   = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\" \
+PCOMFLAGS   = -c -m32 -Ishared_inc/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
 ifdef DEBUG
@@ -21,7 +21,7 @@ PCXX        = clang++
 WINDRES     = windres
 
 NASM       ?= nasm
-NFLAGS      = -f elf -I$(BUILD_DIR)/include/ -DREV=\"$(REV)\"
+NFLAGS      = -f elf -Ishared_inc/ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
@@ -49,17 +49,17 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 	$(PETOOL) dump  $@
 
 define RULES =
-$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp	
-	$(PCXX) $(PCXXFLAGS) -o $$@ $$<		
+$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp
+	$(PCXX) -I$(1)_inc $(PCXXFLAGS) -o $$@ $$<
 
-$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c		
-	$(PCC) $(PCFLAGS) -o $$@ $$<			
+$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c
+	$(PCC)  -I$(1)_inc $(PCFLAGS)   -o $$@ $$<
 
-$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm	
-	$(NASM) $(NFLAGS) -o $$@ $$<			
+$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm
+	$(NASM) -I$(1)_inc $(NFLAGS)    -o $$@ $$<
 endef
 
-$(foreach prog,$(PROGRAMS),$(eval $(call RULES,$(prog))))
+$(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
 
 $(BUILD_DIR)/%_res.o: res/%.rc
 	$(WINDRES) $< $@
