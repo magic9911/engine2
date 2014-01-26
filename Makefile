@@ -50,13 +50,13 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 
 define RULES =
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp
-	$(PCXX) -I$(1)_inc $(PCXXFLAGS) -o $$@ $$<
+	$(PCXX) -I$(1)_inc/ $(PCXXFLAGS) -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c
-	$(PCC)  -I$(1)_inc $(PCFLAGS)   -o $$@ $$<
+	$(PCC)  -I$(1)_inc/ $(PCFLAGS)   -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm
-	$(NASM) -I$(1)_inc $(NFLAGS)    -o $$@ $$<
+	$(NASM) -I$(1)_inc/ $(NFLAGS)    -o $$@ $$<
 endef
 
 $(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
