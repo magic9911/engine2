@@ -39,7 +39,7 @@ setcglob 0x007B3468, UnitClassArray_Count
 ; INI
 setcglob 0x004E8A30, INIClass__INIClass
 setcglob 0x00449F30, INIClass__Load
-setxglob 0x005295F0, ?GetBool@INIClass@@QAE_NPBD0_N@Z
+setxglob 0x004DE140, ?GetBool@INIClass@@QAE_NPBD0_N@Z
 setcglob 0x004DD140, INIClass__GetInt
 setcglob 0x004DDF60, INIClass__GetString
 setcglob 0x004DD9F0, INIClass__GetFixed
