@@ -1,5 +1,7 @@
 #include "common.h"
 
+#define VERSION xstr(CnC-Patch git~REV (off WW 1.0.0.1))
+
 198 DIALOGEX 0, 0, 200, 100
 STYLE 0x80000000l
 EXSTYLE 0x00000020l
@@ -27,14 +29,14 @@ FILETYPE 0x1
             VALUE "Comments", ""
             VALUE "CompanyName", "Westwood Studios"
             VALUE "FileDescription", "Main executable for Command & Conquer: Red Alert 2"
-            VALUE "FileVersion", DQ()CnC-Patch git~REV (off WW 1.0.0.1)DQ()
+            VALUE "FileVersion", VERSION
             VALUE "InternalName", "RA2"
             VALUE "LegalCopyright", "Copyright © 2001 Westwood Studios"
             VALUE "LegalTrademarks", "Command & Conquer is a trademark of Westwood Studios"
             VALUE "OriginalFilename", "Sun.exe"
             VALUE "PrivateBuild", ""
             VALUE "ProductName", "Command & Conquer : Red Alert 2"
-            VALUE "ProductVersion", DQ()CnC-Patch git~REV (off WW 1.0.0.1)DQ()
+            VALUE "ProductVersion", VERSION
             VALUE "SpecialBuild", ""
         }
     }
