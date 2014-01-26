@@ -4,14 +4,18 @@ ENTRY(_start);
 
 SECTIONS
 {
-    .text           0x401000   : { org/ra2.dat(.text) }
-    .rdata          0x7E1000   : { org/ra2.dat(.rdata) }
-    .data           0x812000   : { org/ra2.dat(.data) }
-    .rsrc           0xB7A000   : { org/ra2.dat(.rsrc) }
+    .text      0x401000        : { org/ra2.dat(.text) }
+    .rdata     0x7E1000        : { org/ra2.dat(.rdata) }
+    .data      0x812000        : { org/ra2.dat(.data) }
 
-    .p_text     ALIGN(0x1000)  : { *(.text) }
-    .p_rdata    ALIGN(0x1000)  : { *(.rdata) }
-    .p_bss      ALIGN(0x1000)  : { *(.bss) }
+    /DISCARD/                  : { org/ra2.dat(.rsrc) }
+    /DISCARD/                  : { *(.drectve) }
 
-    .patch      ALIGN(0x1000)  : { *(.patch) }
+    .p_text    0xB7A000        : { *(.text) }
+    .p_rdata   ALIGN(0x1000)   : { *(.rdata) }
+    .p_bss     ALIGN(0x1000)   : { *(.bss) }
+
+    .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
+
+    .patch     ALIGN(0x1000)   : { *(.patch) }
 }

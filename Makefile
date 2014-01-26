@@ -2,6 +2,8 @@ BUILD_DIR   = .
 # should be tools repo
 TOOLS_DIR   = ../petool
 
+REV         = $(shell sh -c 'git rev-parse --short @{0}')
+
 PCOMFLAGS   = -c -m32 -Ishared_inc/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
@@ -19,6 +21,7 @@ PCXXFLAGS   = -std=gnu++98 $(PCOMFLAGS)
 PCXX        = clang++
 
 WINDRES     = windres
+WFLAGS      = -Ishared_res/ -DREV=\"$(REV)\"
 
 NASM       ?= nasm
 NFLAGS      = -f elf -Ishared_inc/ -DREV=\"$(REV)\"
@@ -27,13 +30,15 @@ PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
 PROGRAMS    = ts ra2
 
+shared_OBJS = $(foreach o,,$(BUILD_DIR)/shared_$(o).o)
+
 ts_IMPR     = 1 0x2EC050 280
 ts_VSIZ     = 0x17AF74
-ts_OBJS     = $(foreach o,callsites patch res sym,$(BUILD_DIR)/ts_$(o).o)
+ts_OBJS     = $(foreach o,callsites patch res sym,$(BUILD_DIR)/ts_$(o).o) $(shared_OBJS)
 
 ra2_IMPR    = 1 0x40f0E0 320
 ra2_VSIZ    = 0x367BE4
-ra2_OBJS    = $(foreach o,callsites patch sym,$(BUILD_DIR)/ra2_$(o).o)
+ra2_OBJS    = $(foreach o,callsites patch res sym,$(BUILD_DIR)/ra2_$(o).o) $(shared_OBJS)
 
 
 default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
@@ -50,19 +55,19 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 
 define RULES =
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp
-	$(PCXX) -I$(1)_inc/ $(PCXXFLAGS) -o $$@ $$<
+	$(PCXX)    -I$(1)_inc/ $(PCXXFLAGS) -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c
-	$(PCC)  -I$(1)_inc/ $(PCFLAGS)   -o $$@ $$<
+	$(PCC)     -I$(1)_inc/ $(PCFLAGS)   -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm
-	$(NASM) -I$(1)_inc/ $(NFLAGS)    -o $$@ $$<
+	$(NASM)    -I$(1)_inc/ $(NFLAGS)    -o $$@ $$<
+	
+$(BUILD_DIR)/$(1)_%.o: $(1)_res/%.rc
+	$(WINDRES) -I$(1)_res/ $(WFLAGS) $$< $$@
 endef
 
 $(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
-
-$(BUILD_DIR)/%_res.o: res/%.rc
-	$(WINDRES) $< $@
 
 $(BUILD_DIR)/%.o: org/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<
