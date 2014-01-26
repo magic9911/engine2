@@ -6,9 +6,9 @@ PCOMFLAGS   = -c -m32 -I$(BUILD_DIR)/include/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
 ifdef DEBUG
-PCOMFLAGS   += -g
+PCOMFLAGS  += -g
 else
-PCOMFLAGS   += -O3
+PCOMFLAGS  += -O3
 endif
 
 PCFLAGS     = -std=gnu99 $(COMFLAGS)
@@ -25,11 +25,15 @@ NFLAGS      = -f elf -I$(BUILD_DIR)/include/ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
-PROGRAMS    = ra2
+PROGRAMS    = ts ra2
 
-ra2_IMPR = 1 0x40f0E0 320
-ra2_VSIZ = 0x367BE4
-ra2_OBJS = $(foreach o,callsites main sym,$(BUILD_DIR)/ra2_$(o).o)
+ts_IMPR     = 1 0x2EC050 280
+ts_VSIZ     = 0x17AF74
+ts_OBJS     = $(foreach o,callsites res sym,$(BUILD_DIR)/ts_$(o).o)
+
+ra2_IMPR    = 1 0x40f0E0 320
+ra2_VSIZ    = 0x367BE4
+ra2_OBJS    = $(foreach o,callsites main sym,$(BUILD_DIR)/ra2_$(o).o)
 
 
 default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
