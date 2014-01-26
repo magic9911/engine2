@@ -8,3 +8,6 @@
 #define WS_VISIBLE          0x10000000l
 #define WS_DISABLED         0x08000000l
 #define WS_GROUP            0x00020000l
+
+#define DQ()                "
+

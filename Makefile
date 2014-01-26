@@ -2,6 +2,8 @@ BUILD_DIR   = .
 # should be tools repo
 TOOLS_DIR   = ../petool
 
+REV         = $(shell sh -c 'git rev-parse --short @{0}')
+
 PCOMFLAGS   = -c -m32 -Ishared_inc/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
@@ -33,7 +35,7 @@ ts_OBJS     = $(foreach o,callsites res sym,$(BUILD_DIR)/ts_$(o).o)
 
 ra2_IMPR    = 1 0x40f0E0 320
 ra2_VSIZ    = 0x367BE4
-ra2_OBJS    = $(foreach o,callsites main sym,$(BUILD_DIR)/ra2_$(o).o)
+ra2_OBJS    = $(foreach o,callsites main res sym,$(BUILD_DIR)/ra2_$(o).o)
 
 
 default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
@@ -62,7 +64,7 @@ endef
 $(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
 
 $(BUILD_DIR)/%_res.o: res/%.rc
-	$(WINDRES) $< $@
+	$(WINDRES) $< $@ -DREV=\"$(REV)\"
 
 $(BUILD_DIR)/%.o: org/%.asm
 	$(NASM) $(NFLAGS) -o $@ $<

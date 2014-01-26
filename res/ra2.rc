@@ -11,8 +11,8 @@ FONT 8, "MS Sans Serif"
    CONTROL "Please don't change the size, and leave it as a popup, not a child!!!!", -1, 0, 0x00000000l | 0x40000000l | 0x10000000l | 0x08000000l | 0x00020000l, 14, 60, 157, 25, 0x00000020
 }
 
-104 CURSOR "ts.cur"
-93 ICON "ts.ico"
+104 CURSOR "ra2.cur"
+93 ICON "ra2.ico"
 
 1 VERSIONINFO
 FILEVERSION 1,0,0,1
@@ -26,15 +26,15 @@ FILETYPE 0x1
         {
             VALUE "Comments", ""
             VALUE "CompanyName", "Westwood Studios"
-            VALUE "FileDescription", "Main executable for Command & Conquer: Tiberian Sun"
-            VALUE "FileVersion", DQ()CnC-Patch git~REV (off WW 2.03)DQ()
-            VALUE "InternalName", "TS"
-            VALUE "LegalCopyright", "Copyright © 2000 Westwood Studios"
+            VALUE "FileDescription", "Main executable for Command & Conquer: Red Alert 2"
+            VALUE "FileVersion", DQ()CnC-Patch git~REV (off WW 1.0.0.1)DQ()
+            VALUE "InternalName", "RA2"
+            VALUE "LegalCopyright", "Copyright © 2001 Westwood Studios"
             VALUE "LegalTrademarks", "Command & Conquer is a trademark of Westwood Studios"
             VALUE "OriginalFilename", "Sun.exe"
             VALUE "PrivateBuild", ""
-            VALUE "ProductName", "Command & Conquer : Tiberian Sun"
-            VALUE "ProductVersion", DQ()CnC-Patch git~REV (off WW 2.03)DQ()
+            VALUE "ProductName", "Command & Conquer : Red Alert 2"
+            VALUE "ProductVersion", DQ()CnC-Patch git~REV (off WW 1.0.0.1)DQ()
             VALUE "SpecialBuild", ""
         }
     }
