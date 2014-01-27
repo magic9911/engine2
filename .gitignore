@@ -2,6 +2,8 @@
 /*.o
 # patched executables
 /*.exe
+# PETool on unix
+/petool
 # Yuri's Revenge isn't freeware so don't include the game exe used as input
 gamemd.dat
 ra2.dat
