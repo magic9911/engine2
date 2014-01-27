@@ -9,23 +9,33 @@ Building
 ### Prerequisites
 
  - GNU Make
- - Clang (or GCC if it ever support the MSVC++ ABI)
+ - Clang (or GCC if it ever supports the 32-bit MSVC++ ABI)
+ - MinGW-W64 (for headers / libraries if you don't have MSVC)
  - NASM
  - PETool (itself requiring GCC, or Clang if the makefile is fiddled with)
 
-On Unix, everything is installable via your package manager. On Windows, please
-install MSYS 2 (a seperate project from the original MSYS). MSYS 2 provides a
-minimal *nix environment, including a port of pacman, the Arch linux package
-manager. Once MSYS 2 is installed, installing the above packages will be just as
-easy as on Linux.
+On Unix, everything but PETool is installable via your package manager. However,
+Clang will need to be pointed to Windows headers and libraries, even though it
+works as a cross-compiler out of the box. Good luck with that!
 
-GNU Make, MinGW, NASM are both easily installable via your package
-manager. On windows, first install MinGW, and then drop NASM somewhere MinGW's
-shell will find it. Note that window's MinGW release also contains GNU Make,
-Unix shell, and other components needed to emulated Unix build environment,
-whereas on unix MinGW is strictly the cross-compiling toolchain itself. On both
-platforms, we recommend the MinGW-w64 release of MinGW, even though we are
-patching a 32-bit executable.
+On Windows, please install MSYS 2 (a separate project from the original MSYS).
+MSYS 2 provides a minimal *nix environment, including a port of `pacman`, the
+Arch Linux package manager. Once MSYS 2 is installed, installing everything but
+Clang and PETool will be just as easy as on Linux, just do `pacman -S
+<package>`.
+
+Clang is not provided by MSYS, but it can be obtained via a windows installer
+available from its website. Install it via that, and edit your MSYS `~/.bashrc`
+so that Clang's binaries are on the `$PATH`. The following command should
+automate this, but I make no guarantees:
+
+```sh
+$ echo 'export PATH=/c/Program\ Files/llvm/bin:$PATH' > ~/.bashrc
+```
+
+For reasons i do not know, Clang seemed fine to use MSYS/MinGW-W64 headers or
+libraries with the `i686-pc-win32` target, even though it wasn't on Unix. Weird,
+but I'm not complaining!
 
 PETool is a utility made by us to do the patching itself and tie some loose
 ends. Please `git clone` its repo too, and in the same directory as this one --
