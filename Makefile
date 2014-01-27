@@ -53,7 +53,7 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 #	strip -R .patch $@
 	$(PETOOL) dump  $@
 
-define RULES =
+define RULES
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp
 	$(PCXX)    -I$(1)_inc/ $(PCXXFLAGS) -o $$@ $$<
 
@@ -62,7 +62,7 @@ $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c
 
 $(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm
 	$(NASM)    -I$(1)_inc/ $(NFLAGS)    -o $$@ $$<
-	
+
 $(BUILD_DIR)/$(1)_%.o: $(1)_res/%.rc
 	$(WINDRES) -I$(1)_res/ $(WFLAGS) $$< $$@
 endef
