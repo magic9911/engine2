@@ -17,6 +17,7 @@ SECTIONS
 
     .p_text    ALIGN(0x1000)   : { *(.text); }
     .p_rdata   ALIGN(0x1000)   : { *(.rdata); }
+    .p_data    ALIGN(0x1000)   : { *(.data) }
     .p_bss     ALIGN(0x1000)   : { *(.bss); }
 
     .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
