@@ -13,7 +13,7 @@ else
 PCOMFLAGS  += -O3
 endif
 
-PCFLAGS     = -std=gnu99 $(COMFLAGS)
+PCFLAGS     = -std=gnu99 $(PCOMFLAGS)
 PCC         = clang
 PLD         = ld
 
