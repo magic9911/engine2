@@ -4,7 +4,7 @@ TOOLS_DIR   = ../petool
 
 REV         = $(shell sh -c 'git rev-parse --short @{0}')
 
-PCOMFLAGS   = -c -m32 -Ishared_inc/ -Wall -Wextra -DREV=\"$(REV)\" \
+PCOMFLAGS   = -c -m32 -Ishared/inc/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
 ifdef DEBUG
@@ -21,10 +21,10 @@ PCXXFLAGS   = -std=gnu++98 $(PCOMFLAGS)
 PCXX        = clang++
 
 WINDRES     = windres
-WFLAGS      = -Ishared_res/ -DREV=\"$(REV)\"
+WFLAGS      = -Ishared/res/ -DREV=\"$(REV)\"
 
 NASM       ?= nasm
-NFLAGS      = -f elf -Ishared_inc/ -DREV=\"$(REV)\"
+NFLAGS      = -f elf -Ishared/inc/ -DREV=\"$(REV)\"
 
 PETOOL      = $(BUILD_DIR)/petool$(EXT)
 
@@ -44,7 +44,7 @@ ra2_OBJS    = $(foreach o,callsites main res sym,$(BUILD_DIR)/ra2_$(o).o) $(shar
 default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
 
 .SECONDEXPANSION:
-$(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
+$(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS) $(PETOOL)
 	$(PLD) -T $< -mi386pe --allow-multiple-definition --file-alignment=0x1000 \
 		--subsystem=windows -o $@ $($*_OBJS)
 	$(PETOOL) setdd $@ $($*_IMPR)
@@ -54,23 +54,24 @@ $(BUILD_DIR)/%.exe: org/%.lds org/%.dat $$($$*_OBJS) $(PETOOL)
 	$(PETOOL) dump  $@
 
 define RULES
-$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.cpp
-	$(PCXX)    -I$(1)_inc/ $(PCXXFLAGS) -o $$@ $$<
+$(BUILD_DIR)/$(1)_%.o: $(1)/src/%.cpp
+	$(PCXX)    -I$(1)/inc/ $(PCXXFLAGS) -o $$@ $$<
 
-$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.c
-	$(PCC)     -I$(1)_inc/ $(PCFLAGS)   -o $$@ $$<
+$(BUILD_DIR)/$(1)_%.o: $(1)/src/%.c
+	$(PCC)     -I$(1)/inc/ $(PCFLAGS)   -o $$@ $$<
 
-$(BUILD_DIR)/$(1)_%.o: $(1)_src/%.asm
-	$(NASM)    -I$(1)_inc/ $(NFLAGS)    -o $$@ $$<
+$(BUILD_DIR)/$(1)_%.o: $(1)/src/%.asm
+	$(NASM)    -I$(1)/inc/ $(NFLAGS)    -o $$@ $$<
 
-$(BUILD_DIR)/$(1)_%.o: $(1)_res/%.rc
-	$(WINDRES) -I$(1)_res/ $(WFLAGS) $$< $$@
+# callsites and symbols do not go in /*/src
+$(BUILD_DIR)/$(1)_%.o: $(1)/%.asm
+	$(NASM)                $(NFLAGS)    -o $$@ $$<
+
+$(BUILD_DIR)/$(1)_%.o: $(1)/res/%.rc
+	$(WINDRES) -I$(1)/res/ $(WFLAGS) $$< $$@
 endef
 
 $(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
-
-$(BUILD_DIR)/%.o: org/%.asm
-	$(NASM) $(NFLAGS) -o $@ $<
 
 include $(TOOLS_DIR)/Makefile
 
