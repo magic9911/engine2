@@ -2,9 +2,9 @@ BUILD_DIR  ?= .
 
 REV        ?= $(shell sh -c 'git rev-parse --short @{0}')
 
-EXT	       ?=
-RM	       ?= rm -f
-CC	       ?= gcc
+EXT        ?=
+RM         ?= rm -f
+CC         ?= gcc
 
 PCOMFLAGS  ?= -c -m32 -Ishared/inc/ -Wall -Wextra -DREV=\"$(REV)\" \
 	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel

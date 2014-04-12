@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Toni Spets <toni.spets@iki.fi>
+ * Copyright (c) 2013, 2014 Toni Spets <toni.spets@iki.fi>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -14,47 +14,28 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-typedef struct
-__attribute__ ((packed))
-{
-    void   *address;
-    size_t  length;
-    uint8_t body[];
-} patch_t;
-
-#define CLEAR(_ADDR, _LENGTH)                           \
-    patch_t clear_ ## __COUNTER__                       \
-    __attribute__((used))                               \
-    __attribute__((section(".patch,\"aw\", @note#")))   \
-    = {                                                 \
-        .address = _ADDR,                               \
-        .length  = _LENGTH,                             \
-        .body[_LENGTH] = {}                             \
-    }                                                   \
-
-#define PATCH(_ADDR, _STUFF)                            \
-    asm(".section .patch,\"dn\""                "\n\t"  \
-        ".long %c[addr]"                        "\n\t"  \
-        ".long 2b - 1b"                         "\n"    \
-        "1:"                                    "\n\t"  \
-        _STUFF                                          \
-        "2:"                                    "\n\t"  \
-        ".section .text"                        "\n\t"  \
-        :                                               \
-        : [addr] "p" (_ADDR)                            \
-        :                                               \
+#define CLEAR(start, value, end)                    \
+    asm (                                           \
+        ".section .patch,\"d0\";"                   \
+        ".long " #start ";"                         \
+        ".long " #end "-" #start ";"                \
+        ".fill " #end "-" #start ", 1, " #value ";" \
     )
 
-#define LJMP(_SRC, _DST)                                \
-    asm(".section .patch,\"dn\""                "\n\t"  \
-        ".long %c[src]"                         "\n\t"  \
-        ".long 2f - 1f"                         "\n"    \
-        "1:"                                    "\n\t"  \
-        ".byte 0xE9"                            "\n\t"  \
-        ".long %c[dst] - %c[src] - 5"           "\n"    \
-        "2:"                                    "\n\t"  \
-        ".section .text"                        "\n\t"  \
-        :                                               \
-        : [src] "p" (_SRC), [dst] "p" (_DST)            \
-        :                                               \
+#define LJMP(src, dst)                              \
+    asm (                                           \
+        ".section .patch,\"d0\";"                   \
+        ".long " #src ";"                           \
+        ".long 5;"                                  \
+        ".byte 0xE9;"                               \
+        ".long " #dst "-" #src " - 5;"              \
+    )
+
+#define CALL(src, dst)                              \
+    asm (                                           \
+        ".section .patch,\"d0\";"                   \
+        ".long " #src ";"                           \
+        ".long 5;"                                  \
+        ".byte 0xE8;"                               \
+        ".long " #dst "-" #src " - 5;"              \
     )
