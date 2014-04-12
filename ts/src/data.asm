@@ -105,7 +105,7 @@ StringZ InternetDisabled,           "This version of Tiberian Sun only supports 
 
 StringZ NoCD,                       "NoCD"
 
-_2Bin:                              incbin "ts_res/2.bin"
-_1Bin:                              incbin "ts_res/1.bin"
+_2Bin:                              incbin "ts/res/2.bin"
+_1Bin:                              incbin "ts/res/1.bin"
 
 __SECT__

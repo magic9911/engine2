@@ -55,11 +55,12 @@ Or if you rather just copy and paste some commands, do:
 $ cd /path/to/yr/installation
 $ cp ra2.exe ra2-backup.exe
 $ cd /path/to/this/repo
-$ cp /path/to/yr/installation/gamemd.exe ./org/ra2.dat
+$ cp /path/to/yr/installation/gamemd.exe ./ra2/bin.dat
 $ make
 $ cp ts.exe /path/to/fs/installation/
 $ cp ra2.exe /path/to/yr/installation/
 ```
+and likewise for Tiberian Sun.
 
 From the shell (MinGW shell on Windows).
 
