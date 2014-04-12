@@ -8,16 +8,12 @@ SECTIONS
     .rdata     0x6CA000        : { ts/bin.dat(.rdata) }
     .data      0x6EE000        : { ts/bin.dat(.data); }
 
-    .hp_code   0x869000        : { ts/bin.dat(.hp_code) }
-    .hp_data   0xA69000        : { ts/bin.dat(.hp_data) }
-    .hp_var    0xA89000        : { ts/bin.dat(.hp_var) }
-
     /DISCARD/                  : { ts/bin.dat(.rsrc) }
     /DISCARD/                  : { *(.drectve) }
 
-    .p_text    ALIGN(0x1000)   : { *(.text); }
-    .p_rdata   ALIGN(0x1000)   : { *(.rdata); }
-    .p_data    ALIGN(0x1000)   : { *(.data) *(.bss); }
+    .hp_text   0x869000        : { *(.text);  . = 0x200000; } =0x90
+    .hp_rdata  ALIGN(0x1000)   : { *(.rdata); . = 0x100000; } =0x00
+    .hp_data   ALIGN(0x1000)   : { *(.data) *(.bss); . = 0x100000; } =0x00
 
     .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
 
