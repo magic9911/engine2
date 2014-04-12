@@ -11,6 +11,7 @@ setcglob 0x006CA4FC, _imp__recvfrom
 
 setcglob 0x006B4D24, htonl
 setcglob 0x006CA24C, GetCommandLineA
+setcglob 0x006CA458, _imp__MessageBoxA@16
 setcglob 0x006B6730, stristr
 setcglob 0x006CA16C, LoadLibraryA
 setcglob 0x006CA174, GetProcAddress
