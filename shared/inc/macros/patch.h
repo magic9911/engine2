@@ -16,7 +16,7 @@
 
 #define CLEAR(start, value, end)                    \
     asm (                                           \
-        ".section .patch;"                          \
+        ".section .patch,\"d0\";"                   \
         ".long " #start ";"                         \
         ".long " #end "-" #start ";"                \
         ".fill " #end "-" #start ", 1, " #value ";" \
@@ -24,7 +24,7 @@
 
 #define LJMP(src, dst)                              \
     asm (                                           \
-        ".section .patch;"                          \
+        ".section .patch,\"d0\";"                   \
         ".long " #src ";"                           \
         ".long 5;"                                  \
         ".byte 0xE9;"                               \
@@ -33,7 +33,7 @@
 
 #define CALL(src, dst)                              \
     asm (                                           \
-        ".section .patch;"                          \
+        ".section .patch,\"d0\";"                   \
         ".long " #src ";"                           \
         ".long 5;"                                  \
         ".byte 0xE8;"                               \
