@@ -12,7 +12,7 @@ build_both_games: default
 $(PETOOL):
 	$(MAKE) -C $(dir $(PETOOL)) EXT=$(EXT)
 
-clean_tools:
+distclean: clean
 	$(MAKE) -C $(dir $(PETOOL)) EXT=$(EXT) clean
 
 .PHONY: build_both_games clean_tools
