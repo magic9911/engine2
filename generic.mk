@@ -34,7 +34,7 @@ PETOOL     ?= petool
 default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
 
 .SECONDEXPANSION:
-$(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS) $(PETOOL)
+$(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 	$(LD) -T $< -mi386pe \
 		--allow-multiple-definition \
 		--file-alignment=0x1000 \
