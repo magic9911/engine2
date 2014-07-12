@@ -45,6 +45,10 @@ $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 #	$(STRIP) -R .patch $@
 	$(PETOOL) dump  $@
 
+$(BUILD_DIR)/%.dll: ares.o $$($$*_DLLOBJS)
+	$(CC) -s -shared -Wl,--exclude-all-symbols -o $@ ares.o $($*_DLLOBJS) -lmsvcrt
+	$(PETOOL) dump  $@
+
 define RULES
 $(BUILD_DIR)/$(1)_%.o: $(1)/src/%.cpp
 	$(CXX)    -I$(1)/inc/ $(CXXFLAGS) -o $$@ $$<
@@ -63,9 +67,12 @@ $(BUILD_DIR)/$(1)_%.o: $(1)/res/%.rc
 	$(WINDRES) -I$(1)/res/ $(WFLAGS) $$< $$@
 endef
 
+$(BUILD_DIR)/%.o: shared/src/%.c
+	$(CC)     $(CFLAGS)   -o $@ $<
+
 $(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
 
 clean:
-	rm -f *.exe *.o
+	rm -f *.exe *.dll *.o
 
 .PHONY: default clean
