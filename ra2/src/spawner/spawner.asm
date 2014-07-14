@@ -14,6 +14,11 @@ cextern TunnelId
 cextern TunnelIp
 cextern TunnelPort
 cextern PortHack
+cextern NetHack_SendTo
+cextern NetHack_RecvFrom
+
+@CALL 0x007B3D75, NetHack_SendTo
+@CALL 0x007B3EEC, NetHack_RecvFrom
 
 %push
 

@@ -40,6 +40,11 @@ cextern TunnelId
 cextern TunnelIp
 cextern TunnelPort
 cextern PortHack
+cextern NetHack_SendTo
+cextern NetHack_RecvFrom
+
+@CALL 0x006A2525, NetHack_SendTo
+@CALL 0x006A25F9, NetHack_RecvFrom
 
 @LJMP 0x004E1DE0, _Select_Game_Init_Spawner
 ;@LJMP 0x00609470, _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
