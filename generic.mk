@@ -37,7 +37,7 @@ $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 	$(LD) -T $< -mi386pe \
 		--allow-multiple-definition \
 		--file-alignment=0x1000 \
-		--subsystem=windows -o $@ $($*_OBJS)
+		--subsystem=windows -o $@ $($*_OBJS) $($*_LIBS)
 	$(PETOOL) setdd $@ $($*_IMPR)
 	$(PETOOL) setvs $@ .data $($*_VSIZ)
 	$(PETOOL) patch $@
@@ -45,7 +45,7 @@ $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 	$(PETOOL) dump  $@
 
 $(BUILD_DIR)/%.dll: $$($$*_DLLOBJS)
-	$(CC) -s -shared -Wl,--exclude-all-symbols $(CFLAGS) -o $@ $($*_DLLOBJS)
+	$(CC) -s -shared -Wl,--exclude-all-symbols $(CFLAGS) -o $@ $($*_DLL_OBJS) $($*_DLL_LIBS)
 	$(PETOOL) dump  $@
 
 define RULES
