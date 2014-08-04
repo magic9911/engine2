@@ -34,18 +34,20 @@ default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
 
 .SECONDEXPANSION:
 $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
-	$(LD) -T $< -mi386pe \
+	$(LD) -T $< -o $@ $($*_OBJS) $($*_LIBS) \
+		-mi386pe \
 		--allow-multiple-definition \
 		--file-alignment=0x1000 \
-		--subsystem=windows -o $@ $($*_OBJS) $($*_LIBS)
+		--subsystem=windows
 	$(PETOOL) setdd $@ $($*_IMPR)
 	$(PETOOL) setvs $@ .data $($*_VSIZ)
 	$(PETOOL) patch $@
 #	$(STRIP) -R .patch $@
 	$(PETOOL) dump  $@
 
-$(BUILD_DIR)/%.dll: $$($$*_DLLOBJS)
-	$(CC) -s -shared -Wl,--exclude-all-symbols $(CFLAGS) -o $@ $($*_DLL_OBJS) $($*_DLL_LIBS)
+$(BUILD_DIR)/%.dll: $$($$*_DLL_OBJS)
+	$(CC) -s -shared $(CFLAGS) -o $@ $($*_DLL_OBJS) $($*_DLL_LIBS) \
+		-Wl,--exclude-all-symbols
 	$(PETOOL) dump  $@
 
 define RULES
