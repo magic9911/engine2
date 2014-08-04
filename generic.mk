@@ -5,7 +5,7 @@ REV        ?= $(shell sh -c 'git rev-parse --short @{0}')
 EXT        ?=
 RM         ?= rm -f
 
-COMFLAGS   ?= -Ishared/inc/ -DREV=\"$(REV)\" -c -m32 -Wall -Wextra
+COMFLAGS   ?= -Ishared/inc/ -DREV=\"$(REV)\" -m32 -Wall -Wextra
 
 ifdef DEBUG
 COMFLAGS   += -g
@@ -44,19 +44,23 @@ $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 #	$(STRIP) -R .patch $@
 	$(PETOOL) dump  $@
 
+$(BUILD_DIR)/%.dll: $$($$*_DLLOBJS)
+	$(CC) -s -shared -Wl,--exclude-all-symbols $(CFLAGS) -o $@ $($*_DLLOBJS)
+	$(PETOOL) dump  $@
+
 define RULES
 $(BUILD_DIR)/$(1)_%.o: $(1)/src/%.cpp
-	$(CXX)    -I$(1)/inc/ $(CXXFLAGS) -o $$@ $$<
+	$(CXX)    -I$(1)/inc/ -c $(CXXFLAGS) -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)/src/%.c
-	$(CC)     -I$(1)/inc/ $(CFLAGS)   -o $$@ $$<
+	$(CC)     -I$(1)/inc/ -c $(CFLAGS)   -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)/src/%.asm
-	$(NASM)   -I$(1)/inc/ $(NFLAGS)   -o $$@ $$<
+	$(NASM)   -I$(1)/inc/    $(NFLAGS)   -o $$@ $$<
 
 # callsites and symbols do not go in /*/src
 $(BUILD_DIR)/$(1)_%.o: $(1)/%.asm
-	$(NASM)               $(NFLAGS)   -o $$@ $$<
+	$(NASM)                  $(NFLAGS)   -o $$@ $$<
 
 $(BUILD_DIR)/$(1)_%.o: $(1)/res/%.rc
 	$(WINDRES) -I$(1)/res/ $(WFLAGS) $$< $$@
@@ -65,6 +69,6 @@ endef
 $(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
 
 clean:
-	rm -f *.exe *.o
+	rm -f *.exe *.dll *.o
 
 .PHONY: default clean

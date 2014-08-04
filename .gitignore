@@ -3,6 +3,7 @@
 
 # patched executables
 /*.exe
+/*.dll
 
 # PETool on unix
 /petool
