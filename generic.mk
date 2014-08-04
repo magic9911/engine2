@@ -5,8 +5,7 @@ REV        ?= $(shell sh -c 'git rev-parse --short @{0}')
 EXT        ?=
 RM         ?= rm -f
 
-COMFLAGS   ?= -Ishared/inc/ -DREV=\"$(REV)\" -c -m32 -Wall -Wextra \
-	-target i686-pc-win32 -mllvm --x86-asm-syntax=intel
+COMFLAGS   ?= -Ishared/inc/ -DREV=\"$(REV)\" -c -m32 -Wall -Wextra
 
 ifdef DEBUG
 COMFLAGS   += -g
@@ -14,12 +13,12 @@ else
 COMFLAGS   += -O3
 endif
 
-CC         ?= clang
-CFLAGS     ?= -std=gnu99 $(COMFLAGS)
+CC         ?= gcc
+CFLAGS     ?= -std=gnu99 $(COMFLAGS) -masm=intel
 LD         ?= ld
 
 CXX        ?= clang++
-CXXFLAGS   ?= -std=gnu++98 $(COMFLAGS)
+CXXFLAGS   ?= -std=gnu++98 $(COMFLAGS) -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 
 STRIP      ?= strip
 
