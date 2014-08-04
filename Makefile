@@ -1,7 +1,7 @@
 PROGRAMS        = ts ra2
 
 shared_OBJS     = $(foreach o,,$(BUILD_DIR)/shared_$(o).o)
-shared_DLLOBJS  = $(foreach o,,$(BUILD_DIR)/shared_$(o).o)
+shared_DLLOBJS  = $(foreach o,ares,$(BUILD_DIR)/shared_$(o).o)
 
 ts_IMPR         = 1 0x2EC050 280
 ts_VSIZ         = 0x17AF74
