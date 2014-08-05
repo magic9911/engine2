@@ -36,6 +36,7 @@ default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
 $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 	$(LD) -T $< -o $@ $($*_OBJS) $($*_LIBS) \
 		-mi386pe \
+		--enable-stdcall-fixup \
 		--allow-multiple-definition \
 		--file-alignment=0x1000 \
 		--subsystem=windows
@@ -47,6 +48,7 @@ $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 
 $(BUILD_DIR)/%.dll: $$($$*_DLL_OBJS)
 	$(CC) -s -shared $(CFLAGS) -o $@ $($*_DLL_OBJS) $($*_DLL_LIBS) \
+		-Wl,--enable-stdcall-fixup \
 		-Wl,--exclude-all-symbols
 	$(PETOOL) dump  $@
 
