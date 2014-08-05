@@ -3,6 +3,7 @@
         %error "can't nest procedures"
     %else
         [section .text]
+        align   16, db 0xCC
         %1:
         %push __proc
     %endif
