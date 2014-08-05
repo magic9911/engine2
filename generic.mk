@@ -42,7 +42,7 @@ $(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
 		--subsystem=windows
 	$(PETOOL) setdd $@ $($*_IMPR)
 	$(PETOOL) setvs $@ .data $($*_VSIZ)
-	$(PETOOL) patch $@
+	-$(PETOOL) patch $@
 #	$(STRIP) -R .patch $@
 	$(PETOOL) dump  $@
 

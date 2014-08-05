@@ -1,8 +1,5 @@
 [section .bss]
 
-; max number of players in static address list
-%define AddressList_length 8
-
 var:
     .SpawnerActive              RESD 1
     .INIClass_SPAWN             RESB 256 ; FIXME: make this a local variable
@@ -18,11 +15,6 @@ var:
     .IsSpectatorArray           RESD 8
     .UsedSpawnsArray            RESD 8
     
-    .TunnelId                   RESD 1
-    .TunnelIp                   RESD 1
-    .TunnelPort                 RESD 1
-    .AddressList                RESB (ListAddress_size * AddressList_length)
-    .PortHack                   RESD 1
     .SaveGameNameBuf            RESB 60
     
     .DoingAutoSS                RESD 1
@@ -35,4 +27,5 @@ var:
     .SpectatorStuffInit         RESB 1
     .OldUnitClassArrayCount     RESD 1
 
+;%define AddressList var.AddressList
 __SECT__

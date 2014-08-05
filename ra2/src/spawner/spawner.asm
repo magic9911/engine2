@@ -8,6 +8,13 @@
 @LJMP 0x00686A9E, _More_Alliances_Crap
 @LJMP 0x005D74A0, _Teams_Alliances_Stuff
 
+; max number of players in static address list
+cextern AddressList
+cextern TunnelId
+cextern TunnelIp
+cextern TunnelPort
+cextern PortHack
+
 %push
 
 section .bss
@@ -22,12 +29,6 @@ section .bss
 ;HouseHandicapsArray        resd 8
 ;SpawnLocationsArray        resd 8
 
-%define AddressList_length 8
-TunnelId                     resd 1
-TunnelIp                     resd 1
-TunnelPort                   resd 1
-AddressList                  resb (ListAddress_size * AddressList_length)
-PortHack                     resd 1
 SaveGameNameBuf              resb 60
 
 ;DoingAutoSS                  resd 1

@@ -2,8 +2,8 @@ PROGRAMS        = ts ra2
 
 shared_LIBS     = $(foreach l,,-l$(l))
 shared_DLL_LIBS = $(foreach l,msvcrt,-l$(l))
-shared_OBJS     = $(foreach o,,$(BUILD_DIR)/shared_$(o).o)
-shared_DLL_OBJS = $(foreach o,ares,$(BUILD_DIR)/shared_$(o).o)
+shared_OBJS     = $(foreach o,nethack,$(BUILD_DIR)/shared_$(o).o)
+shared_DLL_OBJS = $(foreach o,nethack ares,$(BUILD_DIR)/shared_$(o).o)
 
 ts_IMPR         = 1 0x2EC050 280
 ts_VSIZ         = 0x17AF74

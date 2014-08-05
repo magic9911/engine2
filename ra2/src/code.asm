@@ -25,8 +25,6 @@ section .text
 %push spawner
 %include "ra2/src/spawner/spawn_ini.asm"
 %include "ra2/src/spawner/spawner.asm"
-%include "ra2/src/spawner/tunnel.asm"
-%include "ra2/src/spawner/nethack.asm"
 %include "ra2/src/spawner/selectable_countries.asm"
 %include "ra2/src/spawner/selectable_handicaps.asm"
 %include "ra2/src/spawner/selectable_colors.asm"

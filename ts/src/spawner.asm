@@ -34,6 +34,13 @@
 
 %endmacro
 
+; max number of players in static address list
+cextern AddressList
+cextern TunnelId
+cextern TunnelIp
+cextern TunnelPort
+cextern PortHack
+
 @LJMP 0x004E1DE0, _Select_Game_Init_Spawner
 ;@LJMP 0x00609470, _Send_Statistics_Packet_Return_If_Spawner_Active ; Games tries to send statistics when match ends which causes crash
 @LJMP 0x005E08E3, _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings
@@ -577,7 +584,7 @@ Initialize_Spawn:
     jz .Ret_Exit
     
     mov dword [var.SpawnerActive], 1
-    mov dword [var.PortHack], 1 ; default enabled
+    mov dword [PortHack], 1 ; default enabled
     
     call Load_SPAWN_INI
     cmp eax, 0
@@ -659,23 +666,23 @@ Initialize_Spawn:
     lea eax, [TempBuf]
     push eax
     call [var.inet_addr]
-    mov [var.TunnelIp], eax
+    mov [TunnelIp], eax
 
     ; tunnel port
     SpawnINI_Get_Int str_Tunnel, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
-    mov [var.TunnelPort], eax
+    mov [TunnelPort], eax
 
     ; tunnel id 
     SpawnINI_Get_Int str_Settings, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
-    mov [var.TunnelId], eax
+    mov [TunnelId], eax
 
-    cmp dword [var.TunnelPort],0
+    cmp dword [TunnelPort],0
     jne .nosetport
     SpawnINI_Get_Int str_Settings, str_Port, 1234
     mov word [ListenPort], ax
@@ -1070,7 +1077,7 @@ Add_Human_Opponents:
     
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    mov [ecx * ListAddress_size + var.AddressList + ListAddress.ip], eax
+    mov [ecx * ListAddress_size + AddressList + ListAddress.ip], eax
     
     lea ecx, [OtherSection]
     SpawnINI_Get_Int ecx, str_Port, 0
@@ -1083,12 +1090,12 @@ Add_Human_Opponents:
     ; disable PortHack if different port than own
     cmp ax, [ListenPort]
     je .samePort
-    mov dword [var.PortHack], 0    
+    mov dword [PortHack], 0    
 .samePort:
 
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    mov [ecx * ListAddress_size + var.AddressList + ListAddress.port], ax
+    mov [ecx * ListAddress_size + AddressList + ListAddress.port], ax
 
     mov dword [esi+0x41], -1 
     

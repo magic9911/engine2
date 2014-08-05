@@ -45,8 +45,6 @@ section .text
 
 ; spawner
 %include "ts/src/spawner.asm"
-%include "ts/src/spawner/tunnel.asm"
-%include "ts/src/spawner/nethack.asm"
 %include "ts/src/spawner/selectable_spawns.asm"
 %include "ts/src/spawner/spectators.asm"
 %include "ts/src/spawner/statistics.asm"
