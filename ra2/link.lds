@@ -13,7 +13,7 @@ SECTIONS
 
     .p_text    0xB7A000        : { *(.text) }
     .p_rdata   ALIGN(0x1000)   : { *(.rdata) }
-    .p_data    ALIGN(0x1000)   : { *(.data) *(.bss); }
+    .p_data    ALIGN(0x1000)   : { *(.data) *(.bss) *(COMMON) }
 
     .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
 
