@@ -15,9 +15,9 @@ SECTIONS
     /DISCARD/                  : { ts/bin.dat(.rsrc) }
     /DISCARD/                  : { *(.drectve) }
 
-    .p_text    ALIGN(0x1000)   : { *(.text); }
-    .p_rdata   ALIGN(0x1000)   : { *(.rdata); }
-    .p_data    ALIGN(0x1000)   : { *(.data) *(.bss); }
+    .p_text    ALIGN(0x1000)   : { *(.text) }
+    .p_rdata   ALIGN(0x1000)   : { *(.rdata) }
+    .p_data    ALIGN(0x1000)   : { *(.data) *(.bss) *(COMMON) }
 
     .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
 

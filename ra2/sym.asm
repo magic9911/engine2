@@ -9,6 +9,8 @@ setcglob 0x004068E0, WWDebug_Printf
 ; winapi
 setcglob 0x007C89B0, sendto
 setcglob 0x007C89AA, recvfrom
+setcglob 0x007E1558, _imp__sendto
+setcglob 0x007E154C, _imp__recvfrom
 setcglob 0x007C8962, htonl
 setcglob 0x007E1280, GetCommandLineA
 setcglob 0x007CA4B0, strstr

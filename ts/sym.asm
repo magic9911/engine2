@@ -6,6 +6,9 @@ setcglob 0x005FF7E0, WinMain@16
 ; winapi
 setcglob 0x006B4D6C, sendto
 setcglob 0x006B4D66, recvfrom
+setcglob 0x006CA504, _imp__sendto
+setcglob 0x006CA4FC, _imp__recvfrom
+
 setcglob 0x006B4D24, htonl
 setcglob 0x006CA24C, GetCommandLineA
 setcglob 0x006B6730, stristr
