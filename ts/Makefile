@@ -1,7 +1,7 @@
 -include ../config.mk
 
 REV         = $(shell sh -c 'git rev-parse --short @{0}')
-LSCRRIPT    = link.lds
+LSCRIPT     = link.lds
 INBIN       = bin.dat
 ALIGNMENT   = 0x0400
 
@@ -12,6 +12,7 @@ VSIZE       = .data 0x17AF74
 
 INCLUDES    = -I../shared/inc/ -Iinc/
 
+LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
 		src/patch.o \
@@ -20,6 +21,7 @@ OBJS        = callsites.o \
 		\
 		sym.o
 
+DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
 		src/patch.o \
