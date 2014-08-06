@@ -1,4 +1,4 @@
-all: ra2/ra2.exe ra2/ra2.dll ts/ts.exe ts/ts.dll
+all: ra2/exe ra2/dll ts/exe ts/dll
 
 ra2/%:
 	$(MAKE) -C ra2 $*

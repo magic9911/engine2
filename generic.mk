@@ -5,7 +5,6 @@ REV        ?= $(shell sh -c 'git rev-parse --short @{0}')
 RM         ?= rm -f
 CC         ?= gcc
 CXX        ?= clang++
-CC_LD      ?= $(CC)
 STRIP      ?= strip
 WINDRES    ?= windres
 NASM       ?= nasm
@@ -25,23 +24,35 @@ CFLAGS     ?= $(CC_COMMON) -std=gnu99 -masm=intel
 CXXFLAGS   ?= $(CC_COMMON) -std=gnu++98 -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 WFLAGS     ?= $(REVFLAG)
 NFLAGS     ?= $(REVFLAG) $(INCLUDES) -f elf
-CC_LDFLAGS ?= $(CFLAGS) \
+LDFLAGS    ?= $(CFLAGS) \
 		-Wl,-mi386pe \
 		-Wl,--enable-stdcall-fixup \
 		-Wl,--allow-multiple-definition \
 		-Wl,--subsystem=windows
 
 $(GAME).exe: link.lds bin.dat $(OBJS)
-	$(CC_LD) -T $< -Wl,--file-alignment=0x0400 $(CC_LDFLAGS) -o $@ $(OBJS) $(LIBS)
-	$(PETOOL) setdd $@ $(IMPORT)
-	$(PETOOL) setvs $@ $(VSIZE)
-	-$(PETOOL) patch $@
-	$(STRIP) -R .patch $@
-	$(PETOOL) dump $@
+	$(LD) -T $< -Wl,--file-alignment=$(ALIGNMENT) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 $(GAME).dll: $(DLL_OBJS)
-	$(CC_LD) -s -shared -Wl,--exclude-all-symbols $(CC_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
-	$(PETOOL) dump $@
+	$(LD) -s -shared -Wl,--exclude-all-symbols $(LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
+
+
+.PHONY: clean
+
+import/%: %
+	$(PETOOL) setdd $(*F) $(IMPORT)
+
+vsize/%: %
+	$(PETOOL) setvs $(*F) $(VSIZE)
+
+patch/%: %
+	-$(PETOOL) patch $(*F)
+
+strip/%: %
+	$(STRIP) -R .patch $(*F)
+
+dump/%: %
+	$(PETOOL) dump $(*F)
 
 %.o: %.cpp
 	$(CXX)  $(CXXFLAGS) -c -o $@ $<
