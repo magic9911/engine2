@@ -3,38 +3,41 @@
 REV        ?= UNKNOWN_VERSION
 
 RM         ?= rm -f
-CC         ?= gcc
-CXX        ?= clang++
-STRIP      ?= strip
-WINDRES    ?= windres
-NASM       ?= nasm
-PETOOL     ?= petool
+CC          ?= gcc
+CXX         ?= clang++
+STRIP       ?= strip
+WINDRES     ?= windres
+NASM        ?= nasm
+PETOOL      ?= petool
 
-REVFLAG    ?= -DREV=\"$(REV)\"
+REVFLAG     ?= -DREV=\"$(REV)\"
 
-CC_COMMON  ?= $(REVFLAG) $(INCLUDES) -m32 -Wall -Wextra
+CC_COMMON   ?= $(REVFLAG) $(INCLUDES) -m32 -Wall -Wextra
 
 ifdef DEBUG
-CC_COMMON  += -g
+CC_COMMON   += -g
 else
-CC_COMMON  += -O3
+CC_COMMON   += -O3
 endif
 
-CFLAGS     ?= $(CC_COMMON) -std=gnu99 -masm=intel
-CXXFLAGS   ?= $(CC_COMMON) -std=gnu++98 -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
-WFLAGS     ?= $(REVFLAG)
-NFLAGS     ?= $(REVFLAG) $(INCLUDES) -f elf
-LDFLAGS    ?= $(CFLAGS) \
+CFLAGS      ?= $(CC_COMMON) -std=gnu99 -masm=intel
+CXXFLAGS    ?= $(CC_COMMON) -std=gnu++98 -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
+WFLAGS      ?= $(REVFLAG)
+NFLAGS      ?= $(REVFLAG) $(INCLUDES) -f elf
+LD_COMMON   ?= $(CFLAGS) \
 		-Wl,-mi386pe \
 		-Wl,--enable-stdcall-fixup \
 		-Wl,--allow-multiple-definition \
 		-Wl,--subsystem=windows
 
+LDFLAGS     ?= $(LD_COMMON) -Wl,--file-alignment=$(ALIGNMENT)
+DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
+
 $(GAME).exe: $(LSCRIPT) $(INBIN) $(OBJS)
-	$(LD) -T $< -Wl,--file-alignment=$(ALIGNMENT) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+	$(LD) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 $(GAME).dll: $(DLL_OBJS)
-	$(LD) -s -shared -Wl,--exclude-all-symbols $(LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
+	$(LD) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
 
 
 .PHONY: clean

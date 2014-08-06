@@ -21,6 +21,7 @@ setcglob 0x007CC2AC, mbstowcs
 
 ; Memory
 setcglob 0x007C8E17, new
+setcglob 0x007CA090, memcpy
 setcglob 0x007D3374, calloc
 
 ; House
