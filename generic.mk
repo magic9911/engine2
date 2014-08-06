@@ -1,78 +1,60 @@
-BUILD_DIR  ?= .
+# Generic patch project master Makefile
 
 REV        ?= $(shell sh -c 'git rev-parse --short @{0}')
 
-EXT        ?=
 RM         ?= rm -f
-
-COMFLAGS   ?= -Ishared/inc/ -DREV=\"$(REV)\" -m32 -Wall -Wextra
-
-ifdef DEBUG
-COMFLAGS   += -g
-else
-COMFLAGS   += -O3
-endif
-
 CC         ?= gcc
-CFLAGS     ?= -std=gnu99 $(COMFLAGS) -masm=intel
-LD         ?= ld
-
 CXX        ?= clang++
-CXXFLAGS   ?= -std=gnu++98 $(COMFLAGS) -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
-
+CC_LD      ?= $(CC)
 STRIP      ?= strip
-
 WINDRES    ?= windres
-WFLAGS     ?= -Ishared/res/ -DREV=\"$(REV)\"
-
 NASM       ?= nasm
-NFLAGS     ?= -Ishared/inc/ -DREV=\"$(REV)\" -f elf
-
 PETOOL     ?= petool
 
-default: $(foreach prog,$(PROGRAMS),$(BUILD_DIR)/$(prog).exe)
+REVFLAG    ?= -DREV=\"$(REV)\"
 
-.SECONDEXPANSION:
-$(BUILD_DIR)/%.exe: %/link.lds %/bin.dat $$($$*_OBJS)
-	$(LD) -T $< -o $@ $($*_OBJS) $($*_LIBS) \
-		-mi386pe \
-		--enable-stdcall-fixup \
-		--allow-multiple-definition \
-		--file-alignment=0x1000 \
-		--subsystem=windows
-	$(PETOOL) setdd $@ $($*_IMPR)
-	$(PETOOL) setvs $@ .data $($*_VSIZ)
-	$(PETOOL) patch $@
-#	$(STRIP) -R .patch $@
-	$(PETOOL) dump  $@
+CC_COMMON  ?= $(REVFLAG) $(INCLUDES) -m32 -Wall -Wextra
 
-$(BUILD_DIR)/%.dll: $$($$*_DLL_OBJS)
-	$(CC) -s -shared $(CFLAGS) -o $@ $($*_DLL_OBJS) $($*_DLL_LIBS) \
+ifdef DEBUG
+CC_COMMON  += -g
+else
+CC_COMMON  += -O3
+endif
+
+CFLAGS     ?= $(CC_COMMON) -std=gnu99 -masm=intel
+CXXFLAGS   ?= $(CC_COMMON) -std=gnu++98 -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
+WFLAGS     ?= $(REVFLAG)
+NFLAGS     ?= $(REVFLAG) $(INCLUDES) -f elf
+CC_LDFLAGS ?= $(CFLAGS) \
+		-Wl,-mi386pe \
 		-Wl,--enable-stdcall-fixup \
-		-Wl,--exclude-all-symbols
-	$(PETOOL) dump  $@
+		-Wl,--allow-multiple-definition \
+		-Wl,--subsystem=windows
 
-define RULES
-$(BUILD_DIR)/$(1)_%.o: $(1)/src/%.cpp
-	$(CXX)    -I$(1)/inc/ -c $(CXXFLAGS) -o $$@ $$<
+$(GAME).exe: link.lds bin.dat $(OBJS)
+	$(CC_LD) -Wl,-T$< -Wl,--file-alignment=0x0400 $(CC_LDFLAGS) -o $@ $(OBJS) $(LIBS)
+	$(PETOOL) setdd $@ $(IMPORT)
+	$(PETOOL) setvs $@ $(VSIZE)
+	-$(PETOOL) patch $@
+	$(STRIP) -R .patch $@
+	$(PETOOL) dump $@
 
-$(BUILD_DIR)/$(1)_%.o: $(1)/src/%.c
-	$(CC)     -I$(1)/inc/ -c $(CFLAGS)   -o $$@ $$<
+$(GAME).dll: $(DLL_OBJS)
+	$(CC_LD) -s -shared -Wl,--exclude-all-symbols $(CC_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
+	$(PETOOL) dump $@
 
-$(BUILD_DIR)/$(1)_%.o: $(1)/src/%.asm
-	$(NASM)   -I$(1)/inc/    $(NFLAGS)   -o $$@ $$<
+%.o: %.cpp
+	$(CXX)  $(CXXFLAGS) -c -o $@ $<
 
-# callsites and symbols do not go in /*/src
-$(BUILD_DIR)/$(1)_%.o: $(1)/%.asm
-	$(NASM)                  $(NFLAGS)   -o $$@ $$<
+%.o: %.c
+	$(CC)   $(CFLAGS)   -c -o $@ $<
 
-$(BUILD_DIR)/$(1)_%.o: $(1)/res/%.rc
-	$(WINDRES) -I$(1)/res/ $(WFLAGS) $$< $$@
-endef
+%.o: %.asm
+	$(NASM) $(NFLAGS)      -o $@ $<
 
-$(foreach prog,$(PROGRAMS) shared,$(eval $(call RULES,$(prog))))
+%.o: %.rc
+	$(WINDRES) $(WFLAGS) $< $@
 
+.PHONY: clean
 clean:
-	rm -f *.exe *.dll *.o
-
-.PHONY: default clean
+	$(RM) *.exe *.dll $(OBJS)

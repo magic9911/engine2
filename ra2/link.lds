@@ -4,11 +4,11 @@ ENTRY(_start);
 
 SECTIONS
 {
-    .text      0x401000        : { ra2/bin.dat(.text) }
-    .rdata     0x7E1000        : { ra2/bin.dat(.rdata) }
-    .data      0x812000        : { ra2/bin.dat(.data) }
+    .text      0x401000        : { bin.dat(.text) }
+    .rdata     0x7E1000        : { bin.dat(.rdata) }
+    .data      0x812000        : { bin.dat(.data) }
 
-    /DISCARD/                  : { ra2/bin.dat(.rsrc) }
+    /DISCARD/                  : { bin.dat(.rsrc) }
     /DISCARD/                  : { *(.drectve) }
 
     .p_text    0xB7A000        : { *(.text) }

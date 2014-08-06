@@ -1,9 +1,9 @@
 # object files
-/*.o
+*.o
 
 # patched executables
-/*.exe
-/*.dll
+*.exe
+*.dll
 
 # PETool on unix
 /petool
