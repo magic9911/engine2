@@ -27,36 +27,36 @@ section .text
 
 
 ; data
-%include "ts/src/data.asm"
+%include "src/data.asm"
 
 ; bss
-%include "ts/src/var.asm"
+%include "src/var.asm"
 
 
 ; loading
-%include "ts/src/loading.asm"
+%include "src/loading.asm"
 
 ; savegame
-%include "ts/src/savegame.asm"
+%include "src/savegame.asm"
 
 ;fixes
-%include "ts/src/fix_wce_errors.asm"
-%include "ts/src/alt_scout_fix.asm"
+%include "src/fix_wce_errors.asm"
+%include "src/alt_scout_fix.asm"
 
 ; spawner
-%include "ts/src/spawner.asm"
-%include "ts/src/spawner/selectable_spawns.asm"
-%include "ts/src/spawner/spectators.asm"
-%include "ts/src/spawner/statistics.asm"
-%include "ts/src/spawner/build_off_ally.asm"
-;%include "ts/src/spawner/auto_ss.asm"
-%include "ts/src/anticheat_test.asm"
+%include "src/spawner.asm"
+%include "src/spawner/selectable_spawns.asm"
+%include "src/spawner/spectators.asm"
+%include "src/spawner/statistics.asm"
+%include "src/spawner/build_off_ally.asm"
+;%include "src/spawner/auto_ss.asm"
+%include "src/anticheat_test.asm"
 
 ; other
-%include "ts/src/no-cd.asm"
-%include "ts/src/display_messages_typed_by_yourself.asm"
-;%include "ts/src/remove_16bit_windowed_check.asm"
-%include "ts/src/graphics_patch.asm"
-%include "ts/src/multiplayer_units_placing.asm"
-%include "ts/src/no_options_menu_animation.asm"
-%include "ts/src/internet_cncnet.asm"
+%include "src/no-cd.asm"
+%include "src/display_messages_typed_by_yourself.asm"
+;%include "src/remove_16bit_windowed_check.asm"
+%include "src/graphics_patch.asm"
+%include "src/multiplayer_units_placing.asm"
+%include "src/no_options_menu_animation.asm"
+%include "src/internet_cncnet.asm"

@@ -1,2 +1,2 @@
-%include "ra2/src/code.asm"
-%include "ra2/src/data.asm"
+%include "src/code.asm"
+%include "src/data.asm"

@@ -21,12 +21,12 @@ section .text
 %include "macros/string.inc"
 
 %push spawner
-%include "ra2/src/spawner/spawn_ini.asm"
-%include "ra2/src/spawner/spawner.asm"
-%include "ra2/src/spawner/selectable_countries.asm"
-%include "ra2/src/spawner/selectable_handicaps.asm"
-%include "ra2/src/spawner/selectable_colors.asm"
-%include "ra2/src/spawner/selectable_spawns.asm"
-%include "ra2/src/spawner/predetermined_alliances.asm"
-%include "ra2/src/spawner/spectators.asm"
+%include "src/spawner/spawn_ini.asm"
+%include "src/spawner/spawner.asm"
+%include "src/spawner/selectable_countries.asm"
+%include "src/spawner/selectable_handicaps.asm"
+%include "src/spawner/selectable_colors.asm"
+%include "src/spawner/selectable_spawns.asm"
+%include "src/spawner/predetermined_alliances.asm"
+%include "src/spawner/spectators.asm"
 %pop
