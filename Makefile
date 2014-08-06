@@ -1,10 +1,10 @@
-all: ra2.exe ra2.dll ts.exe ts.dll
+all: ra2/ra2.exe ra2/ra2.dll ts/ts.exe ts/ts.dll
 
-ra2.%:
-	$(MAKE) -C ra2 $@
+ra2/%:
+	$(MAKE) -C ra2 $*
 
-ts.%:
-	$(MAKE) -C ts  $@
+ts/%:
+	$(MAKE) -C ts  $*
 
 .PHONY: clean
 clean:
