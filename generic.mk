@@ -1,6 +1,6 @@
 # Generic patch project master Makefile
 
-REV        ?= $(shell sh -c 'git rev-parse --short @{0}')
+REV        ?= UNKNOWN_VERSION
 
 RM         ?= rm -f
 CC         ?= gcc
@@ -30,7 +30,7 @@ LDFLAGS    ?= $(CFLAGS) \
 		-Wl,--allow-multiple-definition \
 		-Wl,--subsystem=windows
 
-$(GAME).exe: link.lds bin.dat $(OBJS)
+$(GAME).exe: $(LSCRIPT) $(INBIN) $(OBJS)
 	$(LD) -T $< -Wl,--file-alignment=$(ALIGNMENT) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 $(GAME).dll: $(DLL_OBJS)
