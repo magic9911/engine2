@@ -1,3 +1,4 @@
+%include "macros/patch.inc"
 
 ; FIXME: this call terminates the game for me at least -hifi
 @CLEAR 0x006BD6A0, 0x90, 0x006BD71D
@@ -19,7 +20,4 @@
 @CLEAR 0x0049F7A6, 0x90, 0x0049F915
 
 ; Remove the douchebag blowing up your base, taken from Ares Source code
-
 @LJMP 0x0055CFDF, 0x0055D059
-
-section .text ; because we are chaining includes

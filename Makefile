@@ -16,7 +16,7 @@ ra2_IMPR        = 1 0x40f0E0 320
 ra2_VSIZ        = 0x367BE4
 ra2_LIBS        = $(foreach l,,-l$(l)) $(shared_LIBS)
 ra2_DLL_LIBS    = $(foreach l,,-l$(l)) $(shared_DLL_LIBS)
-ra2_OBJS        = $(foreach o,callsites patch res sym,$(BUILD_DIR)/ra2_$(o).o) $(shared_OBJS)
+ra2_OBJS        = $(foreach o,callsites patch loading no-cd graphics-patch copy-protection res sym,$(BUILD_DIR)/ra2_$(o).o) $(shared_OBJS)
 ra2_DLL_OBJS    = $(foreach o,callsites patch sym,$(BUILD_DIR)/ra2_$(o).o) $(shared_DLL_OBJS)
 
 -include config.mk

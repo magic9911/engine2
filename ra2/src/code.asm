@@ -20,8 +20,6 @@ section .text
 %include "macros/patch.inc"
 %include "macros/string.inc"
 
-%include "ra2/src/loading.asm"
-
 %push spawner
 %include "ra2/src/spawner/spawn_ini.asm"
 %include "ra2/src/spawner/spawner.asm"
@@ -32,8 +30,3 @@ section .text
 %include "ra2/src/spawner/predetermined_alliances.asm"
 %include "ra2/src/spawner/spectators.asm"
 %pop
-
-; misc
-%include "ra2/src/copy_protection.asm"
-%include "ra2/src/no-cd.asm"
-%include "ra2/src/graphics_patch.asm"
