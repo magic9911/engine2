@@ -1,9 +1,14 @@
 -include ../config.mk
 
+REV         = $(shell sh -c 'git rev-parse --short @{0}')
+LSCRRIPT    = link.lds
+INBIN       = bin.dat
+ALIGNMENT   = 0x0400
+
 GAME        = ts
 IMPORT      = 1 0x2EC050 280
 VSIZE       = .data 0x17AF74
-ALIGNMENT   = 0x0400
+
 
 INCLUDES    = -I../shared/inc/ -Iinc/
 
