@@ -5,7 +5,8 @@
 %endmacro
 
 ; for c++
-%macro setxglob 2
-    global %2
-    %2 equ %1
+%macro setxglob 3
+    setcglob {%1}, {%2}
+    global %3
+    %3 equ _%2
 %endmacro
