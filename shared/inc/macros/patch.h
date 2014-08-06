@@ -14,28 +14,28 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#define CLEAR(start, value, end)                    \
-    asm (                                           \
-        ".section .patch,\"d0\";"                   \
-        ".long " #start ";"                         \
-        ".long " #end "-" #start ";"                \
-        ".fill " #end "-" #start ", 1, " #value ";" \
+#define CLEAR(start, value, end)                       \
+    asm (                                              \
+        ".section .patch,\"d0\""                "\n\t" \
+        ".long " #start                         "\n\t" \
+        ".long " #end "-" #start                "\n\t" \
+        ".fill " #end "-" #start ", 1, " #value "\n\t" \
     )
 
-#define LJMP(src, dst)                              \
-    asm (                                           \
-        ".section .patch,\"d0\";"                   \
-        ".long " #src ";"                           \
-        ".long 5;"                                  \
-        ".byte 0xE9;"                               \
-        ".long " #dst "-" #src " - 5;"              \
+#define LJMP(src, dst)                                 \
+    asm (                                              \
+        ".section .patch,\"d0\""                "\n\t" \
+        ".long " #src                           "\n\t" \
+        ".long 5"                               "\n\t" \
+        ".byte 0xE9"                            "\n\t" \
+        ".long " #dst "-" #src " - 5"           "\n\t" \
     )
 
-#define CALL(src, dst)                              \
-    asm (                                           \
-        ".section .patch,\"d0\";"                   \
-        ".long " #src ";"                           \
-        ".long 5;"                                  \
-        ".byte 0xE8;"                               \
-        ".long " #dst "-" #src " - 5;"              \
+#define CALL(src, dst)                                 \
+    asm (                                              \
+        ".section .patch,\"d0\""                "\n\t" \
+        ".long " #src                           "\n\t" \
+        ".long 5"                               "\n\t" \
+        ".byte 0xE8"                            "\n\t" \
+        ".long " #dst "-" #src " - 5"           "\n\t" \
     )

@@ -1,8 +1,9 @@
 # Generic patch project master Makefile
 
-REV        ?= UNKNOWN_VERSION
+REV         ?= UNKNOWN_VERSION
 
-RM         ?= rm -f
+CP          ?= cp
+RM          ?= rm -f
 CC          ?= gcc
 CXX         ?= clang++
 STRIP       ?= strip
@@ -33,14 +34,14 @@ LD_COMMON   ?= $(CFLAGS) \
 LDFLAGS     ?= $(LD_COMMON) -Wl,--file-alignment=$(ALIGNMENT)
 DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 
-$(GAME).exe: $(LSCRIPT) $(INBIN) $(OBJS)
+$(GAME).exe-pure: $(LSCRIPT) $(INBIN) $(OBJS)
 	$(LD) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
-$(GAME).dll: $(DLL_OBJS)
+$(GAME).dll-pure: $(DLL_OBJS)
 	$(LD) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
 
-
-.PHONY: clean
+%: %-pure
+	$(CP) $< $@
 
 import/%: %
 	$(PETOOL) setdd $(*F) $(IMPORT)

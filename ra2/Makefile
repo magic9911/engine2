@@ -34,13 +34,11 @@ DLL_OBJS    = callsites.o \
 		\
 		sym.o
 
-default: exe dll
+default: $(GAME).exe $(GAME).dll
 
-.PHONY: exe
-exe: dump/patch/import/vsize/ra2.exe
+$(GAME).exe: dump/patch/import/vsize/$(GAME).exe
 
-.PHONY: dll
-dll: dump/ra2.dll
+$(GAME).dll: dump/$(GAME).dll
 
 include ../generic.mk
 
