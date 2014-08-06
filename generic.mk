@@ -32,7 +32,7 @@ CC_LDFLAGS ?= $(CFLAGS) \
 		-Wl,--subsystem=windows
 
 $(GAME).exe: link.lds bin.dat $(OBJS)
-	$(CC_LD) -Wl,-T$< -Wl,--file-alignment=0x0400 $(CC_LDFLAGS) -o $@ $(OBJS) $(LIBS)
+	$(CC_LD) -T $< -Wl,--file-alignment=0x0400 $(CC_LDFLAGS) -o $@ $(OBJS) $(LIBS)
 	$(PETOOL) setdd $@ $(IMPORT)
 	$(PETOOL) setvs $@ $(VSIZE)
 	-$(PETOOL) patch $@
