@@ -15,24 +15,26 @@ INCLUDES    = -I../shared/inc/ -Iinc/
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
+		src/patch.o \
 		res/res.o \
+		../shared/src/nethack.o \
 		\
 		sym.o
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
+		src/patch.o \
+		../shared/src/nethack.o \
 		../shared/src/ares.o \
 		\
 		sym.o
 
-default: exe dll
+default: $(GAME).exe $(GAME).dll
 
-.PHONY: exe
-exe: dump/patch/import/vsize/ts.exe
+$(GAME).exe: dump/patch/import/vsize/$(GAME).exe
 
-.PHONY: dll
-dll: dump/ts.dll
+$(GAME).dll: dump/$(GAME).dll
 
 include ../generic.mk
 

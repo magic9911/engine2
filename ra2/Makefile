@@ -15,24 +15,30 @@ INCLUDES    = -I../shared/inc/ -Iinc/
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
+		src/patch.o \
+		src/loading.o \
+		src/no-cd.o \
+		src/graphics-patch.o \
+		src/copy-protection.o \
 		res/res.o \
+		../shared/src/nethack.o \
 		\
 		sym.o
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
+		src/patch.o \
+		../shared/src/nethack.o \
 		../shared/src/ares.o \
 		\
 		sym.o
 
-default: exe dll
+default: $(GAME).exe $(GAME).dll
 
-.PHONY: exe
-exe: dump/patch/import/vsize/ra2.exe
+$(GAME).exe: dump/patch/import/vsize/$(GAME).exe
 
-.PHONY: dll
-dll: dump/ra2.dll
+$(GAME).dll: dump/$(GAME).dll
 
 include ../generic.mk
 
