@@ -40,8 +40,8 @@ $(GAME).exe-pure: $(LSCRIPT) $(INBIN) $(OBJS)
 $(GAME).dll-pure: $(DLL_OBJS)
 	$(LD) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
 
-%: %-pure
-	$(CP) $< $@
+link/%: %-pure
+	$(CP) $(*F)-pure $(*F)
 
 import/%: %
 	$(PETOOL) setdd $(*F) $(IMPORT)
@@ -72,4 +72,4 @@ dump/%: %
 
 .PHONY: clean
 clean:
-	$(RM) *.exe *.dll $(OBJS)
+	$(RM) *.exe *.dll *.exe-pure *.dll-pure $(OBJS) $(DLL_OBJS)

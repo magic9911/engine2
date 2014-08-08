@@ -1,9 +1,11 @@
 # object files
 *.o
 
-# patched executables
+# patched machine code
 *.exe
 *.dll
+*.exe-pure
+*.dll-pure
 
 # PETool on unix
 /petool
