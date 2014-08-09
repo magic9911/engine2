@@ -24,7 +24,7 @@ OBJS        = callsites.o \
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
-		src/patch.o \
+		src/main.o \
 		../shared/src/ares.o \
 		\
 		sym.o
