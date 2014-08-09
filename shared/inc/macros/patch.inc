@@ -20,8 +20,8 @@
     %else
         [section .patch]
         %push __patch
-        dd %1                 ; patch addrss
-        dd %$end - %$start    ; length of the patch
+        dd (%1)                 ; patch addrss
+        dd %$end - %$start      ; length of the patch
       %$start:
     %endif
 %endmacro
@@ -37,34 +37,40 @@
 %endmacro
 
 %macro @SET 2
-    @PATCH %1
+    @PATCH (%1)
     %2
     @ENDPATCH
 %endmacro
 
+;; arg1 : start address, will clear this
+;; arg2 : what byte to put here. but be a byte long or shit breaks
+;; arg3 : stop address, will NOT clear this.
 %macro @CLEAR 3
-    @PATCH %1
-    times (%3 - %1) db %2 ; patch data
+    @PATCH (%1)
+    %if ((%3) - (%1)) < 0
+        %error "stop address is less than start address in @CLEAR"
+    %endif
+    times ((%3) - (%1)) db (%2) ; patch data
     @ENDPATCH
 %endmacro
 
 %macro @SJMP 2
-    @PATCH %1
-    db 0xEB               ; short jump
-    db %2 - %1 - 2        ; relative offset
+    @PATCH (%1)
+    db 0xEB                     ; short jump
+    db (%2) - (%1) - 2          ; relative offset
     @ENDPATCH
 %endmacro
 
 %macro @LJMP 2
-    @PATCH %1
-    db 0xE9               ; far jump
-    dd %2 - %1 - 5        ; relative offset
+    @PATCH (%1)
+    db 0xE9                     ; far jump
+    dd (%2) - (%1) - 5          ; relative offset
     @ENDPATCH
 %endmacro
 
 %macro @CALL 2
-    @PATCH %1
-    db 0xE8               ; far call
-    dd %2 - %1 - 5        ; relative offset
+    @PATCH (%1)
+    db 0xE8                     ; far call
+    dd (%2) - (%1) - 5          ; relative offset
     @ENDPATCH
 %endmacro
