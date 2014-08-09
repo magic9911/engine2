@@ -2,7 +2,7 @@
 
 REV         ?= UNKNOWN_VERSION
 
-CP          ?= cp
+CP          ?= copy
 RM          ?= rm -f
 CC          ?= gcc
 CXX         ?= clang++
@@ -35,10 +35,10 @@ LDFLAGS     ?= $(LD_COMMON) -Wl,--file-alignment=$(ALIGNMENT)
 DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 
 $(GAME).exe-pure: $(LSCRIPT) $(INBIN) $(OBJS)
-	$(LD) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+	$(CC) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
 $(GAME).dll-pure: $(DLL_OBJS)
-	$(LD) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
+	$(CC) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
 
 link/%: %-pure
 	$(CP) $(*F)-pure $(*F)
