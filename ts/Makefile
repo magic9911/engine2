@@ -2,7 +2,6 @@
 
 GAME        = ts
 
-REV         = $(shell sh -c 'git rev-parse --short @{0}')
 LSCRIPT     = link.lds
 INBIN       = bin.dat
 ALIGNMENT   = 0x0400
@@ -37,6 +36,6 @@ $(GAME).exe: link/dump/patch/import/vsize/$(GAME).exe
 
 $(GAME).dll: link/dump/$(GAME).dll
 
-include ../generic.mk
+include ../common/generic.mk
 
 WFLAGS	   += -Ires/ -I../shared/res/
