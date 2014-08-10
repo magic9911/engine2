@@ -10,7 +10,7 @@ IMPORT      = 1 0x40f0E0 320
 VSIZE       = .data 0x367BE4
 
 
-INCLUDES    = -I../shared/inc/ -Iinc/
+INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 
 LIBS        = -nostdlib
 OBJS        = callsites.o \
@@ -42,4 +42,4 @@ $(GAME).dll: link/dump/$(GAME).dll
 
 include ../common/generic.mk
 
-WFLAGS	   += -Ires/ -I../shared/res/
+WFLAGS	   += -Ires/ -I../shared/res/ -I../common/res/
