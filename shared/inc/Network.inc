@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; Network
 cextern ListenPort
 

@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; INIClass
 cextern INIClass__INIClass
 cextern INIClass__Load

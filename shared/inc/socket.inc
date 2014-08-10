@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 cextern sendto
 cextern recvfrom
 cextern htonl

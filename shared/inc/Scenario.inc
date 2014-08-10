@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; Scenario
 cextern ScenarioName
 cextern Start_Scenario

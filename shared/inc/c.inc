@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; C(++) standard library
 cextern strstr
 cextern stristr

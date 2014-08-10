@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; Players??
 cextern PlayersCountries
 cextern PlayersColors

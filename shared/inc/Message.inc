@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; Message
 cextern MessageListClass_this
 cextern PlayerPtr

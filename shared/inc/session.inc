@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; Session
 cextern SessionClass_this
 cextern SessionClass__Create_Connections

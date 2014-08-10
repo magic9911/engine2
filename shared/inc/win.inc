@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; winapi
 cextern GetCommandLineA
 cextern LoadLibraryA

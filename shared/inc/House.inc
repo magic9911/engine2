@@ -1,5 +1,3 @@
-%include "macros/extern.inc"
-
 ; House
 cextern HouseClassArray
 cextern HouseClassArray_Count
