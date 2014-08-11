@@ -7,4 +7,4 @@
 
 %include "main.inc"
 
-@CALL 0x006B7EFC, WinMain@16 ; _start calls _WinMain@16. Should be only callsite of WinMain@16
+@CALL 0x006B7EFC, _WinMain@16 ; _start calls _WinMain@16. Should be only callsite of _WinMain@16
