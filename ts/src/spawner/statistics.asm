@@ -9,11 +9,11 @@
 @LJMP 0x005B4FD3, _Execute_DoList_Send_Statistics_Game_Leave2
 
 _Execute_DoList_Send_Statistics_Game_Leave2:
-    mov edx, [SessionType]
+    mov edx, [_SessionType]
 
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp .Send
@@ -25,18 +25,18 @@ _Execute_DoList_Send_Statistics_Game_Leave2:
  jmp 0x005B500C
  
 .Normal_Code:
-    mov edx, [SessionType]
+    mov edx, [_SessionType]
     cmp edx, 4
     jnz .Dont_Send
     jmp .Send
 
 
 _Execute_DoList_Send_Statistics_Game_Leave:
-    mov edx, [SessionType]
+    mov edx, [_SessionType]
 
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp 0x005B4FB9
@@ -45,7 +45,7 @@ _Execute_DoList_Send_Statistics_Game_Leave:
     jmp 0x005B500C
     
 .Normal_Code:
-    mov edx, [SessionType]
+    mov edx, [_SessionType]
     cmp edx, 4
     jnz .Dont_Send
     jmp 0x005B4FB9
@@ -54,7 +54,7 @@ _Execute_DoList_Send_Statistics_Game_Leave:
 _sub_508A40_Send_Statistics_Spawner2:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp .Send
@@ -66,14 +66,14 @@ _sub_508A40_Send_Statistics_Spawner2:
  jmp 0x005092A5
  
 .Normal_Code:
-    cmp dword [SessionType], 4
+    cmp dword [_SessionType], 4
     jnz .Dont_Send
     jmp .Send
 
 _sub_508A40_Send_Statistics_Spawner1:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp .Send
@@ -85,14 +85,14 @@ _sub_508A40_Send_Statistics_Spawner1:
  jmp 0x0050924B
  
 .Normal_Code:
-    cmp dword [SessionType], 4
+    cmp dword [_SessionType], 4
     jnz .Dont_Send
     jmp .Send
 
 _Queue_AI_Multiplayer_Send_Statistics_Spawner:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp .Send
@@ -104,14 +104,14 @@ _Queue_AI_Multiplayer_Send_Statistics_Spawner:
  jmp 0x005B1F21
  
 .Normal_Code:
-    cmp dword [SessionType], 4
+    cmp dword [_SessionType], 4
     jnz .Dont_Send
     jmp .Send
 
 _sub_5B4290_Send_Statistics_Spawner:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp .Send
@@ -123,7 +123,7 @@ _sub_5B4290_Send_Statistics_Spawner:
  jmp 0x005B439F
  
 .Normal_Code:
-    cmp dword [SessionType], 4
+    cmp dword [_SessionType], 4
     jnz .Dont_Send
     jmp .Send
 
@@ -133,7 +133,7 @@ _Send_Statistics_Packet_Write_Statistics_Dump:
     jz .Normal_Code
     
     call Write_Stats_File
-    mov dword [StatisticsPacketSent], 1
+    mov dword [_StatisticsPacketSent], 1
     jmp 0x0060A7DF
     
 .Normal_Code:
@@ -156,12 +156,12 @@ Write_Stats_File:
     mov [ebx],edx
 
     lea ecx,[stats_file]
-    push str_stats_dmp
-    call FileClass__FileClass
+    push _str_stats_dmp
+    call _FileClass__FileClass
 
     push 3
     lea ecx, [stats_file]
-    call FileClass__Open
+    call _FileClass__Open
     test eax, eax
     je .exit
 
@@ -171,10 +171,10 @@ Write_Stats_File:
     push edx
 
     lea ecx, [stats_file]
-    CALL FileClass__Write
+    CALL _FileClass__Write
 
     lea ecx,[stats_file]
-    CALL FileClass__Close
+    CALL _FileClass__Close
 
 .exit:
     MOV eax,1
@@ -188,13 +188,13 @@ _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff:
     cmp dword [var.SpawnerActive], 0
     jz .Normal_Code
 
-    cmp dword [SessionType], 0
+    cmp dword [_SessionType], 0
     jz .Normal_Code
     
     jmp .Allocate
 
 .Normal_Code:
-    cmp dword [SessionType], 4
+    cmp dword [_SessionType], 4
     jnz .Dont_Allocate
     jmp .Allocate
 

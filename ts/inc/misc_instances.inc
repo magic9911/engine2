@@ -1,7 +1,7 @@
-cextern UnitClassArray_Count
-cextern INIClass_SUN_INI
+extern _UnitClassArray_Count
+extern _INIClass_SUN_INI
 
 ; strings
-cextern str_Video
-cextern str_Options
-cextern str_Delim
+extern _str_Video
+extern _str_Options
+extern _str_Delim

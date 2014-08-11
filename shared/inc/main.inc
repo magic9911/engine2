@@ -1,2 +1,2 @@
-cextern start
-cextern WinMain@16
+extern _start
+extern _WinMain@16

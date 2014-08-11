@@ -3,7 +3,7 @@
 _Read_SUN_INI_Detail_Level_Setting:
     push eax
     
-    call_INIClass__GetBool INIClass_SUN_INI, str_Options, str_ForceLowestDetailLevel, 1
+    call_INIClass__GetBool _INIClass_SUN_INI, _str_Options, _str_ForceLowestDetailLevel, 1
     cmp al, 1
     pop eax
     jz .Force

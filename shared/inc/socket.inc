@@ -1,6 +1,6 @@
-cextern sendto
-cextern recvfrom
-cextern htonl
+extern _sendto
+extern _recvfrom
+extern _htonl
 
 struc sockaddr_in
     .sin_family     RESW 1

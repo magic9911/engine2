@@ -3,7 +3,7 @@
     cmp byte %2, 0
     jz .Ret_Set_Spectator_%3
     
-    mov eax, [NameNode]
+    mov eax, [_NameNode]
     mov ecx, [%1*4+eax]
     mov dword [ecx+6Bh], -1 ; is observer flag
 
@@ -11,28 +11,28 @@
 %endmacro
 
 Load_Spectators:
-    SpawnINI__GetBool str_IsSpectator, str_Multi1, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi1, 0
     Set_Spectator 0, al, a
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi2, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi2, 0
     Set_Spectator 1, al, b
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi3, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi3, 0
     Set_Spectator 2, al, c
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi4, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi4, 0
     Set_Spectator 3, al, d
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi5, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi5, 0
     Set_Spectator 4, al, e
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi6, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi6, 0
     Set_Spectator 5, al, f
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi7, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi7, 0
     Set_Spectator 6, al, g
     
-    SpawnINI__GetBool str_IsSpectator, str_Multi8, 0
+    SpawnINI__GetBool _str_IsSpectator, _str_Multi8, 0
     Set_Spectator 7, al, h
     
     retn

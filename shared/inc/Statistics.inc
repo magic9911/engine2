@@ -1,1 +1,1 @@
-cextern StatisticsPacketSent
+extern _StatisticsPacketSent

@@ -1,3 +1,3 @@
 ; Random
-cextern Seed
-cextern Init_Random
+extern _Seed
+extern _Init_Random

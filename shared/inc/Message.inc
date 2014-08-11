@@ -1,6 +1,6 @@
 ; Message
-cextern MessageListClass_this
-cextern PlayerPtr
-cextern MessageListClass__Add_Message
-cextern Get_Message_Delay_Or_Duration
-cextern Message_Input_Player_Dead
+extern _MessageListClass_this
+extern _PlayerPtr
+extern _MessageListClass__Add_Message
+extern _Get_Message_Delay_Or_Duration
+extern _Message_Input_Player_Dead

@@ -179,7 +179,7 @@ _Anticheat_Test62:
     push (StripClass_Size * 2)
     push LEFT_STRIP
     push var.AntiCheatArray
-    call memcpy
+    call _memcpy
     add esp, 0x0c
     pop esi
     pop ebx
@@ -189,7 +189,7 @@ _Anticheat_Test61:
     push (StripClass_Size * 2)
     push LEFT_STRIP
     push var.AntiCheatArray
-    call memcpy
+    call _memcpy
     add esp, 0x0c
 
     xor     al, al
@@ -202,7 +202,7 @@ _Anticheat_Test60:
     push (StripClass_Size * 2)
     push LEFT_STRIP
     push var.AntiCheatArray
-    call memcpy
+    call _memcpy
     add esp, 0x0c
     
     mov al, 1
@@ -210,13 +210,13 @@ _Anticheat_Test60:
     retn 8
 
 _Anticheat_Test46:
-    call memcpy
+    call _memcpy
     add esp, 4
     
     lea edi, [esi+50h]
     push edi
     
-    call memcpy
+    call _memcpy
     add esp, 0Ch
     
     jmp 0x005F5807

@@ -1,24 +1,24 @@
 ; Network
-cextern ListenPort
+extern _ListenPort
 
-cextern UDPInterfaceClass__UDPInterfaceClass
-cextern WinsockInterface_this
-cextern WinsockInterfaceClass__Init
-cextern UDPInterfaceClass__Open_Socket
-cextern WinsockInterfaceClass__Start_Listening
-cextern WinsockInterfaceClass__Discard_In_Buffers
-cextern WinsockInterfaceClass__Discard_Out_Buffers
-cextern IPXManagerClass_this
-cextern IPXManagerClass__Set_Timing
-cextern IPXAddressClass__IPXAddressClass
+extern _UDPInterfaceClass__UDPInterfaceClass
+extern _WinsockInterface_this
+extern _WinsockInterfaceClass__Init
+extern _UDPInterfaceClass__Open_Socket
+extern _WinsockInterfaceClass__Start_Listening
+extern _WinsockInterfaceClass__Discard_In_Buffers
+extern _WinsockInterfaceClass__Discard_Out_Buffers
+extern _IPXManagerClass_this
+extern _IPXManagerClass__Set_Timing
+extern _IPXAddressClass__IPXAddressClass
 
-cextern MaxAhead
-cextern MaxMaxAhead
-cextern FrameSendRate
-cextern LatencyFudge
-cextern RequestedFPS
-cextern ProtocolVersion
+extern _MaxAhead
+extern _MaxMaxAhead
+extern _FrameSendRate
+extern _LatencyFudge
+extern _RequestedFPS
+extern _ProtocolVersion
 
-cextern Init_Network
-cextern NameNodes_CurrentSize
-cextern HumanPlayers
+extern _Init_Network
+extern _NameNodes_CurrentSize
+extern _HumanPlayers

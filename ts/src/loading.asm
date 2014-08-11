@@ -5,10 +5,10 @@ _WinMain_Read_SUN_INI_Read_Extra_Options:
     call INIClass__GetBool
     
     pushad
-    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_UseGraphicsPatch, 1
+    call_INIClass__GetBool _INIClass_SUN_INI, _str_Video, _str_UseGraphicsPatch, 1
     mov byte [var.UseGraphicsPatch], al
     
-    call_INIClass__GetBool INIClass_SUN_INI, str_Options, str_NoCD, 1
+    call_INIClass__GetBool _INIClass_SUN_INI, _str_Options, _str_NoCD, 1
     cmp al, 0
     jz .Dont_Set_NoCD
     mov byte [var.IsNoCD], al
@@ -18,5 +18,5 @@ _WinMain_Read_SUN_INI_Read_Extra_Options:
     jmp 0x006010CE
     
 _WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference:
-    push str_Video_Windowed
+    push _str_Video_Windowed
     jmp 0x006010BF

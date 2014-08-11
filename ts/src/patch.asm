@@ -1,6 +1,6 @@
 section .text
 
-; cextern symbols
+; extern symbols
 %include "c.inc"
 %include "socket.inc"
 

@@ -9,16 +9,16 @@
 @LJMP 0x005D74A0, _Teams_Alliances_Stuff
 
 ; max number of players in static address list
-cextern AddressList
-cextern TunnelId
-cextern TunnelIp
-cextern TunnelPort
-cextern PortHack
-cextern NetHack_SendTo
-cextern NetHack_RecvFrom
+extern _AddressList
+extern _TunnelId
+extern _TunnelIp
+extern _TunnelPort
+extern _PortHack
+extern _NetHack_SendTo
+extern _NetHack_RecvFrom
 
-@CALL 0x007B3D75, NetHack_SendTo
-@CALL 0x007B3EEC, NetHack_RecvFrom
+@CALL 0x007B3D75, _NetHack_SendTo
+@CALL 0x007B3EEC, _NetHack_RecvFrom
 
 %push
 
@@ -45,7 +45,7 @@ SaveGameNameBuf              resb 60
 section .text
 _Teams_Alliances_Stuff:
     push ecx
-    mov edx, [HouseClassArray_Count]
+    mov edx, [_HouseClassArray_Count]
 
     cmp dword [%$SpawnerActive], 1
     jz .Ret
@@ -58,7 +58,7 @@ _Teams_Alliances_Stuff:
 
 
 _More_Alliances_Crap:
-    mov ecx, [HouseClassArray]
+    mov ecx, [_HouseClassArray]
 
     cmp dword [%$SpawnerActive], 1
     jz 0x00686AC6
@@ -116,18 +116,18 @@ _Assign_Houses_Do_Spawner_Stuff:
 
     ; Make sure players aren't the same team by default
     ; Spawner uses a different system to set up teams
-    mov dword [PlayersTeams+0], -1
-    mov dword [PlayersTeams+4], -1
-    mov dword [PlayersTeams+8], -1
-    mov dword [PlayersTeams+12], -1
-    mov dword [PlayersTeams+16], -1
-    mov dword [PlayersTeams+20], -1
-    mov dword [PlayersTeams+24], -1
-    mov dword [PlayersTeams+28], -1
+    mov dword [_PlayersTeams+0], -1
+    mov dword [_PlayersTeams+4], -1
+    mov dword [_PlayersTeams+8], -1
+    mov dword [_PlayersTeams+12], -1
+    mov dword [_PlayersTeams+16], -1
+    mov dword [_PlayersTeams+20], -1
+    mov dword [_PlayersTeams+24], -1
+    mov dword [_PlayersTeams+28], -1
 
 .Ret:
     popad
-    mov edi, [NameNodes_CurrentSize]
+    mov edi, [_NameNodes_CurrentSize]
     jmp  0x00687F1B
 
 _HouseClass__Flag_To_Lose_RETN_Patch:
@@ -148,107 +148,107 @@ Initialize_Spawn:
     jz .Ret_Exit
 
     mov dword [%$$SpawnerActive], 1
-    mov dword [PortHack], 1 ; default enabled
+    mov dword [_PortHack], 1 ; default enabled
 
     call Load_SPAWN_INI
     cmp eax, 0
     jz .Exit_Error
 
     ; get pointer to inet_addr
-    push str_wsock32_dll
-    call [LoadLibraryA]
+    push _str_wsock32_dll
+    call [_LoadLibraryA]
 
-    push str_inet_addr
+    push _str_inet_addr
     push eax
-    call [GetProcAddress]
+    call [_GetProcAddress]
 
     mov [%$$inet_addr], eax
 
-    mov byte [GameActive], 1 ; needs to be set here or the game gets into an infinite loop trying to create spawning units
+    mov byte [_GameActive], 1 ; needs to be set here or the game gets into an infinite loop trying to create spawning units
 
     ; set session
-    mov dword [SessionType], 5
+    mov dword [_SessionType], 5
 
 
-    SpawnINI__GetInt str_Settings, str_UnitCount, 0
-    mov dword [UnitCount], eax
+    SpawnINI__GetInt _str_Settings, _str_UnitCount, 0
+    mov dword [_UnitCount], eax
 
-    SpawnINI__GetInt str_Settings, str_TechLevel, 10
-    mov dword [TechLevel], eax
+    SpawnINI__GetInt _str_Settings, _str_TechLevel, 10
+    mov dword [_TechLevel], eax
 
-    SpawnINI__GetInt str_Settings, str_AIPlayers, 0
-    mov dword [AIPlayers], eax
+    SpawnINI__GetInt _str_Settings, _str_AIPlayers, 0
+    mov dword [_AIPlayers], eax
 
-    SpawnINI__GetInt str_Settings, str_AIDifficulty, 1
-    mov dword [AIDifficulty], eax
+    SpawnINI__GetInt _str_Settings, _str_AIDifficulty, 1
+    mov dword [_AIDifficulty], eax
 
-    SpawnINI__GetBool str_Settings, str_BuildOffAlly, 0
-    mov dword [BuildOffAlly], eax
+    SpawnINI__GetBool _str_Settings, _str_BuildOffAlly, 0
+    mov dword [_BuildOffAlly], eax
 
-    SpawnINI__GetBool str_Settings, str_SuperWeapons, 1
-    mov byte [SuperWeapons], al
+    SpawnINI__GetBool _str_Settings, _str_SuperWeapons, 1
+    mov byte [_SuperWeapons], al
 
-    SpawnINI__GetBool str_Settings, str_HarvesterTruce, 0
-    mov byte [HarvesterTruce], al
+    SpawnINI__GetBool _str_Settings, _str_HarvesterTruce, 0
+    mov byte [_HarvesterTruce], al
 
-    SpawnINI__GetBool str_Settings, str_BridgeDestroy, 1
-    mov byte [BridgeDestroy], al
+    SpawnINI__GetBool _str_Settings, _str_BridgeDestroy, 1
+    mov byte [_BridgeDestroy], al
 
-    SpawnINI__GetBool str_Settings, str_FogOfWar, 0
-    mov byte [FogOfWar], al
+    SpawnINI__GetBool _str_Settings, _str_FogOfWar, 0
+    mov byte [_FogOfWar], al
 
-    SpawnINI__GetBool str_Settings, str_Crates, 0
-    mov byte [Crates], al
+    SpawnINI__GetBool _str_Settings, _str_Crates, 0
+    mov byte [_Crates], al
 
-    SpawnINI__GetBool str_Settings, str_ShortGame, 0
-    mov byte [ShortGame], al
+    SpawnINI__GetBool _str_Settings, _str_ShortGame, 0
+    mov byte [_ShortGame], al
 
-    SpawnINI__GetBool str_Settings, str_Bases, 1
-    mov byte [Bases], al
+    SpawnINI__GetBool _str_Settings, _str_Bases, 1
+    mov byte [_Bases], al
 
-    SpawnINI__GetBool str_Settings, str_MCVRedeploy, 1
-    mov byte [MCVRedeploy], al
+    SpawnINI__GetBool _str_Settings, _str_MCVRedeploy, 1
+    mov byte [_MCVRedeploy], al
 
-    SpawnINI__GetInt str_Settings, str_Credits, 10000
-    mov dword [Credits], eax
+    SpawnINI__GetInt _str_Settings, _str_Credits, 10000
+    mov dword [_Credits], eax
 
-    SpawnINI__GetInt str_Settings, str_GameSpeed, 0
-    mov dword [GameSpeed], eax
+    SpawnINI__GetInt _str_Settings, _str_GameSpeed, 0
+    mov dword [_GameSpeed], eax
 
-    SpawnINI__GetBool str_Settings, str_MultiEngineer, 0
-    mov byte [MultiEngineer], al
+    SpawnINI__GetBool _str_Settings, _str_MultiEngineer, 0
+    mov byte [_MultiEngineer], al
 
     ; tunnel ip
     lea eax, [TempBuf]
-    SpawnINI__GetString str_Tunnel, str_Ip, str_Empty, eax, 32
+    SpawnINI__GetString _str_Tunnel, _str_Ip, _str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
     call [%$$inet_addr]
-    mov [TunnelIp], eax
+    mov [_TunnelIp], eax
 
     ; tunnel port
-    SpawnINI__GetInt str_Tunnel, str_Port, 0
+    SpawnINI__GetInt _str_Tunnel, _str_Port, 0
     and eax, 0xffff
     push eax
-    call htonl
-    mov [TunnelPort], eax
+    call _htonl
+    mov [_TunnelPort], eax
 
     ; tunnel id
-    SpawnINI__GetInt str_Settings, str_Port, 0
+    SpawnINI__GetInt _str_Settings, _str_Port, 0
     and eax, 0xffff
     push eax
-    call htonl
-    mov [TunnelId], eax
+    call _htonl
+    mov [_TunnelId], eax
 
-    cmp dword [TunnelPort],0
+    cmp dword [_TunnelPort],0
     jne .nosetport
-    SpawnINI__GetInt str_Settings, str_Port, 1234
-    mov word [ListenPort], ax
+    SpawnINI__GetInt _str_Settings, _str_Port, 1234
+    mov word [_ListenPort], ax
 .nosetport:
 
-    mov ecx, SessionClass_this
-    call SessionClass__Read_Scenario_Descriptions
+    mov ecx, _SessionClass_this
+    call _SessionClass__Read_Scenario_Descriptions
 
     call Add_Human_Player
     call Add_Human_Opponents
@@ -256,100 +256,100 @@ Initialize_Spawn:
     call Load_Spectators
 
     ; scenario
-    lea eax, [ScenarioName] ; FIXME: name this
-    SpawnINI__GetString str_Settings, str_Scenario, str_Empty, eax, 32
+    lea eax, [_ScenarioName] ; FIXME: name this
+    SpawnINI__GetString _str_Settings, _str_Scenario, _str_Empty, eax, 32
 
     ; Needs to be done after SessionClass is set, or the seed value will be overwritten
-    ; inside the Init_Random() call if sessiontype == SKIRMISH
-    SpawnINI__GetInt str_Settings, str_Seed, 0
-    mov dword [Seed], eax
-    call Init_Random
+    ; inside the _Init_Random() call if sessiontype == SKIRMISH
+    SpawnINI__GetInt _str_Settings, _str_Seed, 0
+    mov dword [_Seed], eax
+    call _Init_Random
 
     ; Initialize networking
 
     push 3F5CCh
-    call new
+    call _new
     add esp, 4
 
     mov ecx, eax
-    call UDPInterfaceClass__UDPInterfaceClass
+    call _UDPInterfaceClass__UDPInterfaceClass
 
-    mov [WinsockInterface_this], eax
+    mov [_WinsockInterface_this], eax
 
-    mov ecx, [WinsockInterface_this]
-    call WinsockInterfaceClass__Init
+    mov ecx, [_WinsockInterface_this]
+    call _WinsockInterfaceClass__Init
 
     push 0
-    mov ecx, [WinsockInterface_this]
-    call UDPInterfaceClass__Open_Socket
+    mov ecx, [_WinsockInterface_this]
+    call _UDPInterfaceClass__Open_Socket
 
-    mov ecx, [WinsockInterface_this]
-    call WinsockInterfaceClass__Start_Listening
+    mov ecx, [_WinsockInterface_this]
+    call _WinsockInterfaceClass__Start_Listening
 
-    mov ecx, [WinsockInterface_this]
-    call WinsockInterfaceClass__Discard_In_Buffers
+    mov ecx, [_WinsockInterface_this]
+    call _WinsockInterfaceClass__Discard_In_Buffers
 
-    mov ecx, [WinsockInterface_this]
-    call WinsockInterfaceClass__Discard_Out_Buffers
+    mov ecx, [_WinsockInterface_this]
+    call _WinsockInterfaceClass__Discard_Out_Buffers
 
-    mov ecx, IPXManagerClass_this
+    mov ecx, _IPXManagerClass_this
     push 1
     push 258h
     push 0FFFFFFFFh
     push 3Ch
-    call IPXManagerClass__Set_Timing
+    call _IPXManagerClass__Set_Timing
 
-    mov dword [MaxAhead], 9
-    mov dword [MaxMaxAhead], 0
-    MOV dword [FrameSendRate], 3
-    mov dword [LatencyFudge], 0
-    mov dword [RequestedFPS], 60
-    mov dword [ProtocolVersion], 2
+    mov dword [_MaxAhead], 9
+    mov dword [_MaxMaxAhead], 0
+    MOV dword [_FrameSendRate], 3
+    mov dword [_LatencyFudge], 0
+    mov dword [_RequestedFPS], 60
+    mov dword [_ProtocolVersion], 2
 
-    call Init_Network
+    call _Init_Network
 
-    mov dword eax, [NameNodes_CurrentSize]
-    mov dword [HumanPlayers], eax
+    mov dword eax, [_NameNodes_CurrentSize]
+    mov dword [_HumanPlayers], eax
 
     ; Load HouseTypes background and stuff for scenario loading screen
     call Load_Sides_Stuff
 
     call 0x0061F210 ; Load_Country_Flags_And_Stuff
 
-    SpawnINI__GetInt str_Settings, str_GameMode, 1
+    SpawnINI__GetInt _str_Settings, _str_GameMode, 1
     mov ecx, eax
-    call Set_Game_Mode
-    mov [GameMode], eax
+    call _Set_Game_Mode
+    mov [_GameMode], eax
 
-    ; start scenario
+    ; _start scenario
     push -1
     xor edx, edx
-    mov ecx, ScenarioName
-    call Start_Scenario
+    mov ecx, _ScenarioName
+    call _Start_Scenario
 
     ; HACK: If SessonType was set to WOL then set it to LAN now
-    ; We had to set SessionType to WOL to make sure players connect
-    ; while Start_Scenario was being executed
+    ; We had to set _SessionType to WOL to make sure players connect
+    ; while _Start_Scenario was being executed
 
-    cmp dword [SessionType], 4
+    cmp dword [_SessionType], 4
     jnz .Dont_Set_SessionType_To_Lan
 
-    mov dword [SessionType], 3
+    mov dword [_SessionType], 3
 
 .Dont_Set_SessionType_To_Lan:
 
-    mov ecx, SessionClass_this
-    call SessionClass__Create_Connections
+    mov ecx, _SessionClass_this
+    call _SessionClass__Create_Connections
 
-    mov ecx, IPXManagerClass_this
+    mov ecx, _IPXManagerClass_this
     push 1
     push 258h
     push 0FFFFFFFFh
     push 3Ch
-    call IPXManagerClass__Set_Timing
+    call _IPXManagerClass__Set_Timing
 
 
-    mov ecx, [WWMouseClas_Mouse]
+    mov ecx, [_WWMouseClas_Mouse]
     mov edx, [ecx]
     call dword [edx+0Ch]
 
@@ -363,7 +363,7 @@ Initialize_Spawn:
     push    0
     call    0x004F4780
 
-    mov ecx, [WWMouseClas_Mouse]
+    mov ecx, [_WWMouseClas_Mouse]
     mov edx, [ecx]
     call dword [edx+10h]
 
@@ -372,18 +372,18 @@ Initialize_Spawn:
 
     push 0
     push 13h
-    mov ecx, MouseClass_Map
+    mov ecx, _MouseClass_Map
     call 0x005BDC80
 
-    mov ecx, MouseClass_Map
+    mov ecx, _MouseClass_Map
     call 0x005BDAA0
 
     push 1
-    mov ecx, MouseClass_Map
+    mov ecx, _MouseClass_Map
     call 0x006D04F0
 
     push    0
-    mov     ecx, MouseClass_Map
+    mov     ecx, _MouseClass_Map
     call    0x004F42F0
 
 .Ret:
@@ -417,10 +417,10 @@ _Select_Game_Init_Spawner:
 _Init_Game_Check_Spawn_Arg_No_Intro:
     pushad
 
-    call [GetCommandLineA]
-    push str_SpawnArg
+    call [_GetCommandLineA]
+    push _str_SpawnArg
     push eax
-    call strstr
+    call _strstr
     add esp, 8
     xor ebx, ebx
     cmp eax, 0
@@ -450,21 +450,21 @@ Load_SPAWN_INI:
 %define TempFileClass ebp-128
 
     ; initialize FileClass
-    push str_spawn_ini
+    push _str_spawn_ini
     lea ecx, [TempFileClass]
-    call FileClass__FileClass
+    call _FileClass__FileClass
 
     ; check ini exists
     lea ecx, [TempFileClass]
     xor edx, edx
     push edx
-    call FileClass__Is_Available
+    call _FileClass__Is_Available
     test al, al
     je .error
 
     ; initialize INIClass
     mov ecx, INIClass_SPAWN
-    call INIClass__INIClass
+    call _INIClass__INIClass
 
     ; load FileClass to INIClass
     push 0
@@ -472,7 +472,7 @@ Load_SPAWN_INI:
     lea eax, [TempFileClass]
     push eax
     Mov ecx, INIClass_SPAWN
-    call INIClass__Load
+    call _INIClass__Load
 
     mov eax, 1
     jmp .exit
@@ -496,27 +496,27 @@ Add_Human_Player:
 
     push 1
     push 0x85
-    call calloc
+    call _calloc
 
     mov esi, eax
 
     lea ecx, [esi+28h]
-    call IPXAddressClass__IPXAddressClass
+    call _IPXAddressClass__IPXAddressClass
 
 ;    lea eax, [esi]
-;    SpawnINI__GetString str_Settings, str_Name, str_Empty, eax, 0x14
+;    SpawnINI__GetString _str_Settings, _str_Name, _str_Empty, eax, 0x14
 
     lea eax, [NameBuf]
-    SpawnINI__GetString str_Settings, str_Name, str_Empty, eax, 0x28
+    SpawnINI__GetString _str_Settings, _str_Name, _str_Empty, eax, 0x28
 
     lea eax, [NameBuf]
     push 0x28
     push eax
     push esi
-    call mbstowcs
+    call _mbstowcs
 
     ; Player side
-    SpawnINI__GetInt str_Settings, str_Side, 0
+    SpawnINI__GetInt _str_Settings, _str_Side, 0
     mov dword [esi+0x4B], eax ; side
 
     ; Invert AL to set byte related to what sidebar and speech graphics to load
@@ -532,17 +532,17 @@ Add_Human_Player:
 .Past_AL_Invert:
 ;    mov byte [0x7E2500], al ; For side specific mix files loading and stuff, without sidebar and speech hack
 
-    SpawnINI__GetInt str_Settings, str_Color, 0
+    SpawnINI__GetInt _str_Settings, _str_Color, 0
     mov dword [esi+0x53], eax  ; color
-    mov dword [PlayerColor], eax
+    mov dword [_PlayerColor], eax
 
     mov dword [esi+0x73], -1
 
     mov [TempPtr], esi
     lea eax, [TempPtr]
     push eax
-    mov ecx, NameNodeVector
-    call NameNodeVector_Add
+    mov ecx, _NameNodeVector
+    call _NameNodeVector_Add
 
     mov esp,ebp
     pop ebp
@@ -588,13 +588,13 @@ Load_Sides_Stuff:
 %endmacro
 
 Add_Human_Opponents:
-    Add_Human_Opponent 1, str_Other1
-    Add_Human_Opponent 2, str_Other2
-    Add_Human_Opponent 3, str_Other3
-    Add_Human_Opponent 4, str_Other4
-    Add_Human_Opponent 5, str_Other5
-    Add_Human_Opponent 6, str_Other6
-    Add_Human_Opponent 7, str_Other7
+    Add_Human_Opponent 1, _str_Other1
+    Add_Human_Opponent 2, _str_Other2
+    Add_Human_Opponent 3, _str_Other3
+    Add_Human_Opponent 4, _str_Other4
+    Add_Human_Opponent 5, _str_Other5
+    Add_Human_Opponent 6, _str_Other6
+    Add_Human_Opponent 7, _str_Other7
 retn
 
 %pop
@@ -615,15 +615,15 @@ Add_Human_Opponent_:
 
     push 1
     push 0x85
-    call calloc
+    call _calloc
 
     mov esi, eax
     lea ecx, [esi+28h]
-    call IPXAddressClass__IPXAddressClass
+    call _IPXAddressClass__IPXAddressClass
 
     lea eax, [TempBuf]
     mov ecx, [%$$OtherSection]
-    SpawnINI__GetString ecx, str_Name, str_Empty, eax, 0x28
+    SpawnINI__GetString ecx, _str_Name, _str_Empty, eax, 0x28
 
     lea eax, [TempBuf]
     mov eax, [eax]
@@ -635,24 +635,24 @@ Add_Human_Opponent_:
     push 0x28
     push eax
     push esi
-    call mbstowcs
+    call _mbstowcs
 
     mov ecx, [%$$OtherSection]
-    SpawnINI__GetInt ecx, str_Side, -1
+    SpawnINI__GetInt ecx, _str_Side, -1
     mov dword [esi+0x4B], eax ; side
 
     cmp eax,-1
     je .Exit
 
     mov ecx, [%$$OtherSection]
-    SpawnINI__GetInt ecx, str_Color, -1
+    SpawnINI__GetInt ecx, _str_Color, -1
     mov dword [esi+0x53], eax  ; color
 
     cmp eax,-1
     je .Exit
 
     mov eax, 1
-    mov dword [SessionType], 4 ; HACK: SessonType set to WOL, will be set to LAN later
+    mov dword [_SessionType], 4 ; HACK: SessonType set to WOL, will be set to LAN later
 
     ; set addresses to indexes for send/receive hack
     mov [esi + 0x28 + SpawnAddress.pad1], word 0
@@ -662,7 +662,7 @@ Add_Human_Opponent_:
 
     lea eax, [TempBuf]
     mov ecx, [%$$OtherSection]
-    SpawnINI__GetString ecx, str_Ip, str_Empty, eax, 32
+    SpawnINI__GetString ecx, _str_Ip, _str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
@@ -670,25 +670,25 @@ Add_Human_Opponent_:
 
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    mov [ecx * ListAddress_size + AddressList + ListAddress.ip], eax
+    mov [ecx * ListAddress_size + _AddressList + ListAddress.ip], eax
 
     mov ecx, [%$$OtherSection]
-    SpawnINI__GetInt ecx, str_Port, 0
+    SpawnINI__GetInt ecx, _str_Port, 0
     and eax, 0xffff
 
     push eax
-    call htonl
+    call _htonl
     shr eax,16
 
-    ; disable PortHack if different port than own
-    cmp ax, [ListenPort]
+    ; disable _PortHack if different port than own
+    cmp ax, [_ListenPort]
     je .samePort
-    mov dword [PortHack], 0
+    mov dword [_PortHack], 0
 .samePort:
 
     mov ecx, dword [CurrentOpponent]
     dec ecx
-    mov [ecx * ListAddress_size + AddressList + ListAddress.port], ax
+    mov [ecx * ListAddress_size + _AddressList + ListAddress.port], ax
 
     mov dword [esi+0x73], -1
 
@@ -697,8 +697,8 @@ Add_Human_Opponent_:
     mov [TempPtr], esi
     lea eax, [TempPtr]
     push eax
-    mov ecx, NameNodeVector ; FIXME: name this
-    call NameNodeVector_Add ; FIXME: name this
+    mov ecx, _NameNodeVector ; FIXME: name this
+    call _NameNodeVector_Add ; FIXME: name this
 
  ;   jmp .next_opp
 .Exit:

@@ -1,11 +1,11 @@
 ; INIClass
-cextern INIClass__INIClass
-cextern INIClass__Load
+extern _INIClass__INIClass
+extern _INIClass__Load
 extern ?GetBool@INIClass@@QAE_NPBD0_N@Z
 %define INIClass__GetBool ?GetBool@INIClass@@QAE_NPBD0_N@Z
-cextern INIClass__GetInt
-cextern INIClass__GetString
-cextern INIClass__GetFixed
+extern _INIClass__GetInt
+extern _INIClass__GetString
+extern _INIClass__GetFixed
 
 ; args: <INIClass this>, <INI section string>, <INI key string>, <default value if missing>
 %macro call_INIClass__GetInt 4
@@ -13,7 +13,7 @@ cextern INIClass__GetFixed
     push %3
     push %2
     mov ecx, %1
-    call INIClass__GetInt
+    call _INIClass__GetInt
 %endmacro
 
 ; args: <INIClass this>, <INI section string>, <INI key string>, <default value if missing>
@@ -32,7 +32,7 @@ cextern INIClass__GetFixed
     push %3
     push %2
     mov ecx, %1
-    call INIClass__GetString
+    call _INIClass__GetString
 %endmacro
 
 %macro call_INIClass__GetFixed 5
@@ -41,5 +41,5 @@ cextern INIClass__GetFixed
     push %3
     push %2
     mov ecx, %1
-    call INIClass__GetFixed
+    call _INIClass__GetFixed
 %endmacro

@@ -1,3 +1,3 @@
 ; Mouse
-cextern WWMouseClas_Mouse
-cextern MouseClass_Map
+extern _WWMouseClas_Mouse
+extern _MouseClass_Map

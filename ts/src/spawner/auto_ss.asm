@@ -7,15 +7,15 @@ _Main_Loop_Auto_SS:
     cmp dword [var.SpawnerActive], 1 ; only do Auto-SS when spawner is active
     jnz .Ret
 
-    cmp dword [SessionType], 3 ; only do Auto-SS in LAN mode
+    cmp dword [_SessionType], 3 ; only do Auto-SS in LAN mode
     jnz .Ret
 
-    cmp dword [Frame], 0
+    cmp dword [_Frame], 0
     jz .Ret
     
     mov edx, 0
     mov ebx, 3600 ; divive by 3600, 60 FPS means every 60 secs
-    mov eax, [Frame]
+    mov eax, [_Frame]
     
     idiv ebx
     
@@ -39,17 +39,17 @@ _ScreenCaptureCommand__Activate_AutoSS_File_Name:
 .AutoSS_File_Name:
     
     push 0 
-    push str_AutoSSDir
+    push _str_AutoSSDir
     call [0x006CA0D0] ; CreateDirectoryA
     
     lea ecx, [esp+0x114]
 
     push esi
-    push dword [Frame]
-    push dword [GameIDNumber]
-    push str_AutoSSFileNameFormat ; "AutoSS\\AutoSS-%d-%d_%d.PCX"
+    push dword [_Frame]
+    push dword [_GameIDNumber]
+    push _str_AutoSSFileNameFormat ; "AutoSS\\AutoSS-%d-%d_%d.PCX"
     push ecx
-    call sprintf
+    call _sprintf
     add esp, 0x14 ; AFTER PUSHING
     jmp 0x004EAC4F
 

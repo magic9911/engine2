@@ -1,6 +1,6 @@
 ; File
-cextern FileClass__FileClass
-cextern FileClass__Is_Available
-cextern FileClass__Open
-cextern FileClass__Close
-cextern FileClass__Write
+extern _FileClass__FileClass
+extern _FileClass__Is_Available
+extern _FileClass__Open
+extern _FileClass__Close
+extern _FileClass__Write

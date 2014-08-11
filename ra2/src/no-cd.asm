@@ -6,8 +6,8 @@
 %include "macros/string.inc"
 
 [section .bss]
-cglobal NoCD__Disable_CD
-NoCD__Disable_CD resb 1
+global _NoCD__Disable_CD
+_NoCD__Disable_CD resb 1
 __SECT__
 
 
@@ -31,7 +31,7 @@ __SECT__
 
 
 @HACK 0x0052C3B3, NoCD__Init_Game_NoCD_Check
-    cmp  byte [NoCD__Disable_CD], 1
+    cmp  byte [_NoCD__Disable_CD], 1
     jz   0x0052C5BF
     cmp  eax, ebx
     jnz  0x0052C5BF
@@ -40,7 +40,7 @@ __SECT__
 
 
 @HACK 0x00479110, NoCD__NeverAskForCD
-    cmp  byte [NoCD__Disable_CD], 0
+    cmp  byte [_NoCD__Disable_CD], 0
     jz   .Normal_Code
 
   .NoCD:
@@ -57,7 +57,7 @@ __SECT__
 
 
 @HACK 0x004790E0, NoCD__AlwaysAvailable
-    cmp  byte [NoCD__Disable_CD], 0
+    cmp  byte [_NoCD__Disable_CD], 0
     jz   .Normal_Code
 
   .NoCD:
@@ -72,7 +72,7 @@ __SECT__
 
 
 @HACK 0x004A80D0, NoCD__AlwaysFindYR
-    cmp  byte [NoCD__Disable_CD], 0
+    cmp  byte [_NoCD__Disable_CD], 0
     jz   .Normal_Code
 
   .NoCD:

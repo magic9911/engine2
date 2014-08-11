@@ -6,13 +6,13 @@
 %include "macros/string.inc"
 
 [section .bss]
-cglobal Graphics__Enable_Patch
-Graphics__Enable_Patch resb 1
+global _Graphics__Enable_Patch
+_Graphics__Enable_Patch resb 1
 __SECT__
 
 
 @HACK 0x004BA61F, Graphics_Patch
-    cmp byte [Graphics__Enable_Patch], 1
+    cmp byte [_Graphics__Enable_Patch], 1
     jz  .Ret
 
     cmp al, 1

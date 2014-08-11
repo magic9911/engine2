@@ -8,24 +8,24 @@
 @SJMP 0x0043485F, 0x00434874 ; jump, past check in BuildingClass::Read_INI() preventing multiplayer building spawning for player
 
 ;_Read_Scenario_INI_Dont_Load_Custom_Houses_List_In_Multiplayer:
-;    cmp dword [SessionType], 0
+;    cmp dword [_SessionType], 0
 ;    jnz .Ret
 
-;    call Read_Scenario_Houses
+;    call _Read_Scenario_Houses
 
 ;.Ret:
 ;    jmp 0x005DD92F
 
-; loop check needs to be i < UnitClassArray_Count - OldUnitClassArray_Count
+; loop check needs to be i < _UnitClassArray_Count - OldUnitClassArray_Count
 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition:
-    mov edi, [UnitClassArray_Count]
+    mov edi, [_UnitClassArray_Count]
     sub edi, [var.OldUnitClassArrayCount]
     jmp 0x00658A0B
     
 _UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue:
     push eax
 
-    mov dword eax, [UnitClassArray_Count]
+    mov dword eax, [_UnitClassArray_Count]
     mov dword [var.OldUnitClassArrayCount], eax
     
     pop eax
@@ -41,14 +41,14 @@ _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     cmp eax, -1
     jz .Normal_Code
     
-    mov esi, [HouseClassArray]
+    mov esi, [_HouseClassArray]
     mov eax, [esi+eax*4]
 
     mov edi, eax
     jmp 0x004D7BD5
 
 .Normal_Code:
-    call HouseType_From_Name
+    call _HouseType_From_Name
     jmp 0x004D7B9F
 
 _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX:
@@ -60,7 +60,7 @@ _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     cmp eax, -1
     jz .Normal_Code
     
-    mov esi, [HouseClassArray]
+    mov esi, [_HouseClassArray]
     mov eax, [esi+eax*4]
     
     mov esi, eax
@@ -69,7 +69,7 @@ _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX:
 
 
 .Normal_Code:
-    call HouseType_From_Name
+    call _HouseType_From_Name
     jmp 0x00434848 
 
 _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
@@ -81,13 +81,13 @@ _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     cmp eax, -1
     jz .Normal_Code
     
-    mov esi, [HouseClassArray]
+    mov esi, [_HouseClassArray]
     mov eax, [esi+eax*4]
     
     mov esi, eax
-    push str_Delim ; ","
+    push _str_Delim ; ","
     push ebx             ; Str
-    call strtok
+    call _strtok
     add esp, 8
     mov ecx, eax        ; Str2
     call 0x0065BB30
@@ -98,7 +98,7 @@ _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     
     
 .Normal_Code:
-    call HouseType_From_Name
+    call _HouseType_From_Name
     jmp 0x0065865D
     
 Check_For_Spawn_Fake_HouseType_Name:
@@ -109,49 +109,49 @@ Check_For_Spawn_Fake_HouseType_Name:
     mov edi, ecx
     
     
-    strcmp_i ecx, str_Spawn1
+    strcmp_i ecx, _str_Spawn1
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn2
+    strcmp_i ecx, _str_Spawn2
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn3
+    strcmp_i ecx, _str_Spawn3
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn4
+    strcmp_i ecx, _str_Spawn4
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn5
+    strcmp_i ecx, _str_Spawn5
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn6
+    strcmp_i ecx, _str_Spawn6
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn7
+    strcmp_i ecx, _str_Spawn7
     cmp eax, 0
     jz .Ret
     
     mov ecx, edi
     inc ebx
-    strcmp_i ecx, str_Spawn8
+    strcmp_i ecx, _str_Spawn8
     cmp eax, 0
     jz .Ret
     

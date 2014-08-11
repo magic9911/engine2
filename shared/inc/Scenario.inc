@@ -1,9 +1,9 @@
 ; Scenario
-cextern ScenarioName
-cextern Start_Scenario
-cextern NameNodeVector
-cextern NameNode
-cextern NameNodeVector_Add
-cextern SessionClass__Read_Scenario_Descriptions
-cextern ScenarioStuff
+extern _ScenarioName
+extern _Start_Scenario
+extern _NameNodeVector
+extern _NameNode
+extern _NameNodeVector_Add
+extern _SessionClass__Read_Scenario_Descriptions
+extern _ScenarioStuff
 

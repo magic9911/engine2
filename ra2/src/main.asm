@@ -2,9 +2,9 @@
 
 %include "WWDebug.inc"
 
-global WinMain@16
+global _WinMain@16
 
-PROC WinMain@16
+PROC _WinMain@16
     push   ebp
     mov    ebp, esp
     push   0xffffffff

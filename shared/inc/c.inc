@@ -1,19 +1,19 @@
 ; C(++) standard library
-cextern strstr
-cextern stristr
-cextern strcmpi
-cextern strtok
+extern _strstr
+extern _stristr
+extern _strcmpi
+extern _strtok
 
-cextern sprintf
+extern _sprintf
 
-cextern new
-cextern calloc
-cextern memcpy
-cextern memset
+extern _new
+extern _calloc
+extern _memcpy
+extern _memset
 
 %macro strcmp_i 2
     push    %1             ; Str2
     push    %2             ; Str1
-    call    strcmpi
+    call    _strcmpi
     add     esp, 8
 %endmacro

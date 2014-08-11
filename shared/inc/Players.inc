@@ -1,6 +1,6 @@
 ; Players??
-cextern PlayersCountries
-cextern PlayersColors
-cextern PlayersSpawns
-cextern PlayersHandicaps
-cextern PlayersTeams
+extern _PlayersCountries
+extern _PlayersColors
+extern _PlayersSpawns
+extern _PlayersHandicaps
+extern _PlayersTeams

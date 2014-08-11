@@ -1,2 +1,2 @@
 ; Save games
-cextern Load_Game
+extern _Load_Game

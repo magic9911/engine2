@@ -27,5 +27,5 @@ var:
     .SpectatorStuffInit         RESB 1
     .OldUnitClassArrayCount     RESD 1
 
-;%define AddressList var.AddressList
+;%define _AddressList var.AddressList
 __SECT__

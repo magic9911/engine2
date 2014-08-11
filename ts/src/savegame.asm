@@ -8,7 +8,7 @@ _Save_Game_Pre_Save_Game_Hook:
     push (StripClass_Size * 2)
     push var.AntiCheatArray
     push LEFT_STRIP
-    call memcpy
+    call _memcpy
     add esp, 0x0c    
      
     call 0x004082D0
@@ -21,7 +21,7 @@ _Load_Game_Post_Load_Game_Hook:
     push (StripClass_Size * 2)
     push LEFT_STRIP
     push var.AntiCheatArray
-    call memcpy
+    call _memcpy
     add esp, 0x0c
     
     call 0x004082D0
