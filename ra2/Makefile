@@ -36,9 +36,11 @@ DLL_OBJS    = callsites.o \
 
 default: $(GAME).exe $(GAME).dll
 
-$(GAME).exe: link/dump/patch/import/vsize/$(GAME).exe
+$(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
+	$(CP) $< $@
 
-$(GAME).dll: link/dump/$(GAME).dll
+$(GAME).dll: .dump-.$(GAME).dll
+	$(CP) $< $@
 
 include ../common/generic.mk
 
