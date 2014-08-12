@@ -73,8 +73,8 @@ re/%.dump: .pure-$(GAME).exe
 	mkdir -p re
 	objdump -D --no-show-raw-insn -M intel_nmemonic -z -j .$* $< > $@
 
-%.asm: %.dump
-	sed -r -f $(COMMON_DIR)/objdump2nasm.sed $< > $@
+%.asm: %.bin
+	ndisasm -u -o 0x401000 $< | cut -b29- | sed -r 's/^(j[^ ]+) [^ ]+ (.+)/\1 \2/' > $@
 
 
 %.o: %.cpp
