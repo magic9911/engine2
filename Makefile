@@ -1,5 +1,9 @@
 .PHONY: all
-all: ra2yr/ra2yr.exe ra2yr/ra2yr.dll ts/ts.exe ts/ts.dll
+all: ra2yr/ra2yr.exe ra2yr/ra2yr.dll \
+     ts/ts.exe       ts/ts.dll
+
+.PHONY: pure
+pure: ra2yr/pure-ra2yr.exe ts/pure-ts.exe
 
 ra2yr/%:
 	$(MAKE) -C ra2yr $*

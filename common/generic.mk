@@ -31,11 +31,17 @@ LD_COMMON   ?= $(CFLAGS) \
 		-Wl,--allow-multiple-definition \
 		-Wl,--subsystem=windows
 
-LDFLAGS     ?= $(LD_COMMON) -Wl,--file-alignment=$(ALIGNMENT)
+LDFLAGS     ?= $(LD_COMMON) -Wl,--file-alignment=$(ALIGNMENT) -nostdlib
 DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 
 .$(GAME).exe: $(LSCRIPT) $(INBIN) $(OBJS)
 	$(CC) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+
+.pure-$(GAME).exe: $(LSCRIPT) $(INBIN) $(PURE_OBJS)
+	$(CC) -T $< $(LDFLAGS) -o $@ $(PURE_OBJS)
+
+.re-$(GAME).exe: re.lds $(RE_OBJS)
+	$(CC) -T $< $(LDFLAGS) -o $@ $(RE_OBJS)
 
 .$(GAME).dll: $(DLL_OBJS)
 	$(CC) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)

@@ -12,7 +12,7 @@ VSIZE       = .data 0x367BE4
 
 INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 
-LIBS        = -nostdlib
+LIBS        =
 OBJS        = callsites.o \
 		\
 		src/patch.o \
@@ -25,6 +25,9 @@ OBJS        = callsites.o \
 		\
 		sym.o
 
+PURE_OBJS   = sym.o
+RE_OBJ      = dump.o
+
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
@@ -34,9 +37,13 @@ DLL_OBJS    = callsites.o \
 		\
 		sym.o
 
+.PHONY: default
 default: $(GAME).exe $(GAME).dll
 
 $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
+	$(CP) $< $@
+
+pure-$(GAME).exe: .dump-.import-.vsize-.pure-$(GAME).exe
 	$(CP) $< $@
 
 $(GAME).dll: .dump-.$(GAME).dll
