@@ -10,13 +10,13 @@ IMPORT      = 1 0x2EC050 280
 VSIZE       = .data 0x17AF74
 
 
-INCLUDES    = -Ishared/inc/ -Icommon/inc/ -Iinc/
+INCLUDES    = -Ishared/inc/ -Iinc/
 
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
 		src/patch.o \
-		shared/src/nethack.o \
+		src/nethack.o \
 		res/res.o \
 		\
 		sym.o
@@ -25,7 +25,7 @@ DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
 		src/patch.o \
-		shared/src/nethack.o \
+		src/nethack.o \
 		shared/src/ares.o \
 		\
 		sym.o
@@ -38,6 +38,6 @@ $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
 $(GAME).dll: .dump-.$(GAME).dll
 	$(CP) $< $@
 
-include common/generic.mk
+include generic.mk
 
-WFLAGS	   += -Ires/ -Ishared/res/ -Icommon/res/
+WFLAGS	   += -Ires/ -Ishared/res/
