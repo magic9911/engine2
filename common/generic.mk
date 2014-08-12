@@ -66,6 +66,52 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 	$(CP) $< $@
 	$(PETOOL) dump $@
 
+
+re/%.dump: .pure-$(GAME).exe
+	mkdir -p re
+	objdump -D --no-show-raw-insn -M intel_nmemonic -z -j .$* $< > $@
+
+%.asm: %.dump
+	sed -r $< \
+		-e '1,3d' \
+		-e '4s;^;___ImageBase equ 0x00401000;' \
+		-e 's|^[^:]*: *||' \
+		\
+		-e 's|([0-9a-z]*) *<(.*)>$$|(\2) ;RAW: \1|' \
+		-e 's_(.s:)\[_[\1_g' \
+		\
+		-e 's_(BYTE|WORD|DWORD|QWORD) PTR_\1_g' \
+		\
+		-e 's_lods  Byte_lodsb_' \
+		-e 's_lods  Word_lodsw_' \
+		-e 's_lods Dword_lodsd_' \
+		\
+		-e 's_movs  Byte_movsb_' \
+		-e 's_movs  Word_movsw_' \
+		-e 's_movs Dword_movsd_' \
+		\
+		-e 's_stos  Byte_stosb_' \
+		-e 's_stos  Word_stosw_' \
+		-e 's_stos Dword_stosd_' \
+		\
+		-e 's_scas  Byte_scasb_' \
+		-e 's_scas  Word_scasw_' \
+		-e 's_scas Dword_scasd_' \
+		\
+		-e 's_cmps  Byte_cmpsb_' \
+		-e 's_cmps  Word_cmpsw_' \
+		-e 's_cmps Dword_cmpsd_' \
+		\
+		-e 's_ins  Byte_insb_' \
+		-e 's_ins  Word_insw_' \
+		-e 's_ins Dword_insd_' \
+		\
+		-e 's_outs  Byte_outsb_' \
+		-e 's_outs  Word_outsw_' \
+		-e 's_outs Dword_outsd_' \
+		\
+		> $@
+
 %.o: %.cpp
 	$(CXX)  $(CXXFLAGS) -c -o $@ $<
 

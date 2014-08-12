@@ -2,7 +2,7 @@
 
 GAME        = ts
 
-LSCRIPT     = link.lds
+LSCRIPT     = patch.lds
 INBIN       = bin.dat
 ALIGNMENT   = 0x0400
 
@@ -21,8 +21,8 @@ OBJS        = callsites.o \
 		\
 		sym.o
 
-PURE_OBJS   = sym.o
-RE_OBJ      = dump.o
+PURE_OBJS   = sym.o res/res.o
+RE_OBJS      = re/text.o re/rdata.o re/data.o res/res.o
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
@@ -40,6 +40,9 @@ $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
 	$(CP) $< $@
 
 pure-$(GAME).exe: .dump-.import-.vsize-.pure-$(GAME).exe
+	$(CP) $< $@
+
+re-$(GAME).exe: .dump-.import-.vsize-.re-$(GAME).exe
 	$(CP) $< $@
 
 $(GAME).dll: .dump-.$(GAME).dll
