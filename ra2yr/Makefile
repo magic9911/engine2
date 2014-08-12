@@ -1,6 +1,6 @@
 -include ../config.mk
 
-GAME        = ra2
+GAME        = ra2yr
 
 LSCRIPT     = link.lds
 INBIN       = bin.dat

@@ -12,8 +12,8 @@
 
 # Yuri's Revenge isn't freeware so don't include the game exe used as input
 gamemd.dat
-ra2.dat
-/ra2/bin.dat
+ra2yr.dat
+/ra2yr/bin.dat
 
 # configuration
 config.mk

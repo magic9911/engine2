@@ -38,9 +38,9 @@ default to be their makefile names. Unix uses should edit `config.mk` with
 ### Instructions
 
 Once everything is installed, just copy your YR executable to this repo under
-the name `ra2/bin.dat` (TS is freeware, and thus included), run `make`, and copy
-the patched executables back to your game installations. (Make sure to backup
-your original executables!)
+the name `ra2yr/bin.dat` (TS is freeware, and thus included), run `make`, and
+copy the patched executables back to your game installations. (Make sure to
+backup your original executables!)
 
 Or if you rather just copy and paste some commands, do:
 
@@ -48,9 +48,9 @@ Or if you rather just copy and paste some commands, do:
 $ cd /path/to/yuris-revenge/installation
 $ cp gamemd.exe gamemd-backup.exe
 $ cd /path/to/engine2
-$ cp /path/to/yr/installation/gamemd.exe ./ra2/bin.dat
+$ cp /path/to/yr/installation/gamemd.exe ./ra2yr/bin.dat
 $ make
-$ cp ra2.exe /path/to/yr/installation/
+$ cp ra2yr.exe /path/to/yr/installation/
 ```
 and likewise for Tiberian Sun:
 
