@@ -6,7 +6,7 @@ SECTIONS
 {
     .text      0x401000        : { bin.dat(.text) }
     .rdata     0x6CA000        : { bin.dat(.rdata) }
-    .data      0x6EE000        : { bin.dat(.data); }
+    .data      0x6EE000        : { bin.dat(.data) }
 
     .hp_code   0x869000        : { bin.dat(.hp_code) }
     .hp_data   0xA69000        : { bin.dat(.hp_data) }
