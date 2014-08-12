@@ -1,13 +1,43 @@
-.PHONY: all
-all: ra2yr/ra2yr.exe ra2yr/ra2yr.dll ts/ts.exe ts/ts.dll
+-include config.mk
 
-ra2yr/%:
-	$(MAKE) -C ra2yr $*
+GAME        = ts
 
-ts/%:
-	$(MAKE) -C ts  $*
+LSCRIPT     = link.lds
+INBIN       = bin.dat
+ALIGNMENT   = 0x0400
 
-.PHONY: clean
-clean:
-	$(MAKE) -C ts clean
-	$(MAKE) -C ra2yr clean
+IMPORT      = 1 0x2EC050 280
+VSIZE       = .data 0x17AF74
+
+
+INCLUDES    = -Ishared/inc/ -Icommon/inc/ -Iinc/
+
+LIBS        = -nostdlib
+OBJS        = callsites.o \
+		\
+		src/patch.o \
+		shared/src/nethack.o \
+		res/res.o \
+		\
+		sym.o
+
+DLL_LIBS    = -lmsvcrt
+DLL_OBJS    = callsites.o \
+		\
+		src/patch.o \
+		shared/src/nethack.o \
+		shared/src/ares.o \
+		\
+		sym.o
+
+default: $(GAME).exe $(GAME).dll
+
+$(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
+	$(CP) $< $@
+
+$(GAME).dll: .dump-.$(GAME).dll
+	$(CP) $< $@
+
+include common/generic.mk
+
+WFLAGS	   += -Ires/ -Ishared/res/ -Icommon/res/
