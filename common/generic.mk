@@ -2,8 +2,6 @@
 
 REV         ?= UNKNOWN_VERSION
 
-COMMON_DIR  ?= common
-
 CP          ?= copy
 RM          ?= rm -f
 CC          ?= gcc
@@ -74,7 +72,7 @@ re/%.dump: .pure-$(GAME).exe
 	objdump -D --no-show-raw-insn -M intel_nmemonic -z -j .$* $< > $@
 
 %.asm: %.dump
-	sed -r -f $(COMMON_DIR)/objdump2nasm.sed $< > $@
+	disass $< $@
 
 
 %.o: %.cpp
@@ -88,7 +86,6 @@ re/%.dump: .pure-$(GAME).exe
 
 %.o: %.rc
 	$(WINDRES) $(WFLAGS) $< $@
-
 
 .PHONY: clean
 clean:
