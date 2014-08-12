@@ -22,7 +22,7 @@ OBJS        = callsites.o \
 		sym.o
 
 PURE_OBJS   = sym.o res/res.o
-RE_OBJS      = re/text.o re/rdata.o re/data.o res/res.o
+RE_OBJS      = re/text.o res/res.o sym.o
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
