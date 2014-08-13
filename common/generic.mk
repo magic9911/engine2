@@ -2,6 +2,8 @@
 
 REV         ?= UNKNOWN_VERSION
 
+COMMON_DIR  ?= common
+
 CP          ?= copy
 RM          ?= rm -f
 CC          ?= gcc
@@ -63,6 +65,7 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 	$(CP) $< $@
 	$(PETOOL) dump $@
 
+
 %.o: %.cpp
 	$(CXX)  $(CXXFLAGS) -c -o $@ $<
 
@@ -74,6 +77,7 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 
 %.o: %.rc
 	$(WINDRES) $(WFLAGS) $< $@
+
 
 .PHONY: clean
 clean:
