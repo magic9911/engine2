@@ -7,5 +7,6 @@ SECTIONS
     .text      0x401000        : { *(.text) }
     .rdata     0x6CA000        : { bin.dat(.rdata) }
     .data      0x6EE000        : { bin.dat(.data) }
-    .rsrc      0x869000        : { *(.rsrc) }
+    .bss       ALIGN(0x1000)   : { . = 0x120F74; }
+    .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
 }
