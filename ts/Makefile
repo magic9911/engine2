@@ -2,6 +2,8 @@
 
 GAME        = ts
 
+COMMON_DIR  = ../common
+
 LSCRIPT     = patch.lds
 INBIN       = bin.dat
 ALIGNMENT   = 0x0400
@@ -10,7 +12,7 @@ IMPORT      = 1 0x2EC050 280
 VSIZE       = .data 0x17AF74
 
 
-INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
+INCLUDES    = -I../shared/inc/ -I$(COMMON_DIR)/inc/ -Iinc/
 
 LIBS        =
 OBJS        = callsites.o \
@@ -48,6 +50,6 @@ re-$(GAME).exe: .dump-.import-.vsize-.re-$(GAME).exe
 $(GAME).dll: .dump-.$(GAME).dll
 	$(CP) $< $@
 
-include ../common/generic.mk
+include $(COMMON_DIR)/generic.mk
 
-WFLAGS	   += -Ires/ -I../shared/res/ -I../common/res/
+WFLAGS	   += -Ires/ -I../shared/res/ -I$(COMMON_DIR)/res/

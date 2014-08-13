@@ -2,6 +2,8 @@
 
 REV         ?= UNKNOWN_VERSION
 
+COMMON_DIR  ?= common
+
 CP          ?= copy
 RM          ?= rm -f
 CC          ?= gcc
@@ -72,45 +74,8 @@ re/%.dump: .pure-$(GAME).exe
 	objdump -D --no-show-raw-insn -M intel_nmemonic -z -j .$* $< > $@
 
 %.asm: %.dump
-	sed -r $< \
-		-e '1,3d' \
-		-e '4s;^;___ImageBase equ 0x00401000;' \
-		-e 's|^[^:]*: *||' \
-		\
-		-e 's|([0-9a-z]*) *<(.*)>$$|(\2) ;RAW: \1|' \
-		-e 's_(.s:)\[_[\1_g' \
-		\
-		-e 's_(BYTE|WORD|DWORD|QWORD) PTR_\1_g' \
-		\
-		-e 's_lods BYTE_lodsb_' \
-		-e 's_lods WORD_lodsw_' \
-		-e 's_lods DWORD_lodsd_' \
-		\
-		-e 's_movs BYTE_movsb_' \
-		-e 's_movs WORD_movsw_' \
-		-e 's_movs DWORD_movsd_' \
-		\
-		-e 's_stos BYTE_stosb_' \
-		-e 's_stos WORD_stosw_' \
-		-e 's_stos DWORD_stosd_' \
-		\
-		-e 's_scas BYTE_scasb_' \
-		-e 's_scas WORD_scasw_' \
-		-e 's_scas DWORD_scasd_' \
-		\
-		-e 's_cmps BYTE_cmpsb_' \
-		-e 's_cmps WORD_cmpsw_' \
-		-e 's_cmps DWORD_cmpsd_' \
-		\
-		-e 's_ins BYTE_insb_' \
-		-e 's_ins WORD_insw_' \
-		-e 's_ins DWORD_insd_' \
-		\
-		-e 's_outs BYTE_outsb_' \
-		-e 's_outs WORD_outsw_' \
-		-e 's_outs DWORD_outsd_' \
-		\
-		> $@
+	sed -r -f $(COMMON_DIR)/objdump2nasm.sed $< > $@
+
 
 %.o: %.cpp
 	$(CXX)  $(CXXFLAGS) -c -o $@ $<
@@ -123,6 +88,7 @@ re/%.dump: .pure-$(GAME).exe
 
 %.o: %.rc
 	$(WINDRES) $(WFLAGS) $< $@
+
 
 .PHONY: clean
 clean:
