@@ -81,4 +81,4 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 
 .PHONY: clean
 clean:
-	$(RM) *.exe *.dll $(OBJS) $(DLL_OBJS)
+	$(RM) *$(GAME).exe *$(GAME).dll $(OBJS) $(DLL_OBJS)
