@@ -1,6 +1,5 @@
 @LJMP 0x0052C5D3, _Init_Game_Check_Spawn_Arg_No_Intro
 @LJMP 0x0052D9A0, _Select_Game_Init_Spawner
-@LJMP 0x004FCBD0, _HouseClass__Flag_To_Lose_RETN_Patch ; for debugging
 @LJMP 0x00687F15, _Assign_Houses_Do_Spawner_Stuff
 @LJMP 0x00688378, _Assign_Houses_Epilogue_Do_Spawner_Stuff
 
@@ -129,9 +128,6 @@ _Assign_Houses_Do_Spawner_Stuff:
     popad
     mov edi, [NameNodes_CurrentSize]
     jmp  0x00687F1B
-
-_HouseClass__Flag_To_Lose_RETN_Patch:
-    retn 4
 
 Initialize_Spawn:
 %push
