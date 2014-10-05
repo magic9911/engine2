@@ -34,7 +34,7 @@ WINAPI int Tunnel_SendTo(int sockfd, const void *buf, size_t len, int flags, str
 {
     char TempBuf[1024 + 4];
     unsigned short *BufFrom = (void *)TempBuf;
-    unsigned short *BufTo = (void *)TempBuf + 4;
+    unsigned short *BufTo = (void *)TempBuf + 2;
 
     // no processing if no tunnel
     if (!TunnelPort)
@@ -57,7 +57,7 @@ WINAPI int Tunnel_RecvFrom(int sockfd, void *buf, size_t len, int flags, struct 
 {
     char TempBuf[1024 + 4];
     unsigned short *BufFrom = (void *)TempBuf;
-    unsigned short *BufTo = (void *)TempBuf + 4;
+    unsigned short *BufTo = (void *)TempBuf + 2;
 
     // no processing if no tunnel
     if (!TunnelPort)
