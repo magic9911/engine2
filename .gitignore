@@ -19,5 +19,7 @@ ra2.dat
 config.mk
 
 # misc junk
+/ra2/build_exe.bat
+/ra2/build_dll.bat
 *~
 \#*\#
