@@ -1,6 +1,6 @@
 -include ../config.mk
 
-GAME        = ra2
+GAME        = yr
 
 LSCRIPT     = link.lds
 INBIN       = bin.dat
@@ -15,12 +15,22 @@ INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
-		src/patch.o \
+		src/data.o \
 		src/no-cd.o \
 		src/loading.o \
 		src/graphics-patch.o \
 		src/copy-protection.o \
+		src/spawner/selectable_countries.o \
+		src/spawner/selectable_handicaps.o \
+		src/spawner/selectable_colors.o \
+		src/spawner/selectable_spawns.o \
+		src/spawner/predetermined_alliances.o \
+		src/spawner/spectators.o \
+		src/spawner/spawn_ini.o \
+		src/spawner/spawner.o \
 		../shared/src/nethack.o \
+		src/anticheat/rename_yr_window_title.o \
+		src/anticheat/radar_hack.o \
 		res/res.o \
 		\
 		sym.o

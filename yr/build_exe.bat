@@ -1,4 +1,4 @@
 make clean
 pause
-make ra2.exe
+make yr.exe
 pause

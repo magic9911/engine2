@@ -1,3 +1,25 @@
+%include "macros/patch.inc"
+%include "macros/string.inc"
+%include "INIClass.inc"
+
+StringZ Multi1,           "Multi1"
+StringZ Multi2,           "Multi2"
+StringZ Multi3,           "Multi3"
+StringZ Multi4,           "Multi4"
+StringZ Multi5,           "Multi5"
+StringZ Multi6,           "Multi6"
+StringZ Multi7,           "Multi7"
+StringZ Multi8,           "Multi8"
+
+StringZ IsSpectator,      "IsSpectator"
+
+cextern NameNode
+cextern INIClass_SPAWN
+
+%macro SpawnINI__GetBool 3
+     call_INIClass__GetBool   INIClass_SPAWN, %1, %2, %3
+%endmacro
+
 ; args: <player index>, <set or not>, <identifier>
 %macro Set_Spectator 3
     cmp byte %2, 0
@@ -9,6 +31,8 @@
 
 .Ret_Set_Spectator_%3:
 %endmacro
+
+cglobal Load_Spectators
 
 Load_Spectators:
     SpawnINI__GetBool str_IsSpectator, str_Multi1, 0

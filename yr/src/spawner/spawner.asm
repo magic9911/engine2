@@ -1,3 +1,102 @@
+%include "macros/patch.inc"
+%include "macros/string.inc"
+
+%include "c.inc"
+%include "FileClass.inc"
+%include "House.inc"
+%include "INIClass.inc"
+%include "Message.inc"
+%include "Mouse.inc"
+%include "Network.inc"
+%include "Players.inc"
+%include "Random.inc"
+%include "SaveGame.inc"
+%include "Scenario.inc"
+%include "session.inc"
+%include "socket.inc"
+%include "win.inc"
+
+StringZ gcanyonmap,       "blitz_test.map"
+StringZ debugplayer,      "debugplayer"
+StringZ debugplayer2,     "debugplayer2"
+StringZ wsock32_dll,      "wsock32.dll"
+StringZ inet_addr,        "inet_addr"
+StringZ localhost,        "127.0.0.1"
+StringZ spawn_ini,        "SPAWN.INI"
+StringZ Settings,         "Settings"
+StringZ UnitCount,        "UnitCount"
+StringZ Scenario,         "Scenario"
+StringZ Empty,            ""
+StringZ GameSpeed,        "GameSpeed"
+StringZ Seed,             "Seed"
+StringZ TechLevel,        "TechLevel"
+StringZ AIPlayers,        "AIPlayers"
+StringZ AIDifficulty,     "AIDifficulty"
+StringZ BuildOffAlly,     "BuildOffAlly"
+StringZ SuperWeapons,     "SuperWeapons"
+StringZ HarvesterTruce,   "HarvesterTruce"
+StringZ GameMode,         "GameMode"
+StringZ BridgeDestroy,    "BridgeDestroy"
+StringZ FogOfWar,         "FogOfWar"
+StringZ Crates,           "Crates"
+StringZ ShortGame,        "ShortGame"
+StringZ Bases,            "Bases"
+StringZ MCVRedeploy,      "MCVRedeploy"
+StringZ Credits,          "Credits"
+StringZ Name,             "Name"
+StringZ Side,             "Side"
+StringZ Color,            "Color"
+StringZ OtherSectionFmt,  "Other%d"
+
+StringZ Other1,           "Other1"
+StringZ Other2,           "Other2"
+StringZ Other3,           "Other3"
+StringZ Other4,           "Other4"
+StringZ Other5,           "Other5"
+StringZ Other6,           "Other6"
+StringZ Other7,           "Other7"
+
+StringZ Port,             "Port"
+StringZ Ip,               "Ip"
+StringZ SpawnArg,         "-SPAWN"
+StringZ MultiEngineer,    "MultiEngineer"
+StringZ Firestorm,        "Firestorm"
+StringZ Tunnel,           "Tunnel"
+StringZ IsSinglePlayer,   "IsSinglePlayer"
+StringZ LoadSaveGame,     "LoadSaveGame"
+StringZ SaveGameName,     "SaveGameName"
+StringZ MultipleFactory,  "MultipleFactory"
+StringZ AlliesAllowed,    "AlliesAllowed"
+
+cextern Load_Predetermined_Alliances
+cextern Load_Selectable_Countries
+cextern Load_Selectable_Handicaps
+cextern Load_Selectable_Colors
+cextern Load_Selectable_Spawns
+cextern Load_Spectators
+
+section .bss
+cglobal INIClass_SPAWN
+INIClass_SPAWN             RESB 256 ; FIXME: make this a local able
+
+section .text
+
+%macro SpawnINI__GetInt 3
+     call_INIClass__GetInt    INIClass_SPAWN, %1, %2, %3
+%endmacro
+
+%macro SpawnINI__GetBool 3
+     call_INIClass__GetBool   INIClass_SPAWN, %1, %2, %3
+%endmacro
+
+%macro SpawnINI__GetString 5
+     call_INIClass__GetString INIClass_SPAWN, %1, %2, %3, %4, %5
+%endmacro
+
+%macro SpawnINI__GetFixed 4
+     call_INIClass__GetFixed  INIClass_SPAWN, %1, %2, %3, %4
+%endmacro
+
 @LJMP 0x0052C5D3, _Init_Game_Check_Spawn_Arg_No_Intro
 @LJMP 0x0052D9A0, _Select_Game_Init_Spawner
 @LJMP 0x00687F15, _Assign_Houses_Do_Spawner_Stuff

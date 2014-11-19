@@ -1,3 +1,33 @@
+%include "macros/patch.inc"
+%include "macros/string.inc"
+%include "INIClass.inc"
+%include "House.inc"
+
+StringZ HouseAllyOne,     "HouseAllyOne"
+StringZ HouseAllyTwo,     "HouseAllyTwo"
+StringZ HouseAllyThree,   "HouseAllyThree"
+StringZ HouseAllyFour,    "HouseAllyFour"
+StringZ HouseAllyFive,    "HouseAllyFive"
+StringZ HouseAllySix,     "HouseAllySix"
+StringZ HouseAllySeven,   "HouseAllySeven"
+StringZ HouseAllyEight,   "HouseAllyEight"
+
+StringZ Multi1_Alliances, "Multi1_Alliances"
+StringZ Multi2_Alliances, "Multi2_Alliances"
+StringZ Multi3_Alliances, "Multi3_Alliances"
+StringZ Multi4_Alliances, "Multi4_Alliances"
+StringZ Multi5_Alliances, "Multi5_Alliances"
+StringZ Multi6_Alliances, "Multi6_Alliances"
+StringZ Multi7_Alliances, "Multi7_Alliances"
+StringZ Multi8_Alliances, "Multi8_Alliances"
+
+cextern NameNode
+cextern INIClass_SPAWN
+
+%macro SpawnINI__GetInt 3
+     call_INIClass__GetInt    INIClass_SPAWN, %1, %2, %3
+%endmacro
+
 ; args <House number>, <House number to ally>
 %macro House_Make_Ally 3
     mov eax, %2
@@ -72,6 +102,8 @@
     
 .Dont_Ally_Multi8_%3:
 %endmacro
+
+cglobal Load_Predetermined_Alliances
 
 Load_Predetermined_Alliances:
 
