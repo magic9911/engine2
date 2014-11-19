@@ -3,8 +3,9 @@
 ; INIClass
 cextern INIClass__INIClass
 cextern INIClass__Load
-extern ?GetBool@INIClass@@QAE_NPBD0_N@Z
-%define INIClass__GetBool ?GetBool@INIClass@@QAE_NPBD0_N@Z
+;extern ?GetBool@INIClass@@QAE_NPBD0_N@Z
+;%define INIClass__GetBool ?GetBool@INIClass@@QAE_NPBD0_N@Z
+cextern INIClass__GetBool
 cextern INIClass__GetInt
 cextern INIClass__GetString
 cextern INIClass__GetFixed
