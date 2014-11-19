@@ -15,7 +15,6 @@ INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
-		src/data.o \
 		src/no-cd.o \
 		src/loading.o \
 		src/graphics-patch.o \
@@ -29,7 +28,7 @@ OBJS        = callsites.o \
 		src/spawner/spawn_ini.o \
 		src/spawner/spawner.o \
 		../shared/src/nethack.o \
-		src/anticheat/rename_yr_window_title.o \
+		src/anticheat/rename.o \
 		src/anticheat/radar_hack.o \
 		res/res.o \
 		\
