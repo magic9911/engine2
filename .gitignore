@@ -18,6 +18,9 @@ yr.dat
 # configuration
 config.mk
 
+# don't track anticheat code
+/yr/src/anticheat/*
+
 # misc junk
 /yr/build_exe.bat
 /yr/build_dll.bat
