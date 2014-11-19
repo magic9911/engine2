@@ -28,11 +28,14 @@ OBJS        = callsites.o \
 		src/spawner/spawn_ini.o \
 		src/spawner/spawner.o \
 		../shared/src/nethack.o \
-		src/anticheat/rename.o \
-		src/anticheat/radar_hack.o \
 		res/res.o \
 		\
 		sym.o
+		
+ifdef ANTICHEAT
+	OBJS 		+= 		src/anticheat/rename.o \
+				src/anticheat/radar_hack.o 
+endif
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
