@@ -1,0 +1,1 @@
+move ra2.exe C:\Westwood\RA2\gamemd.exe
