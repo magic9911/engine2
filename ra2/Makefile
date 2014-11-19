@@ -16,8 +16,8 @@ LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
 		src/patch.o \
-		src/loading.o \
 		src/no-cd.o \
+		src/loading.o \
 		src/graphics-patch.o \
 		src/copy-protection.o \
 		../shared/src/nethack.o \
@@ -41,6 +41,8 @@ $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
 
 $(GAME).dll: .dump-.$(GAME).dll
 	$(CP) $< $@
+	
+
 
 include ../common/generic.mk
 

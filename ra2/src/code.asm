@@ -20,6 +20,8 @@ section .text
 %include "macros/patch.inc"
 %include "macros/string.inc"
 
+;%include "src/loading.asm"
+
 %push spawner
 %include "src/spawner/spawn_ini.asm"
 %include "src/spawner/spawner.asm"

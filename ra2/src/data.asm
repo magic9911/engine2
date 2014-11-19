@@ -82,3 +82,8 @@ StringZ Multi7_Alliances, "Multi7_Alliances"
 StringZ Multi8_Alliances, "Multi8_Alliances"
 
 StringZ IsSpectator,      "IsSpectator"
+StringZ Windowed,		  "Windowed"
+StringZ NoCD,			  "NoCD"
+StringZ UseGraphicsPatch, "UseGraphicsPatch"
+
+

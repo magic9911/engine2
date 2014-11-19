@@ -42,7 +42,7 @@ setcglob 0x00A8B2FC, PlayersTeams
 ; INI
 setcglob 0x00535B30, INIClass__INIClass
 setcglob 0x004741F0, INIClass__Load
-setxglob 0x005295F0, INIClass__GetBool, ?GetBool@INIClass@@QAE_NPBD0_N@Z
+setcglob 0x005295F0, INIClass__GetBool
 setcglob 0x005276D0, INIClass__GetInt
 setcglob 0x00528A10, INIClass__GetString
 

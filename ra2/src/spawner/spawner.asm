@@ -254,6 +254,14 @@ Initialize_Spawn:
     ; scenario
     lea eax, [ScenarioName] ; FIXME: name this
     SpawnINI__GetString str_Settings, str_Scenario, str_Empty, eax, 32
+	
+	SpawnINI__GetBool str_Settings, str_IsSinglePlayer, 0
+    cmp al, 0
+    jz .Not_Single_Player
+    
+    mov dword [SessionType], 0 ; single player
+       
+.Not_Single_Player:
 
     ; Needs to be done after SessionClass is set, or the seed value will be overwritten
     ; inside the Init_Random() call if sessiontype == SKIRMISH
@@ -317,11 +325,26 @@ Initialize_Spawn:
     call Set_Game_Mode
     mov [GameMode], eax
 
-    ; start scenario
-    push -1
-    xor edx, edx
+    cmp dword [SessionType], 0
+    jnz .Start_Scenario_NOT_Singleplayer
+
+    ; start scenario for singleplayer
+    push 0
+    mov edx, 1
     mov ecx, ScenarioName
     call Start_Scenario
+    
+    jmp .Past_Start_Scenario
+    
+.Start_Scenario_NOT_Singleplayer:
+    
+    ; start scenario for multiplayer
+    push -1 
+    xor edx, edx 
+    mov ecx, ScenarioName
+    call Start_Scenario
+
+.Past_Start_Scenario:  
 
     ; HACK: If SessonType was set to WOL then set it to LAN now
     ; We had to set SessionType to WOL to make sure players connect
