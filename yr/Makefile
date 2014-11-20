@@ -26,6 +26,11 @@ PATCH_OBJS  = src/no-cd.o \
 		src/spawner/spawner.o \
 		../shared/src/nethack.o
 
+ifdef ANTICHEAT
+PATCH_OBJS += src/anticheat/rename.o \
+		src/anticheat/radar_hack.o
+endif
+
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
@@ -33,11 +38,6 @@ OBJS        = callsites.o \
 		res/res.o \
 		\
 		sym.o
-
-ifdef ANTICHEAT
-	OBJS		+=		src/anticheat/rename.o \
-				src/anticheat/radar_hack.o
-endif
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
