@@ -12,10 +12,7 @@ VSIZE       = .data 0x367BE4
 
 INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 
-LIBS        = -nostdlib
-OBJS        = callsites.o \
-		\
-		src/no-cd.o \
+PATCH_OBJS  = src/no-cd.o \
 		src/loading.o \
 		src/graphics-patch.o \
 		src/copy-protection.o \
@@ -27,21 +24,25 @@ OBJS        = callsites.o \
 		src/spawner/spectators.o \
 		src/spawner/spawn_ini.o \
 		src/spawner/spawner.o \
-		../shared/src/nethack.o \
+		../shared/src/nethack.o
+
+LIBS        = -nostdlib
+OBJS        = callsites.o \
+		\
+		$(PATCH_OBJS) \
 		res/res.o \
 		\
 		sym.o
-		
+
 ifdef ANTICHEAT
-	OBJS 		+= 		src/anticheat/rename.o \
-				src/anticheat/radar_hack.o 
+	OBJS		+=		src/anticheat/rename.o \
+				src/anticheat/radar_hack.o
 endif
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
-		src/patch.o \
-		../shared/src/nethack.o \
+		$(PATCH_OBJS) \
 		../shared/src/ares.o \
 		\
 		sym.o
@@ -53,7 +54,7 @@ $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
 
 $(GAME).dll: .dump-.$(GAME).dll
 	$(CP) $< $@
-	
+
 
 
 include ../common/generic.mk

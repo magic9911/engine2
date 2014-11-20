@@ -1,7 +1,7 @@
 .PHONY: all
 all: yr/yr.exe yr/yr.dll ts/ts.exe ts/ts.dll
 
-ra2/%:
+yr/%:
 	$(MAKE) -C yr $*
 
 ts/%:
