@@ -107,6 +107,7 @@ setcglob 0x00A8B554, FrameSendRate
 setcglob 0x00A8DB9C, LatencyFudge
 setcglob 0x00A8B558, RequestedFPS
 setcglob 0x00A8B24C, ProtocolVersion
+setcglob 0x00A8ED84, Frame
 
 setcglob 0x005DA6C0, Init_Network
 setcglob 0x00A8DA84, NameNodes_CurrentSize

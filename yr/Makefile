@@ -34,7 +34,12 @@ OBJS        = callsites.o \
 		
 ifdef ANTICHEAT
 	OBJS 		+= 		src/anticheat/rename.o \
-				src/anticheat/radar_hack.o 
+				src/anticheat/radar_hack.o \
+				src/anticheat/fog_hack.o \
+				src/anticheat/sidebar_hack.o \
+				src/anticheat/building_hack.o \
+				src/anticheat/auto_ss.o \
+				src/anticheat/frame_func.o
 endif
 
 DLL_LIBS    = -lmsvcrt
