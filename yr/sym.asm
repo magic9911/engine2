@@ -11,6 +11,7 @@ setcglob 0x007C89B0, sendto
 setcglob 0x007C89AA, recvfrom
 setcglob 0x007E1558, _imp__sendto
 setcglob 0x007E154C, _imp__recvfrom
+setcglob 0x007C899E, _imp__socket
 setcglob 0x007C8962, htonl
 setcglob 0x007E1280, GetCommandLineA
 setcglob 0x007CA4B0, strstr
@@ -70,7 +71,7 @@ setcglob 0x00A8B320, MCVRedeploy
 setcglob 0x00A8B25C, Credits
 setcglob 0x00A8B31D, HarvesterTruce
 setcglob 0x00A8B263, SuperWeapons
-setcglob 0x00A8B268, GameSpeed
+setcglob 0x00A8EB60, GameSpeed ; NOT the GameSpeed debug lines var but the one loaded from ra2md.ini
 setcglob 0x00A8B26C, MultiEngineer
 setcglob 0x00A8B394, PlayerColor
 setcglob 0x00A8B23C, GameMode
@@ -84,7 +85,7 @@ setcglob 0x0052FC20, Init_Random
 
 ; Message
 ;setcglob 0x007E2C34, MessageListClass_this
-;setcglob 0x007E2284, PlayerPtr
+setcglob 0x00A83D4C, PlayerPtr
 ;setcglob 0x00572FE0, MessageListClass__Add_Message
 ;setcglob 0x006B2330, Get_Message_Delay_Or_Duration
 

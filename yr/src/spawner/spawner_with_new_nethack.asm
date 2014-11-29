@@ -106,7 +106,7 @@ section .text
 @LJMP 0x00686A9E, _More_Alliances_Crap
 @LJMP 0x005D74A0, _Teams_Alliances_Stuff
 
-;; max number of players in static address list
+; max number of players in static address list
 cextern AddressList
 cextern TunnelId
 cextern TunnelIp
@@ -115,368 +115,14 @@ cextern PortHack
 cextern NetHack_SendTo
 cextern NetHack_RecvFrom
 
-;@CALL 0x007B3D75, NetHack_SendTo
-;@CALL 0x007B3EEC, NetHack_RecvFrom
-
-
-
-@CALL 0x007B3D75, NetHack_SendTo_
-@CALL 0x007B3EEC, NetHack_RecvFrom_
-
-NetHack_SendTo_:
-%push
-    push ebp
-    mov ebp, esp
-    sub esp, sockaddr_in_size
-    push esi
-    push edi
-
-%define TempDest    ebp-sockaddr_in_size
-
-%define addrlen     ebp+28
-%define dest_addr   ebp+24
-%define flags       ebp+20
-%define len         ebp+16
-%define buf         ebp+12
-%define sockfd      ebp+8
-
-    ; pull index
-    mov ecx, [dest_addr]
-    mov ecx, [ecx + sockaddr_in.sin_addr]
-
-    ; validate index
-    cmp ecx, 1
-    jl .error
-    cmp ecx, 8
-    jg .error
-
-    ; change to zero based
-    dec ecx
-
-    ; sin_family
-    lea edx, [TempDest + sockaddr_in.sin_family]
-    mov word [edx], 2
-
-    ; sin_port
-    mov ax, word [ecx * ListAddress_size + AddressList + ListAddress.port]
-    lea edx, [TempDest + sockaddr_in.sin_port]
-    mov word [edx], ax
-
-    ; sin_addr
-    mov eax, dword [ecx * ListAddress_size + AddressList + ListAddress.ip]
-    lea edx, [TempDest + sockaddr_in.sin_addr]
-    mov dword [edx], eax
-
-    ; sin_zero
-    xor eax, eax
-    lea edx, [TempDest + sockaddr_in.sin_zero]
-    mov dword [edx], eax
-    add edx, 4
-    mov dword [edx], eax
-
-    ; do call to sendto
-    mov eax, [addrlen]
-    push eax
-    lea eax, [TempDest]
-    push eax
-    mov eax, [flags]
-    push eax
-    mov eax, [len]
-    push eax
-    mov eax, [buf]
-    push eax
-    mov eax, [sockfd]
-    push eax
-    call Tunnel_SendTo_
-
-    jmp .exit
-.error:
-    mov eax,-1
-.exit:
-    pop edi
-    pop esi
-    mov esp, ebp
-    pop ebp
-    retn 24
-%pop
-
-NetHack_RecvFrom_:
-%push
-    push ebp
-    mov ebp, esp
-    push esi
-    push edi
-
-%define addrlen     ebp+28
-%define src_addr    ebp+24
-%define flags       ebp+20
-%define len         ebp+16
-%define buf         ebp+12
-%define sockfd      ebp+8
-
-    ; call recvfrom first to get the packet
-    mov eax, [addrlen]
-    push eax
-    mov eax, [src_addr]
-    push eax
-    mov eax, [flags]
-    push eax
-    mov eax, [len]
-    push eax
-    mov eax, [buf]
-    push eax
-    mov eax, [sockfd]
-    push eax
-    call Tunnel_RecvFrom_
-
-    ; bail out if error
-    cmp eax, -1
-    je .exit
-
-    ; now, we need to map src_addr ip/port to index by reversing the search!
-    xor ecx,ecx
-.nextaddr:
-
-    ; compare ip
-    mov edx, [src_addr]
-    mov edx, [edx + sockaddr_in.sin_addr]
-    cmp edx, [ecx * ListAddress_size + AddressList + ListAddress.ip]
-    jne .next
-
-    cmp dword [PortHack], 1
-    je .skipPort
-    ; compare port
-    mov edx,[src_addr]
-    mov dx, [edx + sockaddr_in.sin_port]
-    and edx, 0xffff
-    cmp dx, [ecx * ListAddress_size + AddressList + ListAddress.port]
-    jne .next
-.skipPort:
-
-    ; found it, set this index to source addr
-    inc ecx
-    mov edx, [src_addr]
-    mov [edx + sockaddr_in.sin_addr], ecx
-
-    mov edx, [src_addr]
-    mov word [edx + sockaddr_in.sin_port], 0
-
-    jmp .exit
-
-.next:
-    inc ecx
-    cmp ecx, 7
-    jg .exit
-    jmp .nextaddr
-
-.exit:
-    pop edi
-    pop esi
-    mov esp, ebp
-    pop ebp
-    retn 24
-%pop
-
-Tunnel_SendTo_:
-%push
-    push ebp
-    mov ebp,esp
-    sub esp,1024
-    push esi
-    push edi
-
-%define TempBuf     (ebp-1024)
-
-%define addrlen     ebp+28
-%define dest_addr   ebp+24
-%define flags       ebp+20
-%define len         ebp+16
-%define buf         ebp+12
-%define sockfd      ebp+8
-
-    ; no processing if no tunnel
-    cmp dword [TunnelPort], 0
-    je .notunnel
-
-    ; copy packet to our buffer
-    mov esi, [buf]
-    lea edi, [TempBuf + 4]
-    mov ecx, [len]
-    cld
-    rep movsb
-
-    ; pull dest port to header
-    lea eax, [TempBuf]
-
-    mov ecx, [dest_addr]
-    lea ecx, [ecx + sockaddr_in.sin_port]
-    mov edx, [ecx]
-    shl edx, 16
-    mov [eax], edx
-
-    mov edx, [TunnelId]
-    shr edx, 16
-    or [eax], edx
-
-    and edx,0xffff
-    or [eax], edx
-
-    ; set dest_addr to tunnel address
-    mov eax, [dest_addr]
-    lea eax, [eax + sockaddr_in.sin_port]
-    mov edx, [TunnelPort]
-    shr edx, 16
-    mov word [eax],dx
-
-    mov eax, [dest_addr]
-    lea eax, [eax + sockaddr_in.sin_addr]
-    mov edx, [TunnelIp]
-    mov dword [eax], edx
-
-    mov eax, [addrlen]
-    push eax
-    mov eax, [dest_addr]
-    push eax
-    mov eax, [flags]
-    push eax
-    mov eax, [len]
-    add eax, 4
-    push eax
-    lea eax, [TempBuf]
-    push eax
-    mov eax, [sockfd]
-    push eax
-    call sendto
-    jmp .exit
-
-.notunnel:
-    mov eax, [addrlen]
-    push eax
-    mov eax, [dest_addr]
-    push eax
-    mov eax, [flags]
-    push eax
-    mov eax, [len]
-    push eax
-    mov eax, [buf]
-    push eax
-    mov eax, [sockfd]
-    push eax
-    call sendto
-
-.exit:
-    pop edi
-    pop esi
-    mov esp, ebp
-    pop ebp
-    retn 24
-%pop
-
-Tunnel_RecvFrom_:
-%push
-    push ebp
-    mov ebp, esp
-    sub esp, 1024
-    push esi
-    push edi
-
-%define TempBuf     (ebp-1024)
-
-%define addrlen     ebp+28
-%define src_addr    ebp+24
-%define flags       ebp+20
-%define len         ebp+16
-%define buf         ebp+12
-%define sockfd      ebp+8
-
-    ; no processing if no tunnel
-    cmp dword [TunnelPort], 0
-    je .notunnel
-
-    ; call recvfrom first to get the packet
-    mov eax, [addrlen]
-    push eax
-    mov eax, [src_addr]
-    push eax
-    mov eax, [flags]
-    push eax
-    mov eax, 1024        ; len
-    push eax
-    lea eax, [TempBuf]
-    push eax
-    mov eax, [sockfd]
-    push eax
-    call recvfrom
-
-    ; no processing if returnng error
-    cmp eax, -1
-    je .exit
-
-    ; no processing if less than 5 bytes of data
-    cmp eax, 5
-    jl .error
-
-    ; remove header from return length
-    sub eax, 4
-
-    ; copy real packet after header to game buf
-    lea esi, [TempBuf + 4]
-    mov edi, [buf]
-    mov ecx, eax
-    cld
-    rep movsb
-
-    ; pull our header
-    lea edx, [TempBuf]
-    mov edx, [edx]
-
-    ; fixme: going to assume packets are meant for me, someone can validate the "to" part later...
-    ; leaving just from here
-    and edx, 0xffff
-
-    ; set from port to header identifier
-    mov ecx, [src_addr]
-    lea ecx, [ecx + sockaddr_in.sin_port]
-    mov word [ecx],dx
-
-    xor edx,edx
-    mov ecx,[src_addr]
-    lea ecx,[ecx + sockaddr_in.sin_addr]
-    mov dword [ecx],edx
-
-    jmp .exit
-
-.notunnel:
-    ; call recvfrom first to get the packet
-    mov eax, [addrlen]
-    push eax
-    mov eax, [src_addr]
-    push eax
-    mov eax, [flags]
-    push eax
-    mov eax, [len]
-    push eax
-    mov eax, [buf]
-    push eax
-    mov eax, [sockfd]
-    push eax
-    call recvfrom
-    jmp .exit
-
-.error:
-    mov eax, -1
-.exit:
-    pop edi
-    pop esi
-    mov esp,ebp
-    pop ebp
-    retn 24
-%pop
+@CALL 0x007B3D75, NetHack_SendTo
+@CALL 0x007B3EEC, NetHack_RecvFrom
 
 %push
+
 section .bss
 
-%$SpawnerActive              resd 1
+SpawnerActive              resd 1
 %$inet_addr                  resd 1
 %$IsDoingAlliancesSpawner    resb 1
 %$IsSpawnArgPresent          resd 1
@@ -493,13 +139,14 @@ SaveGameNameBuf              resb 60
 %$OtherSection               resd 1
 ;Anticheat1                   resd 1
 
+cglobal SpawnerActive
 
 section .text
 _Teams_Alliances_Stuff:
     push ecx
     mov edx, [HouseClassArray_Count]
 
-    cmp dword [%$SpawnerActive], 1
+    cmp dword [SpawnerActive ], 1
     jz .Ret
 
     jmp 0x005D74A7
@@ -512,14 +159,14 @@ _Teams_Alliances_Stuff:
 _More_Alliances_Crap:
     mov ecx, [HouseClassArray]
 
-    cmp dword [%$SpawnerActive], 1
+    cmp dword [SpawnerActive ], 1
     jz 0x00686AC6
 
     jmp 0x00686AA4
 
 
 _Dont_Do_Alliances_At_Game_Start:
-    cmp dword [%$SpawnerActive], 1
+    cmp dword [SpawnerActive ], 1
     jz .Skip
 
 .Normal_Code:
@@ -533,7 +180,7 @@ _Dont_Do_Alliances_At_Game_Start:
     jmp 0x00501736
 
 _Dont_Make_Enemy_At_Game_Start:
-    cmp dword [%$SpawnerActive], 0
+    cmp dword [SpawnerActive ], 0
     jz .Normal_Code
 
     add esp, 8
@@ -544,7 +191,7 @@ _Dont_Make_Enemy_At_Game_Start:
     jmp 0x0050172F
 
 _Assign_Houses_Epilogue_Do_Spawner_Stuff:
-    cmp dword [%$SpawnerActive], 0
+    cmp dword [SpawnerActive ], 0
     jz .Ret
 
     call Load_Predetermined_Alliances
@@ -558,7 +205,7 @@ _Assign_Houses_Epilogue_Do_Spawner_Stuff:
 _Assign_Houses_Do_Spawner_Stuff:
     pushad
 
-    cmp dword [%$SpawnerActive], 0
+    cmp dword [SpawnerActive ], 0
     jz .Ret
 
     call Load_Selectable_Countries
@@ -593,10 +240,10 @@ Initialize_Spawn:
     cmp dword [%$$IsSpawnArgPresent], 0
     je .Exit_Error
 
-    cmp dword [%$$SpawnerActive], 1
+    cmp dword [SpawnerActive], 1
     jz .Ret_Exit
 
-    mov dword [%$$SpawnerActive], 1
+    mov dword [SpawnerActive], 1
     mov dword [PortHack], 1 ; default enabled
 
     call Load_SPAWN_INI
