@@ -23,7 +23,10 @@ config.mk
 
 # misc junk
 /yr/build_exe.bat
+/yr/build_exe_anticheat.bat
 /yr/build_dll.bat
+/yr/build_dll_anticheat.bat
 /yr/move_exe.bat
+/yr/move_dll.bat
 *~
 \#*\#

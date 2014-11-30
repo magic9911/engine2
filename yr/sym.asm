@@ -33,7 +33,7 @@ setcglob 0x00A83C9C, HouseTypesArray
 setcglob 0x004F9B50, HouseClass__Make_Ally
 setcglob 0x00687F10, Assign_Houses
 ;setcglob 0x005EEF70, Get_MP_Color
-
+setcglob 0x00AC10C8, ObserverMode
 setcglob 0x00A8B29C, PlayersCountries
 setcglob 0x00A8B2BC, PlayersColors
 setcglob 0x00A8B2DC, PlayersSpawns

@@ -22,6 +22,7 @@ cextern INIClass_SPAWN
 
 ; args: <player index>, <set or not>, <identifier>
 %macro Set_Spectator 3
+
     cmp byte %2, 0
     jz .Ret_Set_Spectator_%3
     
@@ -32,10 +33,19 @@ cextern INIClass_SPAWN
 .Ret_Set_Spectator_%3:
 %endmacro
 
+cextern ObserverMode
+
 cglobal Load_Spectators
 
 Load_Spectators:
     SpawnINI__GetBool str_IsSpectator, str_Multi1, 0
+	cmp al, 0
+	jz .Skip_SetObserverMode
+	
+	mov dword [ObserverMode], 1
+	
+.Skip_SetObserverMode:
+	
     Set_Spectator 0, al, a
     
     SpawnINI__GetBool str_IsSpectator, str_Multi2, 0

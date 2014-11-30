@@ -16,6 +16,7 @@ PATCH_OBJS  = src/no-cd.o \
 		src/loading.o \
 		src/graphics-patch.o \
 		src/copy-protection.o \
+		src/multi_spectators_hack.o \
 		src/spawner/selectable_countries.o \
 		src/spawner/selectable_handicaps.o \
 		src/spawner/selectable_colors.o \
