@@ -3,7 +3,7 @@
 %include "Session.inc"
 
 @LJMP 0x0068811C, Assign_Houses_Multi_Spectators_Hack
-@LJMP 0x004FCBD0, HouseClass__Flag_To_Lose_RETN_Patch
+;@LJMP 0x004FCBD0, HouseClass__Flag_To_Lose_RETN_Patch
 
 cextern PlayerPtr
 

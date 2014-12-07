@@ -19,6 +19,7 @@ PATCH_OBJS  = src/no-cd.o \
 		src/multi_spectators_hack.o \
 		src/absolute_prism_bug_fix.o \
 		src/self_spy_exploit_fix.o \
+		src/invisible_mcv_exploit_fix.o \
 		src/spawner/selectable_countries.o \
 		src/spawner/selectable_handicaps.o \
 		src/spawner/selectable_colors.o \
