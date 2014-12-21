@@ -28,7 +28,7 @@ read_extra_options(INIClass *old_INI, const char *section, const char *key, bool
 {
     // this creates hook in .patch, linker is ignoring .patch from this file however
 
-    NoCD__Disable_CD       = INIClass__GetBool(old_INI, str_Options, "NoCD", false);
+    NoCD__Disable_CD       = INIClass__GetBool(old_INI, str_Options, "NoCD", true);
     Graphics__Enable_Patch = INIClass__GetBool(old_INI, str_Video, "UseGraphicsPatch", true);
     WindowedMode           = INIClass__GetBool(old_INI, str_Video, "Windowed", false);
 
