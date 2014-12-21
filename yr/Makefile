@@ -20,6 +20,9 @@ PATCH_OBJS  = src/no-cd.o \
 		src/absolute_prism_bug_fix.o \
 		src/self_spy_exploit_fix.o \
 		src/invisible_mcv_exploit_fix.o \
+		src/blowfish_dll_disable_option.o \
+		src/movie_playback_disable_option.o \
+		src/disable_wol_menu.o \
 		src/spawner/selectable_countries.o \
 		src/spawner/selectable_handicaps.o \
 		src/spawner/selectable_colors.o \
@@ -38,8 +41,7 @@ ifdef ANTICHEAT
 				src/anticheat/building_hack.o \
 				src/anticheat/auto_ss.o \
 				src/anticheat/frame_func.o \
-				src/anticheat/guard_command_exploit.o \
-				src/anticheat/disable_wol_menu.o
+				src/anticheat/guard_command_exploit.o 
 endif
 
 

@@ -10,6 +10,15 @@ cglobal NoCD__Disable_CD
 NoCD__Disable_CD resb 1
 __SECT__
 
+StringManagerErrorCDWarning: dw __utf16__("***FATAL*** String Manager failed to initilaized properly!")
+db 0x0a,0x00,0x0a,0x00
+dw __utf16__("If you enabled no-CD make sure the files 'multimd.mix' and 'mapd03md.mix' are in the game install folder, they're usually located on the CD."),0
+
+
+@HACK 0x00734E7A, StringManagerFatalError_Change_String
+	mov eax, StringManagerErrorCDWarning
+    jmp  0x00734E7F
+@ENDHACK
 
 @HACK 0x006BE719, NoCD__in_WinMain_fix_crash_when_NoCD_is_enabled
     mov  ecx, dword [0x00884E2C] ; MoviesMix?
@@ -83,3 +92,4 @@ __SECT__
     sub  esp, 120h
     jmp  0x004A80D6
 @ENDHACK
+
