@@ -15,6 +15,8 @@ StringZ SpawnLocations,   "SpawnLocations"
 
 cextern PlayersSpawns
 cextern INIClass_SPAWN
+cextern HouseClassArray
+cextern HouseClassArray_Count
 
 %macro SpawnINI__GetInt 3
      call_INIClass__GetInt    INIClass_SPAWN, %1, %2, %3
@@ -22,29 +24,84 @@ cextern INIClass_SPAWN
 
 cglobal Load_Selectable_Spawns
 
+; PlayersSpawns IS actually only used for AI players or something..HouseClass data member is used for all
 Load_Selectable_Spawns:
-    SpawnINI__GetInt str_SpawnLocations, str_Multi1, -1
-    mov dword [PlayersSpawns+0], eax
-    
-    SpawnINI__GetInt str_SpawnLocations, str_Multi2, -1
-    mov dword [PlayersSpawns+4], eax
-    
-    SpawnINI__GetInt str_SpawnLocations, str_Multi3, -1
-    mov dword [PlayersSpawns+8], eax
-      
-    SpawnINI__GetInt str_SpawnLocations, str_Multi4, -1
-    mov dword [PlayersSpawns+12], eax
-    
-    SpawnINI__GetInt str_SpawnLocations, str_Multi5, -1
-    mov dword [PlayersSpawns+16], eax
-    
-    SpawnINI__GetInt str_SpawnLocations, str_Multi6, -1
-    mov dword [PlayersSpawns+20], eax
-    
-    SpawnINI__GetInt str_SpawnLocations, str_Multi7, -1
-    mov dword [PlayersSpawns+24], eax
-    
-    SpawnINI__GetInt str_SpawnLocations, str_Multi8, -1
-    mov dword [PlayersSpawns+28], eax
 
+
+
+
+	
+	cmp dword [HouseClassArray_Count], 3
+	jl .Ret
+
+	SpawnINI__GetInt str_SpawnLocations, str_Multi1, -2
+	
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+0]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 4
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi2, -2
+	
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+4]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 5
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi3, -2
+	
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+8]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 6
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi4, -2
+	
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+12]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 7
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi5, -2
+
+	mov ebx, [HouseClassArray]	
+	mov ebx, [ebx+16]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 8
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi6, -2
+
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+20]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 9
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi7, -2
+	
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+24]
+	mov [ebx+0x16058], eax
+	
+	cmp dword [HouseClassArray_Count], 10
+	jl .Ret
+	
+	SpawnINI__GetInt str_SpawnLocations, str_Multi8, -2
+	
+	mov ebx, [HouseClassArray]
+	mov ebx, [ebx+28]
+	mov [ebx+0x16058], eax
+	
+.Ret:
     retn

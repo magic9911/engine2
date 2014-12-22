@@ -546,8 +546,9 @@ _Dont_Make_Enemy_At_Game_Start:
 _Assign_Houses_Epilogue_Do_Spawner_Stuff:
     cmp dword [%$SpawnerActive], 0
     jz .Ret
-
-    call Load_Predetermined_Alliances
+	
+	call Load_Predetermined_Alliances
+	call Load_Selectable_Spawns
 
 .Ret:
     pop edi
@@ -564,7 +565,7 @@ _Assign_Houses_Do_Spawner_Stuff:
     call Load_Selectable_Countries
     call Load_Selectable_Handicaps
     call Load_Selectable_Colors
-    call Load_Selectable_Spawns
+
 
     ; Make sure players aren't the same team by default
     ; Spawner uses a different system to set up teams
