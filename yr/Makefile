@@ -28,6 +28,7 @@ PATCH_OBJS  = src/no-cd.o \
 		src/spawner/selectable_handicaps.o \
 		src/spawner/selectable_colors.o \
 		src/spawner/selectable_spawns.o \
+		src/spawner/coop.o \
 		src/spawner/predetermined_alliances.o \
 		src/spawner/spectators.o \
 		src/spawner/spawn_ini.o \
