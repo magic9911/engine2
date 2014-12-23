@@ -19,7 +19,7 @@ bool DisableMaxWindowedMode = true;
  
 void SetWin8CompatData()
 {
-    if (!hModule) hModule = LoadLibraryA("ddraw.dll");
+    if (!hModule) hModule = LoadLibraryA("system32\\ddraw.dll");
     if (!hModule) return;
     if (!setAppCompatData) setAppCompatData = (SetAppCompatData_)GetProcAddress(hModule, "SetAppCompatData");
     if (!setAppCompatData) return;
