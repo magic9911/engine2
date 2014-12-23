@@ -24,6 +24,8 @@ PATCH_OBJS  = src/no-cd.o \
 		src/movie_playback_disable_option.o \
 		src/disable_wol_menu.o \
 		src/multi-engineer_enhancements.o \
+		src/win8_compat-func.o \
+		src/win8_compat.o \
 		src/spawner/selectable_countries.o \
 		src/spawner/selectable_handicaps.o \
 		src/spawner/selectable_colors.o \

@@ -26,11 +26,6 @@ cglobal Load_Selectable_Spawns
 
 ; PlayersSpawns IS actually only used for AI players or something..HouseClass data member is used for all
 Load_Selectable_Spawns:
-
-
-
-
-	
 	cmp dword [HouseClassArray_Count], 3
 	jl .Ret
 

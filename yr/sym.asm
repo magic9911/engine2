@@ -3,6 +3,10 @@
 setcglob 0x007CD80F, start
 setcglob 0x006BB9A0, WinMain@16
 
+; imports
+setcglob 0x007E1220, _imp__LoadLibraryA
+setcglob 0x007E1250, _imp__GetProcAddress
+
 ; WWDebug
 setcglob 0x004068E0, WWDebug_Printf
 
