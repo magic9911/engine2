@@ -33,7 +33,7 @@ StringZ TechLevel,        "TechLevel"
 StringZ AIPlayers,        "AIPlayers"
 StringZ AIDifficulty,     "AIDifficulty"
 StringZ BuildOffAlly,     "BuildOffAlly"
-StringZ SuperWeapons,     "SuperWeapons"
+StringZ Superweapons,     "Superweapons"
 StringZ HarvesterTruce,   "HarvesterTruce"
 StringZ GameMode,         "GameMode"
 StringZ BridgeDestroy,    "BridgeDestroy"
@@ -636,7 +636,7 @@ Initialize_Spawn:
     SpawnINI__GetBool str_Settings, str_BuildOffAlly, 0
     mov dword [BuildOffAlly], eax
 
-    SpawnINI__GetBool str_Settings, str_SuperWeapons, 1
+    SpawnINI__GetBool str_Settings, str_Superweapons, 1
     mov byte [SuperWeapons], al
 
     SpawnINI__GetBool str_Settings, str_HarvesterTruce, 0
@@ -1136,6 +1136,7 @@ Add_Human_Opponent_:
 
     mov ecx, [%$$OtherSection]	
 	SpawnINI__GetBool ecx, str_IsSpectator, 0
+	cmp al, 0
 	jz .Not_Spectator
 	
 	mov dword [esi+0x6B], -1
