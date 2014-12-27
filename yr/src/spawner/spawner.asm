@@ -67,13 +67,14 @@ StringZ LoadSaveGame,     "LoadSaveGame"
 StringZ SaveGameName,     "SaveGameName"
 StringZ MultipleFactory,  "MultipleFactory"
 StringZ AlliesAllowed,    "AlliesAllowed"
+StringZ IsSpectator,	  "IsSpectator"
 
 cextern Load_Predetermined_Alliances
 cextern Load_Selectable_Countries
 cextern Load_Selectable_Handicaps
 cextern Load_Selectable_Colors
 cextern Load_Selectable_Spawns
-cextern Load_Spectators
+cextern ObserverMode
 
 section .bss
 cglobal INIClass_SPAWN
@@ -703,8 +704,6 @@ Initialize_Spawn:
     call Add_Human_Player
     call Add_Human_Opponents
 
-    call Load_Spectators
-
     ; scenario
     lea eax, [ScenarioName] ; FIXME: name this
     SpawnINI__GetString str_Settings, str_Scenario, str_Empty, eax, 32
@@ -1010,6 +1009,16 @@ Add_Human_Player:
     mov dword [esi+0x53], eax  ; color
     mov dword [PlayerColor], eax
 
+	SpawnINI__GetBool str_Settings, str_IsSpectator, 0
+	
+	cmp al, 0
+	jz .Skip_Set_Spectator
+	
+	mov dword [esi+0x6B], -1
+	mov dword [ObserverMode], 1
+	
+.Skip_Set_Spectator:	
+	
     mov dword [esi+0x73], -1
 
     mov [TempPtr], esi
@@ -1124,6 +1133,14 @@ Add_Human_Opponent_:
 
     cmp eax,-1
     je .Exit
+
+    mov ecx, [%$$OtherSection]	
+	SpawnINI__GetBool ecx, str_IsSpectator, 0
+	jz .Not_Spectator
+	
+	mov dword [esi+0x6B], -1
+	
+.Not_Spectator:	
 
     mov eax, 1
     mov dword [SessionType], 4 ; HACK: SessonType set to WOL, will be set to LAN later

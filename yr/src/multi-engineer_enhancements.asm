@@ -35,7 +35,7 @@ cextern MultiEngineer
 	cmp eax, 0x1C
 	jz .Damage
 
-.Capture	
+.Capture:
 	jmp 0x00519EAA
 	
 .Damage:
@@ -58,7 +58,7 @@ Engineer_Damage_Or_Capture:
 	cmp		byte [eax+1A6h], 1
 	jz		.Capture
 
-.Check_Building_Health	
+.Check_Building_Health:	
 	call    0x005F5C60 ; Get building health?
 	mov     edx, [0x008871E0] ; RulesClass
 	fcomp   qword [edx+1708h] ; ConditionRed
