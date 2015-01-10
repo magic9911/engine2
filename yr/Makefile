@@ -36,17 +36,17 @@ PATCH_OBJS  = src/no-cd.o \
 		src/spawner/spawn_ini.o \
 		src/spawner/spawner.o \
 		../shared/src/nethack.o
-		
+
 ifdef ANTICHEAT
-	PATCH_OBJS 	+= 		src/anticheat/rename.o \
-				src/anticheat/radar_hack.o \
-				src/anticheat/fog_hack.o \
-				src/anticheat/sidebar_hack.o \
-				src/anticheat/building_hack.o \
-				src/anticheat/auto_ss.o \
-				src/anticheat/frame_func.o \
-				src/anticheat/spawner_files.o \
-				src/anticheat/guard_command_exploit.o 
+	PATCH_OBJS +=	src/anticheat/rename.o \
+			src/anticheat/radar_hack.o \
+			src/anticheat/fog_hack.o \
+			src/anticheat/sidebar_hack.o \
+			src/anticheat/building_hack.o \
+			src/anticheat/auto_ss.o \
+			src/anticheat/frame_func.o \
+			src/anticheat/spawner_files.o \
+			src/anticheat/guard_command_exploit.o
 endif
 
 
