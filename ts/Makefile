@@ -7,7 +7,6 @@ INBIN       = bin.dat
 ALIGNMENT   = 0x0400
 
 IMPORT      = 1 0x2EC050 280
-VSIZE       = .data 0x17AF74
 
 
 INCLUDES    = -Iinc/ -I../shared/inc/ -I../common/inc/
@@ -41,10 +40,10 @@ DLL_OBJS    = callsites.o \
 .PHONY: default
 default: $(GAME).exe $(GAME).dll
 
-$(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
+$(GAME).exe: .dump-.patch-.import-.$(GAME).exe
 	$(CP) $< $@
 
-pure-$(GAME).exe: .dump-.import-.vsize-.pure-$(GAME).exe
+pure-$(GAME).exe: .dump-.import-.pure-$(GAME).exe
 	$(CP) $< $@
 
 $(GAME).dll: .dump-.$(GAME).dll
