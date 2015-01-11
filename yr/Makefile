@@ -45,6 +45,7 @@ ifdef ANTICHEAT
 				src/anticheat/building_hack.o \
 				src/anticheat/auto_ss.o \
 				src/anticheat/frame_func.o \
+				src/anticheat/spawner_files.o \
 				src/anticheat/guard_command_exploit.o 
 endif
 

@@ -119,7 +119,10 @@ cextern NetHack_RecvFrom
 ;@CALL 0x007B3D75, NetHack_SendTo
 ;@CALL 0x007B3EEC, NetHack_RecvFrom
 
-
+[section .bss]
+cglobal SpawnerCheck
+SpawnerCheck resb 1
+__SECT__
 
 @CALL 0x007B3D75, NetHack_SendTo_
 @CALL 0x007B3EEC, NetHack_RecvFrom_
@@ -902,6 +905,7 @@ _Init_Game_Check_Spawn_Arg_No_Intro:
 ;    mov ebx, 1 ; HACK DONT CHECK -SPAWN
 
     mov [%$IsSpawnArgPresent], ebx
+	mov [SpawnerCheck], bl
     popad
 
     cmp dword [%$IsSpawnArgPresent], 0
