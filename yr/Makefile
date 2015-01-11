@@ -58,6 +58,8 @@ OBJS        = callsites.o \
 		\
 		sym.o
 
+PURE_OBJS   = sym.o
+
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
@@ -66,9 +68,13 @@ DLL_OBJS    = callsites.o \
 		\
 		sym.o
 
+.PHONY: default
 default: $(GAME).exe $(GAME).dll
 
 $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
+	$(CP) $< $@
+
+pure-$(GAME).exe: .dump-.import-.vsize-.pure-$(GAME).exe
 	$(CP) $< $@
 
 $(GAME).dll: .dump-.$(GAME).dll

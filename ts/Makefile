@@ -12,31 +12,45 @@ VSIZE       = .data 0x17AF74
 
 INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 
+PATCH_OBJS  = src/patch.o \
+		../shared/src/nethack.o
+
+ifdef ANTICHEAT
+	PATCH_OBJS +=
+endif
+
+
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
-		src/patch.o \
-		../shared/src/nethack.o \
+		$(PATCH_OBJS) \
 		res/res.o \
 		\
 		sym.o
 
+PURE_OBJS   = sym.o
+
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
 		\
-		src/patch.o \
-		../shared/src/nethack.o \
+		$(PATCH_OBJS) \
 		../shared/src/ares.o \
 		\
 		sym.o
 
+.PHONY: default
 default: $(GAME).exe $(GAME).dll
 
 $(GAME).exe: .dump-.patch-.import-.vsize-.$(GAME).exe
 	$(CP) $< $@
 
+pure-$(GAME).exe: .dump-.import-.vsize-.pure-$(GAME).exe
+	$(CP) $< $@
+
 $(GAME).dll: .dump-.$(GAME).dll
 	$(CP) $< $@
+
+
 
 include ../common/generic.mk
 

@@ -37,6 +37,9 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 .$(GAME).exe: $(LSCRIPT) $(INBIN) $(OBJS)
 	$(CC) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
 
+.pure-$(GAME).exe: $(LSCRIPT) $(INBIN) $(PURE_OBJS)
+	$(CC) -T $< $(LDFLAGS) -o $@ $(PURE_OBJS)
+
 .$(GAME).dll: $(DLL_OBJS)
 	$(CC) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
 
