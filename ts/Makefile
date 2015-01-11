@@ -10,7 +10,7 @@ IMPORT      = 1 0x2EC050 280
 VSIZE       = .data 0x17AF74
 
 
-INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
+INCLUDES    = -Iinc/ -I../shared/inc/ -I../common/inc/
 
 PATCH_OBJS  = src/patch.o \
 		../shared/src/nethack.o

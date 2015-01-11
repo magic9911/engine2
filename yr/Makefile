@@ -10,7 +10,7 @@ IMPORT      = 1 0x40f0E0 320
 VSIZE       = .data 0x367BE4
 
 
-INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
+INCLUDES    = -Iinc/ -I../shared/inc/ -I../common/inc/
 
 PATCH_OBJS  = src/no-cd.o \
 		src/loading.o \
