@@ -1,3 +1,23 @@
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/string.inc"
+
+global str_UseGraphicsPatch
+global str_NoCD
+global str_Video_Windowed
+
+global str_DWMOffForPrimaryBlt
+global str_ForceFullscreenSprite
+global str_ForceBltToPrimary
+global str_DWMOffForFullscreen
+global str_DWMOffForPrimaryLock
+global str_EnableOverlays
+global str_DisableSurfaceLock
+global str_RedirectPrimarySurfBlts
+global str_StripMaxWindowBorder
+global str_DisableMaxWindowedMode
+global str_SingleProcAffinity
+
 [section .rdata]
 
 StringZ gcanyonmap,                 "blitz_test.map"
@@ -95,6 +115,18 @@ StringZ stats_dmp,                  "stats.dmp"
 
 StringZ UseGraphicsPatch,           "UseGraphicsPatch"
 
+StringZ DWMOffForPrimaryBlt,       "DWMOffForPrimaryBlt"
+StringZ ForceFullscreenSprite,     "ForceFullscreenSprite"
+StringZ ForceBltToPrimary,         "ForceBltToPrimary"
+StringZ DWMOffForFullscreen,     "DWMOffForFullscreen"
+StringZ DWMOffForPrimaryLock,     "DWMOffForPrimaryLock"
+StringZ EnableOverlays,     "EnableOverlays"
+StringZ DisableSurfaceLock,     "DisableSurfaceLock"
+StringZ RedirectPrimarySurfBlts,     "RedirectPrimarySurfBlts"
+StringZ StripMaxWindowBorder,     "StripMaxWindowBorder"
+StringZ DisableMaxWindowedMode,     "DisableMaxWindowedMode"
+
+
 StringZ ForceLowestDetailLevel,     "ForceLowestDetailLevel"
 
 StringZ Video_Windowed,             "Video.Windowed"
@@ -104,6 +136,8 @@ StringZ Video_WindowedScreenWidth,  "Video.WindowedScreenWidth"
 StringZ InternetDisabled,           "This version of Tiberian Sun only supports online play on CnCNet 5  (www.cncnet.org)"
 
 StringZ NoCD,                       "NoCD"
+
+StringZ SingleProcAffinity,         "SingleProcAffinity"
 
 _2Bin:                              incbin "res/2.bin"
 _1Bin:                              incbin "res/1.bin"

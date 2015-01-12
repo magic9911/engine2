@@ -1,5 +1,13 @@
-[section .bss]
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/string.inc"
+%include "macros/extern.inc"
 
+
+global var.IsNoCD
+global var.UseGraphicsPatch 
+
+[section .bss]
 var:
     .SpawnerActive              RESD 1
     .INIClass_SPAWN             RESB 256 ; FIXME: make this a local variable
@@ -19,7 +27,6 @@ var:
     
     .DoingAutoSS                RESD 1
     .Anticheat1                 RESD 1
-    .AntiCheatArray             RESB (StripClass_Size * 2)
     
     .UseGraphicsPatch           RESB 1
     .IsNoCD                     RESB 1

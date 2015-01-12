@@ -15,18 +15,21 @@ INCLUDES    = -I../shared/inc/ -I../common/inc/ -Iinc/
 LIBS        = -nostdlib
 OBJS        = callsites.o \
 		\
-		src/patch.o \
-		../shared/src/nethack.o \
+		src/win8-fix-func.o \
+		src/win8-fix.o \
+		src/data.o \
+		src/fix_mouse_not_found_error.o \
+		src/graphics_patch.o \
+		src/loading.o \
+		src/no-cd.o \
+		src/var.o \
+		src/single-proc-affinity.o \
 		res/res.o \
 		\
 		sym.o
 
 DLL_LIBS    = -lmsvcrt
 DLL_OBJS    = callsites.o \
-		\
-		src/patch.o \
-		../shared/src/nethack.o \
-		../shared/src/ares.o \
 		\
 		sym.o
 
