@@ -3,6 +3,7 @@
 
 %include "macros/patch.inc"
 %include "macros/hack.inc"
+%include "macros/extern.inc"
 %include "macros/string.inc"
 
 

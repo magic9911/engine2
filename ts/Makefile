@@ -11,8 +11,20 @@ IMPORT      = 1 0x2EC050 280
 
 INCLUDES    = -Iinc/ -I../shared/inc/ -I../common/inc/
 
-PATCH_OBJS  = src/patch.o \
-		src/loading.o \
+PATCH_OBJS  = src/loading.o \
+		src/patch.o \
+		\
+		src/anticheat_test.o \
+		\
+		src/savegame.o \
+		\
+		src/fix_wce_errors.o \
+		src/alt_scout_fix.o \
+		\
+		src/display_messages_typed_by_yourself.o \
+		src/multiplayer_units_placing.o \
+		src/no_options_menu_animation.o \
+		src/internet_cncnet.o \
 		src/no-cd.o \
 		src/graphics_patch.o \
 		../shared/src/nethack.o

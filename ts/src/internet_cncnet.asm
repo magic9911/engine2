@@ -1,3 +1,10 @@
+%include "macros/patch.inc"
+%include "macros/string.inc"
+
+cextern SessionType
+
+StringZ InternetDisabled, "This version of Tiberian Sun only supports online play on CnCNet 5  (www.cncnet.org)"
+
 @LJMP 0x004E23A7, _Select_Game_WOL_Disable_For_CnCNet
 
 _Select_Game_WOL_Disable_For_CnCNet:

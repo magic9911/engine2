@@ -1,7 +1,14 @@
-@LJMP 0x00509D2F, _Message_Input_Display_Messages_Typed_By_Yourself
+%include "c.inc"
+%include "Message.inc"
 
-_Message_Input_Display_Messages_Typed_By_Yourself:
-%push
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/extern.inc"
+%include "macros/string.inc"
+
+StringZ message_fmt, "%s: %s"
+
+@HACK 0x00509D2F, Message_Input_Display_Messages_Typed_By_Yourself
     push ebp
     mov ebp,esp
     sub esp,512
@@ -11,7 +18,7 @@ _Message_Input_Display_Messages_Typed_By_Yourself:
     mov ecx, edx
     and ecx, 3
     rep movsb
-    
+
 ; Create <player name>: <message> string
     mov esi, 0x007E36AE     ; text to sent
     push esi
@@ -29,22 +36,22 @@ _Message_Input_Display_Messages_Typed_By_Yourself:
     fld qword [eax+0C68h]
     fmul qword [0x006CB1B8]
     call Get_Message_Delay_Or_Duration
-    
+
 ; Push arguments
-    push eax                ; Message delay/duration 
-    push 4046h              ; Very likely TextPrintType 
+    push eax                ; Message delay/duration
+    push 4046h              ; Very likely TextPrintType
     mov ecx, MessageListClass_this
     mov edx, [PlayerPtr]
     mov edx, [edx+10DFCh]
     push edx ; Color to use?
     lea edx, [TempBuf]
     push edx
-    push 0 
-    push 0 
+    push 0
+    push 0
     call MessageListClass__Add_Message
-    
+
 .Ret:
     mov esp,ebp
     pop ebp
     jmp 0x00509D36
-%pop
+@ENDHACK

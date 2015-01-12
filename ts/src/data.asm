@@ -75,35 +75,15 @@ StringZ Multi6_Alliances,           "Multi6_Alliances"
 StringZ Multi7_Alliances,           "Multi7_Alliances"
 StringZ Multi8_Alliances,           "Multi8_Alliances"
 
-StringZ Spawn1,                     "Spawn1"
-StringZ Spawn2,                     "Spawn2"
-StringZ Spawn3,                     "Spawn3"
-StringZ Spawn4,                     "Spawn4"
-StringZ Spawn5,                     "Spawn5"
-StringZ Spawn6,                     "Spawn6"
-StringZ Spawn7,                     "Spawn7"
-StringZ Spawn8,                     "Spawn8"
-
 StringZ IsSpectator,                "IsSpectator"
-
-StringZ message_fmt,                "%s: %s"
 
 StringZ AutoSSFileNameFormat,       "AUTOSS\\AutoSS-%d-%d_%d.PCX"
 StringZ AutoSSDir,                  "./AutoSS"
 
 StringZ stats_dmp,                  "stats.dmp"
 
-StringZ ForceLowestDetailLevel,     "ForceLowestDetailLevel"
-
 StringZ Video_Windowed,             "Video.Windowed"
 StringZ Video_WindowedScreenHeight, "Video.WindowedScreenHeight"
 StringZ Video_WindowedScreenWidth,  "Video.WindowedScreenWidth"
-
-StringZ InternetDisabled,           "This version of Tiberian Sun only supports online play on CnCNet 5  (www.cncnet.org)"
-
-
-
-_2Bin:                              incbin "res/2.bin"
-_1Bin:                              incbin "res/1.bin"
 
 __SECT__

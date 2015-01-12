@@ -1,4 +1,5 @@
 %include "INIClass.inc"
+%include "misc_instances.inc"
 
 %include "macros/patch.inc"
 %include "macros/hack.inc"
@@ -8,10 +9,6 @@
 StringZ UseGraphicsPatch,           "UseGraphicsPatch"
 StringZ NoCD,                       "NoCD"
 StringZ Video_Windowed,             "Video.Windowed"
-
-cextern str_Options
-cextern str_Video
-cextern INIClass_SUN_INI
 
 cextern Graphics__Enable_Patch
 cextern NoCD__Disable_CD

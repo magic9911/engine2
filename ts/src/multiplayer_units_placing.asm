@@ -1,3 +1,28 @@
+%include "c.inc"
+%include "House.inc"
+%include "misc_instances.inc"
+
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/extern.inc"
+%include "macros/string.inc"
+
+section .bss
+UsedSpawnsArray            resd 8
+OldUnitClassArrayCount     resd 1
+
+section .text
+
+StringZ Spawn1, "Spawn1"
+StringZ Spawn2, "Spawn2"
+StringZ Spawn3, "Spawn3"
+StringZ Spawn4, "Spawn4"
+StringZ Spawn5, "Spawn5"
+StringZ Spawn6, "Spawn6"
+StringZ Spawn7, "Spawn7"
+StringZ Spawn8, "Spawn8"
+
+
 @LJMP 0x00658658, _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX
 @LJMP 0x00434843, _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX
 @LJMP 0x004D7B9A, _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX
@@ -19,15 +44,15 @@
 ; loop check needs to be i < UnitClassArray_Count - OldUnitClassArray_Count
 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition:
     mov edi, [UnitClassArray_Count]
-    sub edi, [var.OldUnitClassArrayCount]
+    sub edi, [OldUnitClassArrayCount]
     jmp 0x00658A0B
-    
+
 _UnitClass__Read_INI_SpawnX_Get_UnitClassArray_Count_In_Prologue:
     push eax
 
     mov dword eax, [UnitClassArray_Count]
-    mov dword [var.OldUnitClassArrayCount], eax
-    
+    mov dword [OldUnitClassArrayCount], eax
+
     pop eax
     sub esp, 192
     jmp 0x006585C6
@@ -36,11 +61,11 @@ _InfantryClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     call Check_For_Spawn_Fake_HouseType_Name
     cmp eax, -1
     jz .Normal_Code
-    
-    mov eax, [var.UsedSpawnsArray+eax*4]
+
+    mov eax, [UsedSpawnsArray+eax*4]
     cmp eax, -1
     jz .Normal_Code
-    
+
     mov esi, [HouseClassArray]
     mov eax, [esi+eax*4]
 
@@ -55,35 +80,35 @@ _BuildingClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     call Check_For_Spawn_Fake_HouseType_Name
     cmp eax, -1
     jz .Normal_Code
-    
-    mov eax, [var.UsedSpawnsArray+eax*4]
+
+    mov eax, [UsedSpawnsArray+eax*4]
     cmp eax, -1
     jz .Normal_Code
-    
+
     mov esi, [HouseClassArray]
     mov eax, [esi+eax*4]
-    
+
     mov esi, eax
-    
+
     jmp 0x00434851
 
 
 .Normal_Code:
     call HouseType_From_Name
-    jmp 0x00434848 
+    jmp 0x00434848
 
 _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     call Check_For_Spawn_Fake_HouseType_Name
     cmp eax, -1
     jz .Normal_Code
-    
-    mov eax, [var.UsedSpawnsArray+eax*4]
+
+    mov eax, [UsedSpawnsArray+eax*4]
     cmp eax, -1
     jz .Normal_Code
-    
+
     mov esi, [HouseClassArray]
     mov eax, [esi+eax*4]
-    
+
     mov esi, eax
     push str_Delim ; ","
     push ebx             ; Str
@@ -95,68 +120,68 @@ _UnitClass__Read_INI_Get_HouseType_From_Name_SpawnX:
     cmp edi, 0FFFFFFFFh
     mov eax, esi
     jmp 0x00658686
-    
-    
+
+
 .Normal_Code:
     call HouseType_From_Name
     jmp 0x0065865D
-    
+
 Check_For_Spawn_Fake_HouseType_Name:
     push ebx
     push edi
     mov ebx, 0
-    
+
     mov edi, ecx
-    
-    
+
+
     strcmp_i ecx, str_Spawn1
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn2
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn3
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn4
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn5
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn6
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn7
     cmp eax, 0
     jz .Ret
-    
+
     mov ecx, edi
     inc ebx
     strcmp_i ecx, str_Spawn8
     cmp eax, 0
     jz .Ret
-    
+
     mov ebx, -1
-    
+
 .Ret:
     mov ecx, edi
     mov eax, ebx
