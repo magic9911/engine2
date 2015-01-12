@@ -1,14 +1,6 @@
 [section .bss]
 
 var:
-    .IsDoingAlliancesSpawner    RESB 1
-    .IsSpawnArgPresent           RESD 1
-
-    .HouseColorsArray           RESD 8
-    .HouseCountriesArray        RESD 8
-    .HouseHandicapsArray        RESD 8
-    .SpawnLocationsArray        RESD 8
-    .IsSpectatorArray           RESD 8
     .UsedSpawnsArray            RESD 8
     
     .SaveGameNameBuf            RESB 60

@@ -35,12 +35,25 @@
 %endmacro
 
 section .bss
+; global
     cglobal Spawner__Active
+    Spawner__Active               resd 1
     cglobal Spawner__INIClass
+    Spawner__INIClass             resb 256
+    cglobal Spawner__SpawnLocations_Array
+    Spawner__SpawnLocations_Array resd 8
+    cglobal Spawner__IsSpectatorArray
+    Spawner__IsSpectatorArray     resd 8
 
-    Spawner__Active   resd 1
-    Spawner__INIClass resb 256
-    inet_addr         resd 1
+; local
+    inet_addr                     resd 1
+
+    HouseColorsArray              resd 8
+    HouseCountriesArray           resd 8
+    HouseHandicapsArray           resd 8
+
+    IsDoingAlliancesSpawner       resb 1
+    IsSpawnArgPresent             resd 1
 
 section .text
 
@@ -111,7 +124,7 @@ _Read_Scenario_INI_Dont_Create_Units_Earlier_Dont_Create_Twice:
     jmp 0x005DDEF8
 
 _HouseClass__Computer_Paranoid_Disable_With_Spawner:
-    cmp dword [var.IsSpawnArgPresent], 1
+    cmp dword [IsSpawnArgPresent], 1
     jz  .Ret
 
 .Normal_Code:
@@ -123,10 +136,10 @@ _HouseClass__Computer_Paranoid_Disable_With_Spawner:
 
 _Assign_Houses_AI_Countries:
     mov ebp, [HouseClassArray_Count]
-    cmp dword [var.HouseCountriesArray+ebp*4], -1
+    cmp dword [HouseCountriesArray+ebp*4], -1
     jz  .Ret
 
-    mov ecx, [var.HouseCountriesArray+ebp*4]
+    mov ecx, [HouseCountriesArray+ebp*4]
     mov ecx,[edx+ecx*4]
 
 .Ret:
@@ -149,7 +162,7 @@ _HouseClass__AI_Attack_Stuff_Alliance_Check:
     jmp 0x004C06F7
 
 _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active:
-    cmp dword [var.IsSpawnArgPresent], 1
+    cmp dword [IsSpawnArgPresent], 1
     jz  .Ret
 
     call SessionClass__Read_Scenario_Descriptions
@@ -182,10 +195,10 @@ _Init_Game_Check_Spawn_Arg_No_Intro:
     xor ebx, ebx
     cmp eax, 0
     setne bl
-    mov [var.IsSpawnArgPresent], ebx
+    mov [IsSpawnArgPresent], ebx
     popad
 
-    cmp dword [var.IsSpawnArgPresent], 0
+    cmp dword [IsSpawnArgPresent], 0
     jz .Normal_Code
 
 .No_Intro:
@@ -199,7 +212,7 @@ _Init_Game_Check_Spawn_Arg_No_Intro:
 
 
 _HouseClass__Make_Ally_STFU_when_Allying_In_Loading_Screen_Spawner:
-    cmp byte [var.IsDoingAlliancesSpawner], 1
+    cmp byte [IsDoingAlliancesSpawner], 1
     jz 0x004BDE68
     test al, al          ; hooked by patch
     jz 0x4BDE68
@@ -262,14 +275,14 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
 ; args <House number>, <identifier>
 %macro Set_Spectator 2
 
-    cmp dword [var.IsSpectatorArray+4*%1], 0
+    cmp dword [Spawner__IsSpectatorArray+4*%1], 0
     jz .No_Spectator_%2
 
     mov edi, [HouseClassArray]
     mov edi, [edi+%1*4]
 
     xor eax, eax
-    cmp dword [var.IsSpectatorArray+4*%1], 1
+    cmp dword [Spawner__IsSpectatorArray+4*%1], 1
     sete al
 
     mov byte [edi+0x0CB], 1
@@ -373,109 +386,109 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
 
 Load_House_Countries_Spawner:
     SpawnINI_Get_Int str_HouseCountries, str_Multi1, -1
-    mov dword [var.HouseCountriesArray+0], eax
+    mov dword [HouseCountriesArray+0], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi2, -1
-    mov dword [var.HouseCountriesArray+4], eax
+    mov dword [HouseCountriesArray+4], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi3, -1
-    mov dword [var.HouseCountriesArray+8], eax
+    mov dword [HouseCountriesArray+8], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi4, -1
-    mov dword [var.HouseCountriesArray+12], eax
+    mov dword [HouseCountriesArray+12], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi5, -1
-    mov dword [var.HouseCountriesArray+16], eax
+    mov dword [HouseCountriesArray+16], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi6, -1
-    mov dword [var.HouseCountriesArray+20], eax
+    mov dword [HouseCountriesArray+20], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi7, -1
-    mov dword [var.HouseCountriesArray+24], eax
+    mov dword [HouseCountriesArray+24], eax
 
     SpawnINI_Get_Int str_HouseCountries, str_Multi8, -1
-    mov dword [var.HouseCountriesArray+28], eax
+    mov dword [HouseCountriesArray+28], eax
 
     retn
 
 Load_House_Colors_Spawner:
     SpawnINI_Get_Int str_HouseColors, str_Multi1, -1
-    mov dword [var.HouseColorsArray+0], eax
+    mov dword [HouseColorsArray+0], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi2, -1
-    mov dword [var.HouseColorsArray+4], eax
+    mov dword [HouseColorsArray+4], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi3, -1
-    mov dword [var.HouseColorsArray+8], eax
+    mov dword [HouseColorsArray+8], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi4, -1
-    mov dword [var.HouseColorsArray+12], eax
+    mov dword [HouseColorsArray+12], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi5, -1
-    mov dword [var.HouseColorsArray+16], eax
+    mov dword [HouseColorsArray+16], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi6, -1
-    mov dword [var.HouseColorsArray+20], eax
+    mov dword [HouseColorsArray+20], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi7, -1
-    mov dword [var.HouseColorsArray+24], eax
+    mov dword [HouseColorsArray+24], eax
 
     SpawnINI_Get_Int str_HouseColors, str_Multi8, -1
-    mov dword [var.HouseColorsArray+28], eax
+    mov dword [HouseColorsArray+28], eax
 
     retn
 
 Load_Spawn_Locations_Spawner:
     SpawnINI_Get_Int str_SpawnLocations, str_Multi1, -1
-    mov dword [var.SpawnLocationsArray+0], eax
+    mov dword [Spawner__SpawnLocations_Array+0], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi2, -1
-    mov dword [var.SpawnLocationsArray+4], eax
+    mov dword [Spawner__SpawnLocations_Array+4], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi3, -1
-    mov dword [var.SpawnLocationsArray+8], eax
+    mov dword [Spawner__SpawnLocations_Array+8], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi4, -1
-    mov dword [var.SpawnLocationsArray+12], eax
+    mov dword [Spawner__SpawnLocations_Array+12], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi5, -1
-    mov dword [var.SpawnLocationsArray+16], eax
+    mov dword [Spawner__SpawnLocations_Array+16], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi6, -1
-    mov dword [var.SpawnLocationsArray+20], eax
+    mov dword [Spawner__SpawnLocations_Array+20], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi7, -1
-    mov dword [var.SpawnLocationsArray+24], eax
+    mov dword [Spawner__SpawnLocations_Array+24], eax
 
     SpawnINI_Get_Int str_SpawnLocations, str_Multi8, -1
-    mov dword [var.SpawnLocationsArray+28], eax
+    mov dword [Spawner__SpawnLocations_Array+28], eax
 
     retn
 
 Load_House_Handicaps_Spawner:
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi1, -1
-    mov dword [var.HouseHandicapsArray+0], eax
+    mov dword [HouseHandicapsArray+0], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi2, -1
-    mov dword [var.HouseHandicapsArray+4], eax
+    mov dword [HouseHandicapsArray+4], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi3, -1
-    mov dword [var.HouseHandicapsArray+8], eax
+    mov dword [HouseHandicapsArray+8], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi4, -1
-    mov dword [var.HouseHandicapsArray+12], eax
+    mov dword [HouseHandicapsArray+12], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi5, -1
-    mov dword [var.HouseHandicapsArray+16], eax
+    mov dword [HouseHandicapsArray+16], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi6, -1
-    mov dword [var.HouseHandicapsArray+20], eax
+    mov dword [HouseHandicapsArray+20], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi7, -1
-    mov dword [var.HouseHandicapsArray+24], eax
+    mov dword [HouseHandicapsArray+24], eax
 
     SpawnINI_Get_Int str_HouseHandicaps, str_Multi8, -1
-    mov dword [var.HouseHandicapsArray+28], eax
+    mov dword [HouseHandicapsArray+28], eax
 
     retn
 
@@ -486,25 +499,25 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     cmp dword [Spawner__Active], 0
     jz  .Ret
 
-;    Set_House_Country 0, dword [var.HouseCountriesArray+0], a
-;    Set_House_Country 1, dword [var.HouseCountriesArray+4], b
-;    Set_House_Country 2, dword [var.HouseCountriesArray+8], c
-;    Set_House_Country 3, dword [var.HouseCountriesArray+12], d
-;    Set_House_Country 4, dword [var.HouseCountriesArray+16], e
-;    Set_House_Country 5, dword [var.HouseCountriesArray+20], f
-;    Set_House_Country 6, dword [var.HouseCountriesArray+24], g
-;    Set_House_Country 7, dword [var.HouseCountriesArray+28], h
+;    Set_House_Country 0, dword [HouseCountriesArray+0], a
+;    Set_House_Country 1, dword [HouseCountriesArray+4], b
+;    Set_House_Country 2, dword [HouseCountriesArray+8], c
+;    Set_House_Country 3, dword [HouseCountriesArray+12], d
+;    Set_House_Country 4, dword [HouseCountriesArray+16], e
+;    Set_House_Country 5, dword [HouseCountriesArray+20], f
+;    Set_House_Country 6, dword [HouseCountriesArray+24], g
+;    Set_House_Country 7, dword [HouseCountriesArray+28], h
 
-    Set_House_Color 0, dword [var.HouseColorsArray+0], a
-    Set_House_Color 1, dword [var.HouseColorsArray+4], b
-    Set_House_Color 2, dword [var.HouseColorsArray+8], c
-    Set_House_Color 3, dword [var.HouseColorsArray+12], d
-    Set_House_Color 4, dword [var.HouseColorsArray+16], e
-    Set_House_Color 5, dword [var.HouseColorsArray+20], f
-    Set_House_Color 6, dword [var.HouseColorsArray+24], g
-    Set_House_Color 7, dword [var.HouseColorsArray+28], h
+    Set_House_Color 0, dword [HouseColorsArray+0], a
+    Set_House_Color 1, dword [HouseColorsArray+4], b
+    Set_House_Color 2, dword [HouseColorsArray+8], c
+    Set_House_Color 3, dword [HouseColorsArray+12], d
+    Set_House_Color 4, dword [HouseColorsArray+16], e
+    Set_House_Color 5, dword [HouseColorsArray+20], f
+    Set_House_Color 6, dword [HouseColorsArray+24], g
+    Set_House_Color 7, dword [HouseColorsArray+28], h
 
-    mov byte [var.IsDoingAlliancesSpawner], 1
+    mov byte [IsDoingAlliancesSpawner], 1
 
     House_Make_Allies_Spawner str_Multi1_Alliances, 0, a
     House_Make_Allies_Spawner str_Multi2_Alliances, 1, b
@@ -515,16 +528,16 @@ _Read_Scenario_INI_Assign_Houses_And_Spawner_House_Settings:
     House_Make_Allies_Spawner str_Multi7_Alliances, 6, g
     House_Make_Allies_Spawner str_Multi8_Alliances, 7, h
 
-    mov byte [var.IsDoingAlliancesSpawner], 0
+    mov byte [IsDoingAlliancesSpawner], 0
 
-    Set_House_Handicap 0, dword [var.HouseHandicapsArray+0], a
-    Set_House_Handicap 1, dword [var.HouseHandicapsArray+4], b
-    Set_House_Handicap 2, dword [var.HouseHandicapsArray+8], c
-    Set_House_Handicap 3, dword [var.HouseHandicapsArray+12], d
-    Set_House_Handicap 4, dword [var.HouseHandicapsArray+16], e
-    Set_House_Handicap 5, dword [var.HouseHandicapsArray+20], f
-    Set_House_Handicap 6, dword [var.HouseHandicapsArray+24], g
-    Set_House_Handicap 7, dword [var.HouseHandicapsArray+28], h
+    Set_House_Handicap 0, dword [HouseHandicapsArray+0], a
+    Set_House_Handicap 1, dword [HouseHandicapsArray+4], b
+    Set_House_Handicap 2, dword [HouseHandicapsArray+8], c
+    Set_House_Handicap 3, dword [HouseHandicapsArray+12], d
+    Set_House_Handicap 4, dword [HouseHandicapsArray+16], e
+    Set_House_Handicap 5, dword [HouseHandicapsArray+20], f
+    Set_House_Handicap 6, dword [HouseHandicapsArray+24], g
+    Set_House_Handicap 7, dword [HouseHandicapsArray+28], h
 
     Set_Spectator 0, a
     Set_Spectator 1, b
@@ -592,7 +605,7 @@ Initialize_Spawn:
 %define TempBuf     ebp-128
 
 
-    cmp dword [var.IsSpawnArgPresent], 0
+    cmp dword [IsSpawnArgPresent], 0
     je .Exit_Error
 
     cmp dword [Spawner__Active], 1

@@ -1,12 +1,23 @@
-;%include "macros/patch.inc"
-;%include "macros/hack.inc"
-;%include "macros/extern.inc"
+%include "INIClass.inc"
 
-@LJMP 0x006010C9, _WinMain_Read_SUN_INI_Read_Extra_Options
-@LJMP 0x006010BA, _WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/extern.inc"
+%include "macros/string.inc"
+
+StringZ UseGraphicsPatch,           "UseGraphicsPatch"
+StringZ NoCD,                       "NoCD"
+StringZ Video_Windowed,             "Video.Windowed"
+
+cextern str_Options
+cextern str_Video
+cextern INIClass_SUN_INI
 
 cextern Graphics__Enable_Patch
 cextern NoCD__Disable_CD
+
+@LJMP 0x006010C9, _WinMain_Read_SUN_INI_Read_Extra_Options
+@LJMP 0x006010BA, _WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference
 
 _WinMain_Read_SUN_INI_Read_Extra_Options:
     call INIClass__GetBool

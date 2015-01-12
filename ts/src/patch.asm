@@ -33,9 +33,6 @@ section .text
 %include "src/var.asm"
 
 
-; loading
-%include "src/loading.asm"
-
 ; savegame
 %include "src/savegame.asm"
 

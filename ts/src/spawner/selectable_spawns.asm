@@ -7,10 +7,10 @@ _Create_Units_First_Spawn_Check_If_Not_Selected:
     call 0x005BE080 ;    RandomClass::operator()(int,int) 
 ;    pushad
 
-    cmp dword [var.IsSpectatorArray+0*4], 1
+    cmp dword [Spawner__IsSpectatorArray+0*4], 1
     jz .Ret
 
-    cmp dword [var.SpawnLocationsArray+0*4], -1
+    cmp dword [Spawner__SpawnLocations_Array+0*4], -1
     jnz .First_Spawn_Selected
   
     cmp dword [Spawner__Active], 0
@@ -22,7 +22,7 @@ _Create_Units_First_Spawn_Check_If_Not_Selected:
     cmp     esi, 7
     jg      .Ret
   
-    mov     edi, DWORD [var.SpawnLocationsArray+esi*4]
+    mov     edi, DWORD [Spawner__SpawnLocations_Array+esi*4]
     cmp     edi, eax
     jz     .Find_Another_Spawn
     
@@ -38,7 +38,7 @@ _Create_Units_First_Spawn_Check_If_Not_Selected:
     jmp 0x005DEAC2
     
 .First_Spawn_Selected:
-    mov eax, [var.SpawnLocationsArray+0*4]
+    mov eax, [Spawner__SpawnLocations_Array+0*4]
     jmp 0x005DEADC
 
 _Create_Units_Set_Selected_Spawn_Locations:
@@ -55,7 +55,7 @@ _Create_Units_Set_Selected_Spawn_Locations:
     cmp esi, 7
     jg  .Ret
     
-    mov edi, DWORD [var.SpawnLocationsArray+esi*4] ; Get the waypoint value for spawn loc multi1...multi2 (in esi)
+    mov edi, DWORD [Spawner__SpawnLocations_Array+esi*4] ; Get the waypoint value for spawn loc multi1...multi2 (in esi)
     cmp edi, -1 ; check if there's a spawn location set for this player
     jz  .Dont_Set_Spawn_As_Used
     mov byte [esp+edi+0x90], 1 ; if so, set spawn location selected
@@ -84,14 +84,14 @@ _Create_Units_Selectable_Spawning_Locations:
     
     mov dword [var.UsedSpawnsArray+4*edi], eax
     
-    cmp dword [var.SpawnLocationsArray+eax*4], -1
+    cmp dword [Spawner__SpawnLocations_Array+eax*4], -1
     jz .Normal_Code
     
     mov dword [var.UsedSpawnsArray+4*edi], -1
 
     mov edx, eax
     
-    mov eax, dword [var.SpawnLocationsArray+eax*4]
+    mov eax, dword [Spawner__SpawnLocations_Array+eax*4]
     mov byte [esp+edi+0x90], 0 ; Set the spawn the gamed wanted to use as unused
     mov byte [esp+eax+0x90], 1 ; Set the spawn we want to use as used
     

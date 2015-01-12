@@ -93,8 +93,6 @@ StringZ AutoSSDir,                  "./AutoSS"
 
 StringZ stats_dmp,                  "stats.dmp"
 
-StringZ UseGraphicsPatch,           "UseGraphicsPatch"
-
 StringZ ForceLowestDetailLevel,     "ForceLowestDetailLevel"
 
 StringZ Video_Windowed,             "Video.Windowed"
@@ -103,7 +101,7 @@ StringZ Video_WindowedScreenWidth,  "Video.WindowedScreenWidth"
 
 StringZ InternetDisabled,           "This version of Tiberian Sun only supports online play on CnCNet 5  (www.cncnet.org)"
 
-StringZ NoCD,                       "NoCD"
+
 
 _2Bin:                              incbin "res/2.bin"
 _1Bin:                              incbin "res/1.bin"

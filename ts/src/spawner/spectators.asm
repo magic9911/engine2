@@ -12,7 +12,7 @@ _DisplayClass__Encroach_Shadow_Spectator:
 
     mov eax, [PlayerPtr]
     mov eax, [eax+0x20]
-    cmp dword [var.IsSpectatorArray+eax*4], 1
+    cmp dword [Spawner__IsSpectatorArray+eax*4], 1
     jz 0x004799F7
 
     call 0x0051E270
@@ -29,7 +29,7 @@ _HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish:
     push eax
     mov eax, [eax+0x20]
     
-    cmp dword [var.IsSpectatorArray+eax*4], 1
+    cmp dword [Spawner__IsSpectatorArray+eax*4], 1
     pop eax
     
     jz .Dont_Count
@@ -51,7 +51,7 @@ _Create_Units_Dont_Count_Spectators_When_Counting_Players:
     mov ebx, 0
     
 .Loop:
-    cmp dword [var.IsSpectatorArray+esi*4], 0
+    cmp dword [Spawner__IsSpectatorArray+esi*4], 0
     jz .Next_Iter
     
     inc ebx
@@ -77,7 +77,7 @@ _sub_4C9560_Spectator_Stuff:
     
     mov esi, [PlayerPtr]
     mov esi, [esi+0x20]
-    cmp dword [var.IsSpectatorArray+esi*4], 1
+    cmp dword [Spawner__IsSpectatorArray+esi*4], 1
     jz .Ret
     
     call 0x005BC080
@@ -90,7 +90,7 @@ _sub_4C9560_Spectator_Stuff:
 _BuildingClass__Visual_Character_Spectator_Stuff:
     mov ecx, [PlayerPtr]
     mov ecx, [ecx+0x20]
-    cmp dword [var.IsSpectatorArray+ecx*4], 1
+    cmp dword [Spawner__IsSpectatorArray+ecx*4], 1
     jz 0x004384DF
     
     mov ecx, [PlayerPtr]
@@ -102,7 +102,7 @@ _BuildingClass__Visual_Character_Spectator_Stuff:
 _TechnoClass__Visual_Character_Spectator_Stuff:
     mov ecx, [PlayerPtr]
     mov ecx, [ecx+0x20]
-    cmp dword [var.IsSpectatorArray+ecx*4], 1
+    cmp dword [Spawner__IsSpectatorArray+ecx*4], 1
     jz 0x00633EAC
 
     mov ecx, [PlayerPtr]
@@ -122,7 +122,7 @@ _HouseClass__AI_Spectator_Stuff:
     
     mov ecx, [PlayerPtr]
     mov ecx, [ecx+0x20]
-    cmp dword [var.IsSpectatorArray+ecx*4], 0
+    cmp dword [Spawner__IsSpectatorArray+ecx*4], 0
     jz .Ret
     
     mov byte [0x00749808], 1
@@ -166,27 +166,27 @@ _sub_5B9B90_Set_Up_Spectator_Player_Stuff:
 
 Load_Spectators_Spawner:
     SpawnINI_Get_Bool str_IsSpectator, str_Multi1, 0
-    mov dword [var.IsSpectatorArray+0], eax
+    mov dword [Spawner__IsSpectatorArray+0], eax
     
     SpawnINI_Get_Bool str_IsSpectator, str_Multi2, 0
-    mov dword [var.IsSpectatorArray+4], eax
+    mov dword [Spawner__IsSpectatorArray+4], eax
     
     SpawnINI_Get_Bool str_IsSpectator, str_Multi3, 0
-    mov dword [var.IsSpectatorArray+8], eax
+    mov dword [Spawner__IsSpectatorArray+8], eax
       
     SpawnINI_Get_Bool str_IsSpectator, str_Multi4, 0
-    mov dword [var.IsSpectatorArray+12], eax
+    mov dword [Spawner__IsSpectatorArray+12], eax
     
     SpawnINI_Get_Bool str_IsSpectator, str_Multi5, 0
-    mov dword [var.IsSpectatorArray+16], eax
+    mov dword [Spawner__IsSpectatorArray+16], eax
     
     SpawnINI_Get_Bool str_IsSpectator, str_Multi6, 0
-    mov dword [var.IsSpectatorArray+20], eax
+    mov dword [Spawner__IsSpectatorArray+20], eax
     
     SpawnINI_Get_Bool str_IsSpectator, str_Multi7, 0
-    mov dword [var.IsSpectatorArray+24], eax
+    mov dword [Spawner__IsSpectatorArray+24], eax
     
     SpawnINI_Get_Bool str_IsSpectator, str_Multi8, 0
-    mov dword [var.IsSpectatorArray+28], eax
+    mov dword [Spawner__IsSpectatorArray+28], eax
 
     retn
