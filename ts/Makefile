@@ -12,6 +12,8 @@ IMPORT      = 1 0x2EC050 280
 INCLUDES    = -Iinc/ -I../shared/inc/ -I../common/inc/
 
 PATCH_OBJS  = src/patch.o \
+		src/no-cd.o \
+		src/graphics_patch.o \
 		../shared/src/nethack.o
 
 ifdef ANTICHEAT
