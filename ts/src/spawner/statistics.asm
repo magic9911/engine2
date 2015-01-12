@@ -11,7 +11,7 @@
 _Execute_DoList_Send_Statistics_Game_Leave2:
     mov edx, [SessionType]
 
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     cmp dword [SessionType], 0
     jz .Normal_Code
@@ -34,7 +34,7 @@ _Execute_DoList_Send_Statistics_Game_Leave2:
 _Execute_DoList_Send_Statistics_Game_Leave:
     mov edx, [SessionType]
 
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     cmp dword [SessionType], 0
     jz .Normal_Code
@@ -52,7 +52,7 @@ _Execute_DoList_Send_Statistics_Game_Leave:
 
 
 _sub_508A40_Send_Statistics_Spawner2:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     cmp dword [SessionType], 0
     jz .Normal_Code
@@ -71,7 +71,7 @@ _sub_508A40_Send_Statistics_Spawner2:
     jmp .Send
 
 _sub_508A40_Send_Statistics_Spawner1:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     cmp dword [SessionType], 0
     jz .Normal_Code
@@ -90,7 +90,7 @@ _sub_508A40_Send_Statistics_Spawner1:
     jmp .Send
 
 _Queue_AI_Multiplayer_Send_Statistics_Spawner:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     cmp dword [SessionType], 0
     jz .Normal_Code
@@ -109,7 +109,7 @@ _Queue_AI_Multiplayer_Send_Statistics_Spawner:
     jmp .Send
 
 _sub_5B4290_Send_Statistics_Spawner:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     cmp dword [SessionType], 0
     jz .Normal_Code
@@ -129,7 +129,7 @@ _sub_5B4290_Send_Statistics_Spawner:
 
 
 _Send_Statistics_Packet_Write_Statistics_Dump:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
     
     call Write_Stats_File
@@ -185,7 +185,7 @@ Write_Stats_File:
     
     
 _HouseClass__HouseClass_Allocate_UnitTrackerClass_Stuff:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
 
     cmp dword [SessionType], 0

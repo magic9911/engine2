@@ -1,10 +1,6 @@
 [section .bss]
 
 var:
-    .SpawnerActive              RESD 1
-    .INIClass_SPAWN             RESB 256 ; FIXME: make this a local variable
-    .inet_addr                  RESD 1
-
     .IsDoingAlliancesSpawner    RESB 1
     .IsSpawnArgPresent           RESD 1
 

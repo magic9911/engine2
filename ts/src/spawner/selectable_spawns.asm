@@ -13,7 +13,7 @@ _Create_Units_First_Spawn_Check_If_Not_Selected:
     cmp dword [var.SpawnLocationsArray+0*4], -1
     jnz .First_Spawn_Selected
   
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Ret
   
     mov esi, 0
@@ -46,7 +46,7 @@ _Create_Units_Set_Selected_Spawn_Locations:
     mov [esp+0x94], ecx ; clear more spawn spots used
 ;    pushad
     
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Ret
     
     mov esi, 0
@@ -74,7 +74,7 @@ _Create_Units_First_Spawn_EDI_Patch:
     jmp 0x005DEBCD
 
 _Create_Units_Selectable_Spawning_Locations:
-    cmp dword [var.SpawnerActive], 0
+    cmp dword [Spawner__Active], 0
     jz .Normal_Code
 
     ; edi contains the currently used spawn 
