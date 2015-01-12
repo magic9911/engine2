@@ -1,7 +1,7 @@
 %include "macros/patch.inc"
 %include "macros/hack.inc"
 %include "macros/string.inc"
-%include "Session.inc"
+%include "session.inc"
 
 NoWolOKText: dw __utf16__('OK'),0
 NoWOLWindowText: dw __utf16__("This version of Yuri\'s Revenge only supports online play using CnCNet 5 (www.cncnet.org)"),0
