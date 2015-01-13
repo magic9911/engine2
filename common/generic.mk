@@ -21,7 +21,7 @@ else
 CC_COMMON   += -O3
 endif
 
-CFLAGS      ?= $(CC_COMMON) -std=gnu99 -masm=intel
+CFLAGS      ?= $(CC_COMMON) -std=gnu99 -masm=intel -fno-asynchronous-unwind-tables
 CXXFLAGS    ?= $(CC_COMMON) -std=gnu++98 -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 WFLAGS      ?= $(REVFLAG)
 NFLAGS      ?= $(REVFLAG) $(INCLUDES) -f elf
