@@ -1,165 +1,140 @@
 ; winapi
-%define sendto                                      0x006B4D6C
-%define recvfrom                                    0x006B4D66
-%define htonl                                       0x006B4D24
-%define GetCommandLineA                             0x006CA24C
-%define stristr_                                    0x006B6730
-%define LoadLibraryA                                0x006CA16C
-%define GetProcAddress                              0x006CA174
-%define GetCurrentProcess                           0x006CA1D0
-%define _sprintf                                    0x006B52EE
-%define timeGetTime                                 0x006CA4EC ; idata pointer
-%define __strcmpi                                   0x006B73A0
-%define _strtok                                     0x006B602A
+setcglob 0x006B4D6C, sendto
+setcglob 0x006B4D66, recvfrom
+setcglob 0x006B4D24, htonl
+setcglob 0x006CA24C, GetCommandLineA
+setcglob 0x006B6730, stristr_
+setcglob 0x006CA16C, LoadLibraryA
+setcglob 0x006CA174, GetProcAddress
+setcglob 0x006CA1D0, GetCurrentProcess
+setcglob 0x006B52EE, sprintf
+setcglob 0x006CA4EC, timeGetTime ; idata pointer
+setcglob 0x006B73A0, strcmpi
+setcglob 0x006B602A, strtok
 
 ; Memory
-%define new                                         0x006B51D7
-%define memcpy                                      0x006B63F0
-%define memset                                      0x006C0080
+setcglob 0x006B51D7, new
+setcglob 0x006B63F0, memcpy
+setcglob 0x006C0080, memset
 
 ; House
-%define HouseClassArray                             0x007E155C
-%define HouseClassArray_Count                       0x007E1568
-%define HouseTypesArray                             0x007E21D4
-%define HouseClass__Assign_Handicap                 0x004BB460
-%define HouseClass__Make_Ally                       0x004BDB30
-%define HouseClass__Is_Ally                         0x004BD9E0
-%define Assign_Houses                               0x005DE210
-%define Get_MP_Color                                0x005EEF70
-%define HouseType_From_Name                         0x004CDEF0
-%define Read_Scenario_Houses                        0x004C2E40
+setcglob 0x007E155C, HouseClassArray
+setcglob 0x007E1568, HouseClassArray_Count
+setcglob 0x007E21D4, HouseTypesArray
+setcglob 0x004BB460, HouseClass__Assign_Handicap
+setcglob 0x004BDB30, HouseClass__Make_Ally
+setcglob 0x004BD9E0, HouseClass__Is_Ally
+setcglob 0x005DE210, Assign_Houses
+setcglob 0x005EEF70, Get_MP_Color
+setcglob 0x004CDEF0, HouseType_From_Name
+setcglob 0x004C2E40, Read_Scenario_Houses
 
 ; Arrays
-%define UnitClassArray_Count                        0x007B3468
-%define TeamTypesArray_Count                        0x007E4850
-%define TeamTypesArray                              0x007E4844     
+setcglob 0x007B3468, UnitClassArray_Count
+setcglob 0x007E4850, TeamTypesArray_Count
+setcglob 0x007E4844, TeamTypesArray
 
 ; INI
-%define INIClass__INIClass                          0x004E8A30
-%define INIClass__Load                              0x00449F30
-%define INIClass__GetBool                           0x004DE140
-%define INIClass__GetInt                            0x004DD140
-%define INIClass__GetString                         0x004DDF60
-%define INIClass__GetFixed                          0x004DD9F0
+setcglob 0x004E8A30, INIClass__INIClass
+setcglob 0x00449F30, INIClass__Load
+setcglob 0x004DE140, INIClass__GetBool
+setcglob 0x004DD140, INIClass__GetInt
+setcglob 0x004DDF60, INIClass__GetString
+setcglob 0x004DD9F0, INIClass__GetFixed
 
-%define INIClass_SUN_INI                            0x0074C378 
+setcglob 0x0074C378, INIClass_SUN_INI
 
 ; File
-%define FileClass__FileClass                        0x004497B0
-%define FileClass__Is_Available                     0x004499C0
-%define FileClass__Open                             0x00449A40
-%define FileClass__Close                            0x00449A10
-%define FileClass__Write                            0x00449850
+setcglob 0x004497B0, FileClass__FileClass
+setcglob 0x004499C0, FileClass__Is_Available
+setcglob 0x00449A40, FileClass__Open
+setcglob 0x00449A10, FileClass__Close
+setcglob 0x00449850, FileClass__Write
 
 ; Session
-%define SessionClass_this                           0x007E2458
-%define SessionClass__Create_Connections            0x005ED510
-%define GameActive                                  0x007E4580
-%define SessionType                                 0x007E2458
-%define UnitCount                                   0x007E2480
-%define TechLevel                                   0x006FB628
-%define AIPlayers                                   0x007E2484
-%define AIDifficulty                                0x007E2488
-%define HarvesterTruce                              0x007E248D
-%define BridgeDestroy                               0x007E2474
-%define FogOfWar                                    0x007E248F
-%define Crates                                      0x007E2475
-%define ShortGame                                   0x007E2476
-%define Bases                                       0x007E246C
-%define MCVRedeploy                                 0x007E2490
-%define Credits                                     0x007E2470
-%define GameSpeed                                   0x007E4720
-%define MultiEngineer                               0x007E247C
-%define AlliesAllowed                               0x007E248C
-%define Frame                                       0x007E4924
-%define GameIDNumber                                0x00867014
-%define PlayerColor                                 0x007E24DC
+setcglob 0x007E2458, SessionClass_this
+setcglob 0x005ED510, SessionClass__Create_Connections
+setcglob 0x007E4580, GameActive
+setcglob 0x007E2458, SessionType
+setcglob 0x007E2480, UnitCount
+setcglob 0x006FB628, TechLevel
+setcglob 0x007E2484, AIPlayers
+setcglob 0x007E2488, AIDifficulty
+setcglob 0x007E248D, HarvesterTruce
+setcglob 0x007E2474, BridgeDestroy
+setcglob 0x007E248F, FogOfWar
+setcglob 0x007E2475, Crates
+setcglob 0x007E2476, ShortGame
+setcglob 0x007E246C, Bases
+setcglob 0x007E2490, MCVRedeploy
+setcglob 0x007E2470, Credits
+setcglob 0x007E4720, GameSpeed
+setcglob 0x007E247C, MultiEngineer
+setcglob 0x007E248C, AlliesAllowed
+setcglob 0x007E4924, Frame
+setcglob 0x00867014, GameIDNumber
+setcglob 0x007E24DC, PlayerColor
 
 ; Random
-%define Seed                                        0x007E4934
-%define Init_Random                                 0x004E38A0
+setcglob 0x007E4934, Seed
+setcglob 0x004E38A0, Init_Random
 
 ; Message
-%define MessageListClass_this                       0x007E2C34
-%define PlayerPtr                                   0x007E2284
-%define MessageListClass__Add_Message               0x00572FE0
-%define Get_Message_Delay_Or_Duration               0x006B2330
-%define Message_Input_Player_Dead                   0x007E24E4
+setcglob 0x007E2C34, MessageListClass_this
+setcglob 0x007E2284, PlayerPtr
+setcglob 0x00572FE0, MessageListClass__Add_Message
+setcglob 0x006B2330, Get_Message_Delay_Or_Duration
+setcglob 0x007E24E4, Message_Input_Player_Dead
 
 ; Network
-%define ListenPort                                  0x0070FCF0
-%define UDPInterfaceClass__UDPInterfaceClass        0x006A1E70
-%define WinsockInterface_this                       0x0074C8D8
-%define WinsockInterfaceClass__Init                 0x006A1180
-%define UDPInterfaceClass__Open_Socket              0x006A2130
-%define WinsockInterfaceClass__Start_Listening      0x006A1030
-%define WinsockInterfaceClass__Discard_In_Buffers   0x006A10A0
-%define WinsockInterfaceClass__Discard_Out_Buffers  0x006A1110
-%define IPXManagerClass_this                        0x007E45A0
-%define IPXManagerClass__Set_Timing                 0x004F05B0
-%define IPXAddressClass__IPXAddressClass            0x004EF040
+setcglob 0x0070FCF0, ListenPort
+setcglob 0x006A1E70, UDPInterfaceClass__UDPInterfaceClass
+setcglob 0x0074C8D8, WinsockInterface_this
+setcglob 0x006A1180, WinsockInterfaceClass__Init
+setcglob 0x006A2130, UDPInterfaceClass__Open_Socket
+setcglob 0x006A1030, WinsockInterfaceClass__Start_Listening
+setcglob 0x006A10A0, WinsockInterfaceClass__Discard_In_Buffers
+setcglob 0x006A1110, WinsockInterfaceClass__Discard_Out_Buffers
+setcglob 0x007E45A0, IPXManagerClass_this
+setcglob 0x004F05B0, IPXManagerClass__Set_Timing
+setcglob 0x004EF040, IPXAddressClass__IPXAddressClass
 
-%define MaxAhead                                    0x007E250C
-%define MaxMaxAhead                                 0x007E2524
-%define FrameSendRate                               0x007E2510
-%define LatencyFudge                                0x007E3FA8
-%define RequestedFPS                                0x007E2514
-%define ProtocolVersion                             0x007E2464
+setcglob 0x007E250C, MaxAhead
+setcglob 0x007E2524, MaxMaxAhead
+setcglob 0x007E2510, FrameSendRate
+setcglob 0x007E3FA8, LatencyFudge
+setcglob 0x007E2514, RequestedFPS
+setcglob 0x007E2464, ProtocolVersion
 
-%define Init_Network                                0x00574F90
-%define NameNodes_CurrentSize                       0x007E3EA0
-%define HumanPlayers                                0x007E2508
+setcglob 0x00574F90, Init_Network
+setcglob 0x007E3EA0, NameNodes_CurrentSize
+setcglob 0x007E2508, HumanPlayers
 
 ; Scenario
-%define ScenarioName                                0x007E28B8
-%define Start_Scenario                              0x005DB170
-%define NameNodeVector                              0x007E3E90
-%define NameNodeVector_Add                          0x0044D690
-%define SessionClass__Read_Scenario_Descriptions    0x005EE7D0
-%define ScenarioStuff                               0x007E2438
-%define SelectedDifficulty                          0x007E4724
+setcglob 0x007E28B8, ScenarioName
+setcglob 0x005DB170, Start_Scenario
+setcglob 0x007E3E90, NameNodeVector
+setcglob 0x0044D690, NameNodeVector_Add
+setcglob 0x005EE7D0, SessionClass__Read_Scenario_Descriptions
+setcglob 0x007E2438, ScenarioStuff
+setcglob 0x007E4724, SelectedDifficulty
 
 ; Save games
-%define Load_Game                                   0x005D6910
+setcglob 0x005D6910, Load_Game
 
 ; Mouse
-%define WWMouseClas_Mouse                           0x0074C8F0
-%define MouseClass_Map                              0x00748348
+setcglob 0x0074C8F0, WWMouseClas_Mouse
+setcglob 0x00748348, MouseClass_Map
 
 ; Statistics
-%define StatisticsPacketSent                        0x007E4FD0
+setcglob 0x007E4FD0, StatisticsPacketSent
 
 ; Sidebar
-%define LEFT_STRIP                                  0x00749874
-%define RIGHT_STRIP                                 0x00749C48
+setcglob 0x00749874, LEFT_STRIP
+setcglob 0x00749C48, RIGHT_STRIP
 %define StripClass_Size                             980
 
 ; strings
-%define str_Video                                   0x00706D9C
-%define str_Options                                 0x006FEDE0
-%define str_Delim                                   0x006F2F34
-
-; definitions of common structures
-struc sockaddr_in
-    .sin_family     RESW 1
-    .sin_port       RESW 1
-    .sin_addr       RESD 1
-    .sin_zero       RESB 8
-endstruc
-
-struc ListAddress
-    .port:      RESD 1
-    .ip:        RESD 1
-endstruc
-
-struc NetAddress
-    .port:      RESD 1
-    .ip:        RESD 1
-    .zero:      RESW 1
-endstruc
-
-struc SpawnAddress
-    .pad1:      RESD 1
-    .id:        RESD 1
-    .pad2:      RESW 1
-endstruc
+setcglob 0x00706D9C, str_Video
+setcglob 0x006FEDE0, str_Options
+setcglob 0x006F2F34, str_Delim
