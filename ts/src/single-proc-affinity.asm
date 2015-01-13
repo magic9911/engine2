@@ -1,9 +1,10 @@
+%include "win.inc"
+
 %include "macros/patch.inc"
 %include "macros/hack.inc"
 %include "macros/string.inc"
-%include "vars.inc"
 
-global SetSingleProcAffinity
+cglobal SetSingleProcAffinity
 
 StringZ kernel32dll, "Kernel32.dll"
 StringZ SetProcessAffinityMask, "SetProcessAffinityMask"
