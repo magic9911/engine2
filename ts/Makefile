@@ -14,12 +14,17 @@ INCLUDES    = -Iinc/ -I../shared/inc/ -I../common/inc/
 PATCH_OBJS  = src/loading.o \
 		src/patch.o \
 		\
+		src/win8-fix-func.o \
+		src/win8-fix.o \
+		src/single-proc-affinity.o \
+		\
 		src/anticheat_test.o \
 		\
 		src/savegame.o \
 		\
 		src/fix_wce_errors.o \
 		src/alt_scout_fix.o \
+		src/fix_mouse_not_found_error.o \
 		\
 		src/display_messages_typed_by_yourself.o \
 		src/multiplayer_units_placing.o \
@@ -33,6 +38,15 @@ ifdef ANTICHEAT
 	PATCH_OBJS +=
 endif
 
+FUNK_PATCH_OBJS = src/win8-fix-func.o \
+		src/win8-fix.o \
+		src/data.o \
+		src/fix_mouse_not_found_error.o \
+		src/graphics_patch.o \
+		src/loading.o \
+		src/no-cd-old.o \
+		src/var.o \
+		src/single-proc-affinity.o
 
 LIBS        = -nostdlib
 OBJS        = callsites.o \

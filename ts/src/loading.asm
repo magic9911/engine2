@@ -10,16 +10,79 @@ StringZ UseGraphicsPatch,           "UseGraphicsPatch"
 StringZ NoCD,                       "NoCD"
 StringZ Video_Windowed,             "Video.Windowed"
 
+StringZ DWMOffForPrimaryBlt,        "DWMOffForPrimaryBlt"
+StringZ ForceFullscreenSprite,      "ForceFullscreenSprite"
+StringZ ForceBltToPrimary,          "ForceBltToPrimary"
+StringZ DWMOffForFullscreen,        "DWMOffForFullscreen"
+StringZ DWMOffForPrimaryLock,       "DWMOffForPrimaryLock"
+StringZ EnableOverlays,             "EnableOverlays"
+StringZ DisableSurfaceLock,         "DisableSurfaceLock"
+StringZ RedirectPrimarySurfBlts,    "RedirectPrimarySurfBlts"
+StringZ StripMaxWindowBorder,       "StripMaxWindowBorder"
+StringZ DisableMaxWindowedMode,     "DisableMaxWindowedMode"
+StringZ SingleProcAffinity,         "SingleProcAffinity"
+
 cextern Graphics__Enable_Patch
 cextern NoCD__Disable_CD
 
-@LJMP 0x006010C9, _WinMain_Read_SUN_INI_Read_Extra_Options
-@LJMP 0x006010BA, _WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference
+cextern DWMOffForPrimaryLock
+cextern DWMOffForPrimaryBlt
+cextern ForceFullscreenSprite
+cextern ForceBltToPrimary
+cextern DWMOffForFullscreen
+cextern EnableOverlays
+cextern DisableSurfaceLock
+cextern RedirectPrimarySurfBlts
+cextern StripMaxWindowBorder
+cextern DisableMaxWindowedMode
 
-_WinMain_Read_SUN_INI_Read_Extra_Options:
+cextern SetSingleProcAffinity
+
+
+section .text
+
+@HACK 0x006010C9, WinMain_Read_SUN_INI_Read_Extra_Options
     call INIClass__GetBool
 
     pushad
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Options, str_SingleProcAffinity, 1
+    cmp al, 1
+    jnz .DoNotSetSingleProcAffinity
+    call SetSingleProcAffinity
+
+.DoNotSetSingleProcAffinity:
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_DWMOffForPrimaryLock, 0
+    mov byte [_DWMOffForPrimaryLock], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_DWMOffForPrimaryBlt, 0
+    mov byte [_DWMOffForPrimaryBlt], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_ForceFullscreenSprite, 0
+    mov byte [_ForceFullscreenSprite], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_ForceBltToPrimary, 0
+    mov byte [_ForceBltToPrimary], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_DWMOffForFullscreen, 0
+    mov byte [_DWMOffForFullscreen], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_EnableOverlays, 0
+    mov byte [_EnableOverlays], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_DisableSurfaceLock, 0
+    mov byte [_DisableSurfaceLock], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_RedirectPrimarySurfBlts, 0
+    mov byte [_RedirectPrimarySurfBlts], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_StripMaxWindowBorder, 0
+    mov byte [_StripMaxWindowBorder], al
+
+    call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_DisableMaxWindowedMode, 0
+    mov byte [_DisableMaxWindowedMode], al
+
     call_INIClass__GetBool INIClass_SUN_INI, str_Video, str_UseGraphicsPatch, 1
     mov byte [Graphics__Enable_Patch], al
 
@@ -31,7 +94,10 @@ _WinMain_Read_SUN_INI_Read_Extra_Options:
 
     popad
     jmp 0x006010CE
+@ENDHACK
 
-_WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference:
+
+@HACK 0x006010BA, WinMain_Read_SUN_INI_Update_Video_Windowed_String_Reference
     push str_Video_Windowed
     jmp 0x006010BF
+@ENDHACK
