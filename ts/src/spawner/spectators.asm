@@ -10,11 +10,13 @@
 %include "macros/string.inc"
 
 section .bss
+cglobal SpectatorStuffInit
 SpectatorStuffInit resb 1
 
 section .text
 
-cextern str_IsSpectator
+StringZ IsSpectator,                "IsSpectator"
+
 cextern Spawner__IsSpectatorArray
 cextern Spawner__INIClass
 
@@ -193,6 +195,7 @@ _sub_5B9B90_Set_Up_Spectator_Player_Stuff:
     add esp, 14h
     jmp 0x005B9D04
 
+cglobal Load_Spectators_Spawner
 Load_Spectators_Spawner:
     call_INIClass__GetBool Spawner__INIClass, str_IsSpectator, str_Multi1, 0
     mov dword [Spawner__IsSpectatorArray+0], eax

@@ -6,6 +6,7 @@
 %include "macros/string.inc"
 
 section .bss
+cglobal BuildOffAlly
 BuildOffAlly resb 1
 
 section .text

@@ -8,6 +8,7 @@
 %include "macros/string.inc"
 
 section .bss
+cglobal UsedSpawnsArray
 UsedSpawnsArray            resd 8
 OldUnitClassArrayCount     resd 1
 
