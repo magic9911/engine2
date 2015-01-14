@@ -1,3 +1,16 @@
+%include "House.inc"
+
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/extern.inc"
+%include "macros/string.inc"
+
+section .bss
+BuildOffAlly resb 1
+
+section .text
+
+    
 @LJMP 0x004762EA, _Build_Off_Ally
 
 ; returns 1 or 0 in EAX
@@ -42,7 +55,7 @@ Is_Mutual_Ally:
 _Build_Off_Ally:
     mov ecx, [esp+0x38]
     
-    cmp byte [var.BuildOffAlly], 1
+    cmp byte [BuildOffAlly], 1
     jz .Check_Ally
 
     cmp [edx+20h], ecx

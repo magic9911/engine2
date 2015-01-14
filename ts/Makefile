@@ -18,6 +18,12 @@ PATCH_OBJS  = src/loading.o \
 		src/win8-fix.o \
 		src/single-proc-affinity.o \
 		\
+		src/spawner.o \
+		src/spawner/selectable_spawns.o \
+		src/spawner/spectators.o \
+		src/spawner/statistics.o \
+		src/spawner/build_off_ally.o \
+		\
 		src/anticheat_test.o \
 		\
 		src/savegame.o \

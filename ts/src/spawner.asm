@@ -1,38 +1,99 @@
-%macro SpawnINI_Get_Int 3
-    push %3
-    push %2
-    push %1
-    mov ecx, Spawner__INIClass
-    call INIClass__GetInt
-%endmacro
+%include "c.inc"
+%include "FileClass.inc"
+%include "House.inc"
+%include "INIClass.inc"
+%include "Message.inc"
+%include "Mouse.inc"
+%include "Network.inc"
+%include "Players.inc"
+%include "Random.inc"
+%include "SaveGame.inc"
+%include "Scenario.inc"
+%include "session.inc"
+%include "socket.inc"
+%include "win.inc"
+%include "misc_instances.inc"
 
-%macro SpawnINI_Get_Bool 3
-    push %3
-    push %2
-    push %1
-    mov ecx, Spawner__INIClass
-    call INIClass__GetBool
-%endmacro
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/extern.inc"
+%include "macros/string.inc"
 
-%macro SpawnINI_Get_String 5
-    push %5
-    push %4
-    push %3
-    push %2
-    push %1
-    mov ecx, Spawner__INIClass
-    call INIClass__GetString
-%endmacro
 
-%macro SpawnINI_Get_Fixed 4
-    push %4
-    push %3
-    push %2
-    push %1
-    mov ecx, Spawner__INIClass
-    call INIClass__GetFixed
+StringZ gcanyonmap,                 "blitz_test.map"
+StringZ debugplayer,                "debugplayer"
+StringZ debugplayer2,               "debugplayer2"
+StringZ wsock32_dll,                "wsock32.dll"
+StringZ inet_addr,                  "inet_addr"
+StringZ localhost,                  "127.0.0.1"
+StringZ spawn_ini,                  "SPAWN.INI"
+StringZ Settings,                   "Settings"
+StringZ UnitCount,                  "UnitCount"
+StringZ Scenario,                   "Scenario"
+StringZ Empty,                      ""
+StringZ GameSpeed,                  "GameSpeed"
+StringZ Seed,                       "Seed"
+StringZ TechLevel,                  "TechLevel"
+StringZ AIPlayers,                  "AIPlayers"
+StringZ AIDifficulty,               "AIDifficulty"
+StringZ HarvesterTruce,             "HarvesterTruce"
+StringZ BridgeDestroy,              "BridgeDestroy"
+StringZ FogOfWar,                   "FogOfWar"
+StringZ Crates,                     "Crates"
+StringZ ShortGame,                  "ShortGame"
+StringZ Bases,                      "Bases"
+StringZ MCVRedeploy,                "MCVRedeploy"
+StringZ Credits,                    "Credits"
+StringZ Name,                       "Name"
+StringZ Side,                       "Side"
+StringZ Color,                      "Color"
+StringZ OtherSectionFmt,            "Other%d"
+StringZ Port,                       "Port"
+StringZ Ip,                         "Ip"
+StringZ SpawnArg,                   "-SPAWN"
+StringZ MultiEngineer,              "MultiEngineer"
+StringZ Firestorm,                  "Firestorm"
+StringZ HouseColors,                "HouseColors"
+StringZ HouseCountries,             "HouseCountries"
+StringZ HouseHandicaps,             "HouseHandicaps"
+StringZ Tunnel,                     "Tunnel"
+StringZ SpawnLocations,             "SpawnLocations"
+StringZ IsSinglePlayer,             "IsSinglePlayer"
+StringZ LoadSaveGame,               "LoadSaveGame"
+StringZ SaveGameName,               "SaveGameName"
+StringZ MultipleFactory,            "MultipleFactory"
+StringZ AlliesAllowed,              "AlliesAllowed"
+StringZ SidebarHack,                "SidebarHack"
+StringZ BuildOffAlly,               "BuildOffAlly"
 
-%endmacro
+StringZ DifficultyMode1,            "DifficultyMode1"
+StringZ DifficultyMode2,            "DifficultyMode2"
+
+StringZ Multi1,                     "Multi1"
+StringZ Multi2,                     "Multi2"
+StringZ Multi3,                     "Multi3"
+StringZ Multi4,                     "Multi4"
+StringZ Multi5,                     "Multi5"
+StringZ Multi6,                     "Multi6"
+StringZ Multi7,                     "Multi7"
+StringZ Multi8,                     "Multi8"
+
+StringZ HouseAllyOne,               "HouseAllyOne"
+StringZ HouseAllyTwo,               "HouseAllyTwo"
+StringZ HouseAllyThree,             "HouseAllyThree"
+StringZ HouseAllyFour,              "HouseAllyFour"
+StringZ HouseAllyFive,              "HouseAllyFive"
+StringZ HouseAllySix,               "HouseAllySix"
+StringZ HouseAllySeven,             "HouseAllySeven"
+
+StringZ Multi1_Alliances,           "Multi1_Alliances"
+StringZ Multi2_Alliances,           "Multi2_Alliances"
+StringZ Multi3_Alliances,           "Multi3_Alliances"
+StringZ Multi4_Alliances,           "Multi4_Alliances"
+StringZ Multi5_Alliances,           "Multi5_Alliances"
+StringZ Multi6_Alliances,           "Multi6_Alliances"
+StringZ Multi7_Alliances,           "Multi7_Alliances"
+StringZ Multi8_Alliances,           "Multi8_Alliances"
 
 section .bss
 ; global
@@ -55,8 +116,12 @@ section .bss
     IsDoingAlliancesSpawner       resb 1
     IsSpawnArgPresent             resd 1
 
+    SaveGameNameBuf               resb 60
+
 section .text
 
+cextern Load_Spectators_Spawner
+cextern UsedSpawnsArray
 ; max number of players in static address list
 cextern AddressList
 cextern TunnelId
@@ -173,7 +238,7 @@ _sub_5ED470_Dont_Read_Scenario_Descriptions_When_Spawner_Active:
 
 
 Init_Game_Spawner:
-    lea eax, [var.UsedSpawnsArray]
+    lea eax, [UsedSpawnsArray]
     push 32             ; Size
     push 0xFF              ; Val
     push eax             ; Dst
@@ -334,49 +399,49 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
 
 ; args <string of section to load from>, <House number which will ally>
 %macro  House_Make_Allies_Spawner 3
-    SpawnINI_Get_Int %1, str_HouseAllyOne, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllyOne, -1
     cmp al, -1
     jz .Dont_Ally_Multi1_%3
     House_Make_Ally %2, eax, a%3
 
 .Dont_Ally_Multi1_%3:
 
-    SpawnINI_Get_Int %1, str_HouseAllyTwo, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllyTwo, -1
     cmp al, -1
     jz .Dont_Ally_Multi2_%3
     House_Make_Ally %2, eax, b%3
 
 .Dont_Ally_Multi2_%3:
 
-    SpawnINI_Get_Int %1, str_HouseAllyThree, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllyThree, -1
     cmp al, -1
     jz .Dont_Ally_Multi3_%3
     House_Make_Ally %2, eax, c%3
 
 .Dont_Ally_Multi3_%3:
 
-    SpawnINI_Get_Int %1, str_HouseAllyFour, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllyFour, -1
     cmp al, -1
     jz .Dont_Ally_Multi4_%3
     House_Make_Ally %2, eax, d%3
 
 .Dont_Ally_Multi4_%3:
 
-    SpawnINI_Get_Int %1, str_HouseAllyFive, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllyFive, -1
     cmp al, -1
     jz .Dont_Ally_Multi5_%3
     House_Make_Ally %2, eax, e%3
 
 .Dont_Ally_Multi5_%3:
 
-    SpawnINI_Get_Int %1, str_HouseAllySix, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllySix, -1
     cmp al, -1
     jz .Dont_Ally_Multi6_%3
     House_Make_Ally %2, eax, f%3
 
 .Dont_Ally_Multi6_%3:
 
-    SpawnINI_Get_Int %1, str_HouseAllySeven, -1
+    call_INIClass__GetInt Spawner__INIClass, %1, str_HouseAllySeven, -1
     cmp al, -1
     jz .Dont_Ally_Multi7_%3
     House_Make_Ally %2, eax, g%3
@@ -385,109 +450,109 @@ _Send_Statistics_Packet_Return_If_Spawner_Active:
 %endmacro
 
 Load_House_Countries_Spawner:
-    SpawnINI_Get_Int str_HouseCountries, str_Multi1, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi1, -1
     mov dword [HouseCountriesArray+0], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi2, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi2, -1
     mov dword [HouseCountriesArray+4], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi3, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi3, -1
     mov dword [HouseCountriesArray+8], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi4, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi4, -1
     mov dword [HouseCountriesArray+12], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi5, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi5, -1
     mov dword [HouseCountriesArray+16], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi6, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi6, -1
     mov dword [HouseCountriesArray+20], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi7, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi7, -1
     mov dword [HouseCountriesArray+24], eax
 
-    SpawnINI_Get_Int str_HouseCountries, str_Multi8, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseCountries, str_Multi8, -1
     mov dword [HouseCountriesArray+28], eax
 
     retn
 
 Load_House_Colors_Spawner:
-    SpawnINI_Get_Int str_HouseColors, str_Multi1, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi1, -1
     mov dword [HouseColorsArray+0], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi2, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi2, -1
     mov dword [HouseColorsArray+4], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi3, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi3, -1
     mov dword [HouseColorsArray+8], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi4, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi4, -1
     mov dword [HouseColorsArray+12], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi5, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi5, -1
     mov dword [HouseColorsArray+16], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi6, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi6, -1
     mov dword [HouseColorsArray+20], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi7, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi7, -1
     mov dword [HouseColorsArray+24], eax
 
-    SpawnINI_Get_Int str_HouseColors, str_Multi8, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseColors, str_Multi8, -1
     mov dword [HouseColorsArray+28], eax
 
     retn
 
 Load_Spawn_Locations_Spawner:
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi1, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi1, -1
     mov dword [Spawner__SpawnLocations_Array+0], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi2, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi2, -1
     mov dword [Spawner__SpawnLocations_Array+4], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi3, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi3, -1
     mov dword [Spawner__SpawnLocations_Array+8], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi4, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi4, -1
     mov dword [Spawner__SpawnLocations_Array+12], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi5, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi5, -1
     mov dword [Spawner__SpawnLocations_Array+16], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi6, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi6, -1
     mov dword [Spawner__SpawnLocations_Array+20], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi7, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi7, -1
     mov dword [Spawner__SpawnLocations_Array+24], eax
 
-    SpawnINI_Get_Int str_SpawnLocations, str_Multi8, -1
+    call_INIClass__GetInt Spawner__INIClass, str_SpawnLocations, str_Multi8, -1
     mov dword [Spawner__SpawnLocations_Array+28], eax
 
     retn
 
 Load_House_Handicaps_Spawner:
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi1, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi1, -1
     mov dword [HouseHandicapsArray+0], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi2, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi2, -1
     mov dword [HouseHandicapsArray+4], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi3, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi3, -1
     mov dword [HouseHandicapsArray+8], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi4, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi4, -1
     mov dword [HouseHandicapsArray+12], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi5, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi5, -1
     mov dword [HouseHandicapsArray+16], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi6, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi6, -1
     mov dword [HouseHandicapsArray+20], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi7, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi7, -1
     mov dword [HouseHandicapsArray+24], eax
 
-    SpawnINI_Get_Int str_HouseHandicaps, str_Multi8, -1
+    call_INIClass__GetInt Spawner__INIClass, str_HouseHandicaps, str_Multi8, -1
     mov dword [HouseHandicapsArray+28], eax
 
     retn
@@ -639,57 +704,57 @@ Initialize_Spawn:
     ; set session
     mov dword [SessionType], 5
 
-    SpawnINI_Get_Int str_Settings, str_UnitCount, 1
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_UnitCount, 1
     mov dword [UnitCount], eax
 
-    SpawnINI_Get_Int str_Settings, str_TechLevel, 10
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_TechLevel, 10
     mov dword [TechLevel], eax
 
-    SpawnINI_Get_Int str_Settings, str_AIPlayers, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_AIPlayers, 0
     mov dword [AIPlayers], eax
 
-    SpawnINI_Get_Int str_Settings, str_AIDifficulty, 1
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_AIDifficulty, 1
     mov dword [AIDifficulty], eax
 
-    SpawnINI_Get_Bool str_Settings, str_HarvesterTruce, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_HarvesterTruce, 0
     mov byte [HarvesterTruce], al
 
-    SpawnINI_Get_Bool str_Settings, str_BridgeDestroy, 1
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_BridgeDestroy, 1
     mov byte [BridgeDestroy], al
 
-    SpawnINI_Get_Bool str_Settings, str_FogOfWar, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_FogOfWar, 0
     mov byte [FogOfWar], al
 
-    SpawnINI_Get_Bool str_Settings, str_BuildOffAlly, 0
-    mov byte [var.BuildOffAlly], al
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_BuildOffAlly, 0
+    mov byte [BuildOffAlly], al
 
-    SpawnINI_Get_Bool str_Settings, str_Crates, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_Crates, 0
     mov byte [Crates], al
 
-    SpawnINI_Get_Bool str_Settings, str_ShortGame, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_ShortGame, 0
     mov byte [ShortGame], al
 
-    SpawnINI_Get_Bool str_Settings, str_Bases, 1
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_Bases, 1
     mov byte [Bases], al
 
-    SpawnINI_Get_Bool str_Settings, str_AlliesAllowed, 1
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_AlliesAllowed, 1
     mov byte [AlliesAllowed], al
 
-    SpawnINI_Get_Bool str_Settings, str_MCVRedeploy, 1
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_MCVRedeploy, 1
     mov byte [MCVRedeploy], al
 
-    SpawnINI_Get_Int str_Settings, str_Credits, 10000
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_Credits, 10000
     mov dword [Credits], eax
 
-    SpawnINI_Get_Int str_Settings, str_GameSpeed, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_GameSpeed, 0
     mov dword [GameSpeed], eax
 
-    SpawnINI_Get_Bool str_Settings, str_MultiEngineer, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_MultiEngineer, 0
     mov byte [MultiEngineer], al
 
     ; tunnel ip
     lea eax, [TempBuf]
-    SpawnINI_Get_String str_Tunnel, str_Ip, str_Empty, eax, 32
+    call_INIClass__GetString Spawner__INIClass, str_Tunnel, str_Ip, str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
@@ -697,14 +762,14 @@ Initialize_Spawn:
     mov [TunnelIp], eax
 
     ; tunnel port
-    SpawnINI_Get_Int str_Tunnel, str_Port, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Tunnel, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
     mov [TunnelPort], eax
 
     ; tunnel id
-    SpawnINI_Get_Int str_Settings, str_Port, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_Port, 0
     and eax, 0xffff
     push eax
     call htonl
@@ -712,11 +777,11 @@ Initialize_Spawn:
 
     cmp dword [TunnelPort],0
     jne .nosetport
-    SpawnINI_Get_Int str_Settings, str_Port, 1234
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_Port, 1234
     mov word [ListenPort], ax
 .nosetport:
 
-    SpawnINI_Get_Bool str_Settings, str_Firestorm, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_Firestorm, 0
 
     cmp al, 0
     jz .No_Firestorm
@@ -732,7 +797,7 @@ Initialize_Spawn:
 
     ; scenario
     lea eax, [ScenarioName]
-    SpawnINI_Get_String str_Settings, str_Scenario, str_Empty, eax, 32
+    call_INIClass__GetString Spawner__INIClass, str_Settings, str_Scenario, str_Empty, eax, 32
 
 ;    push str_gcanyonmap
 ;    push 0x007E28B0 ; map buffer used by something
@@ -742,16 +807,16 @@ Initialize_Spawn:
     call Add_Human_Player
     call Add_Human_Opponents
 
-    SpawnINI_Get_Bool str_Settings, str_IsSinglePlayer, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_IsSinglePlayer, 0
     cmp al, 0
     jz .Not_Single_Player
 
     mov dword [SessionType], 0 ; single player
 
-    SpawnINI_Get_Int str_Settings, str_DifficultyMode1, 1
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_DifficultyMode1, 1
     push eax
 
-    SpawnINI_Get_Int str_Settings, str_DifficultyMode2, 1
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_DifficultyMode2, 1
 
     pop edx
     mov ebx, [ScenarioStuff]
@@ -763,7 +828,7 @@ Initialize_Spawn:
 
     ; Needs to be done after SessionClass is set, or the seed value will be overwritten
     ; inside the Init_Random() call if sessiontype == SKIRMISH
-    SpawnINI_Get_Int str_Settings, str_Seed, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_Seed, 0
     mov dword [Seed], eax
     call Init_Random
 
@@ -818,16 +883,16 @@ Initialize_Spawn:
     mov dword eax, [NameNodes_CurrentSize]
     mov dword [HumanPlayers], eax
 
-    SpawnINI_Get_Bool str_Settings, str_LoadSaveGame, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_LoadSaveGame, 0
     cmp al, 0
     jz  .Dont_Load_Savegame
 
-    lea eax, [var.SaveGameNameBuf]
-    SpawnINI_Get_String str_Settings, str_SaveGameName, str_Empty, eax, 60
+    lea eax, [SaveGameNameBuf]
+    call_INIClass__GetString Spawner__INIClass, str_Settings, str_SaveGameName, str_Empty, eax, 60
 
     mov byte [0x7E48FC], 0
     mov byte [0x7E4040], 0
-    lea ecx, [var.SaveGameNameBuf]
+    lea ecx, [SaveGameNameBuf]
     call Load_Game
 
     jmp .Dont_Load_Scenario
@@ -845,7 +910,7 @@ Initialize_Spawn:
 
     ; Load MultipleFactory from SPAWN.INI if not missing
     ; Else use the value already loaded from a RULES.INI file
-    SpawnINI_Get_Fixed str_Settings, str_MultipleFactory, dword [esi+2B0h], dword [esi+2B4h]
+    call_INIClass__GetFixed Spawner__INIClass, str_Settings, str_MultipleFactory, dword [esi+2B0h], dword [esi+2B4h]
     fstp qword [esi+2B0h]
 
     ; THIS ONE DOESN'T SEEM TO WORK
@@ -975,7 +1040,7 @@ Add_Human_Player:
     call IPXAddressClass__IPXAddressClass
 
     lea eax, [esi]
-    SpawnINI_Get_String str_Settings, str_Name, str_Empty, eax, 0x14
+    call_INIClass__GetString Spawner__INIClass, str_Settings, str_Name, str_Empty, eax, 0x14
 
 ;    lea ecx,
 ;    push str_debugplayer
@@ -984,14 +1049,14 @@ Add_Human_Player:
 ;    add esp, 8
 
     ; Player side
-    SpawnINI_Get_Int str_Settings, str_Side, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_Side, 0
     mov dword [esi+0x35], eax ; side
     push eax
 
     ; Sidebar hack for mods which add new sides and new sidebars for them
     ; this will not fuck invert al which is needed for normal TS sidebar loading
     ; as GDI needs 1 and Nod 0 for sidebar (which is the opposite of their side index)
-    SpawnINI_Get_Bool str_Settings, str_SidebarHack, 0
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_SidebarHack, 0
     cmp al, 1
     pop eax
     jz  .Sidebar_Hack
@@ -1010,7 +1075,7 @@ Add_Human_Player:
 .Sidebar_Hack:
     mov byte [0x7E2500], al ; For side specific mix files loading and stuff, without sidebar and speech hack
 
-    SpawnINI_Get_Int str_Settings, str_Color, 0
+    call_INIClass__GetInt Spawner__INIClass, str_Settings, str_Color, 0
     mov dword [esi+0x39], eax  ; color
     mov dword [PlayerColor], eax
 
@@ -1064,7 +1129,7 @@ Add_Human_Opponents:
 
     lea eax, [esi]
     lea ecx, [OtherSection]
-    SpawnINI_Get_String ecx, str_Name, str_Empty, eax, 0x14
+    call_INIClass__GetString Spawner__INIClass, ecx, str_Name, str_Empty, eax, 0x14
 
     lea eax, [esi]
     mov eax, [eax]
@@ -1073,14 +1138,14 @@ Add_Human_Opponents:
     je .Exit
 
     lea ecx, [OtherSection]
-    SpawnINI_Get_Int ecx, str_Side, -1
+    call_INIClass__GetInt Spawner__INIClass, ecx, str_Side, -1
     mov dword [esi+0x35], eax ; side
 
     cmp eax,-1
     je .next_opp
 
     lea ecx, [OtherSection]
-    SpawnINI_Get_Int ecx, str_Color, -1
+    call_INIClass__GetInt Spawner__INIClass, ecx, str_Color, -1
     mov dword [esi+0x39], eax ; color
 
     cmp eax,-1
@@ -1097,7 +1162,7 @@ Add_Human_Opponents:
 
     lea eax, [TempBuf]
     lea ecx, [OtherSection]
-    SpawnINI_Get_String ecx, str_Ip, str_Empty, eax, 32
+    call_INIClass__GetString Spawner__INIClass, ecx, str_Ip, str_Empty, eax, 32
 
     lea eax, [TempBuf]
     push eax
@@ -1108,7 +1173,7 @@ Add_Human_Opponents:
     mov [ecx * ListAddress_size + AddressList + ListAddress.ip], eax
 
     lea ecx, [OtherSection]
-    SpawnINI_Get_Int ecx, str_Port, 0
+    call_INIClass__GetInt Spawner__INIClass, ecx, str_Port, 0
     and eax, 0xffff
 
     push eax
