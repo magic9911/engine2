@@ -5,11 +5,11 @@
 %include "macros/hack.inc"
 %include "macros/string.inc"
 
-[section .bss]
+section .bss
 cglobal Graphics__Enable_Patch
 Graphics__Enable_Patch resb 1
-__SECT__
 
+section .text
 
 @HACK 0x004BA61F, Graphics_Patch
     cmp byte [Graphics__Enable_Patch], 1

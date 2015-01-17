@@ -6,7 +6,8 @@ SECTIONS
 {
     .text      0x401000        : { bin.dat(.text) }
     .rdata     0x6CA000        : { bin.dat(.rdata) }
-    .data      0x6EE000        : { bin.dat(.data) }
+    .data      0x6EE000        : { bin.dat(.data); . = ALIGN(0x1000); }
+    .bss       ALIGN(0x1000)   : { . = 0x120F74; }
 
     .hp_code   0x869000        : { bin.dat(.hp_code) }
     .hp_data   0xA69000        : { bin.dat(.hp_data) }
@@ -17,7 +18,8 @@ SECTIONS
 
     .p_text    ALIGN(0x1000)   : { *(.text) }
     .p_rdata   ALIGN(0x1000)   : { *(.rdata) }
-    .p_data    ALIGN(0x1000)   : { *(.data) *(.bss) *(COMMON) }
+    .p_data    ALIGN(0x1000)   : { *(.data) }
+    .p_bss     ALIGN(0x1000)   : { *(.bss) *(COMMON) }
 
     .rsrc      ALIGN(0x1000)   : { *(.rsrc) }
 

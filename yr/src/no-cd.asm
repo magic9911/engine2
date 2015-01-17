@@ -5,10 +5,11 @@
 %include "macros/hack.inc"
 %include "macros/string.inc"
 
-[section .bss]
+section .bss
 cglobal NoCD__Disable_CD
 NoCD__Disable_CD resb 1
-__SECT__
+
+section .text
 
 StringManagerErrorCDWarning: dw __utf16__("***FATAL*** String Manager failed to initilaized properly!")
 db 0x0a,0x00,0x0a,0x00

@@ -4,5 +4,6 @@
 cextern GetCommandLineA
 cextern LoadLibraryA
 cextern GetProcAddress
+cextern GetCurrentProcess
 cextern mbstowcs
 cextern timeGetTime ; idata pointer

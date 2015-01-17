@@ -4,7 +4,7 @@
 ; TODO NEED TO CHECK FOR SESSION == 3 AND SPAWNER ACTIVE
 
 _Main_Loop_Auto_SS:
-    cmp dword [var.SpawnerActive], 1 ; only do Auto-SS when spawner is active
+    cmp dword [Spawner__Active], 1 ; only do Auto-SS when spawner is active
     jnz .Ret
 
     cmp dword [SessionType], 3 ; only do Auto-SS in LAN mode

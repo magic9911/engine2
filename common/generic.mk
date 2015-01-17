@@ -2,6 +2,8 @@
 
 REV         ?= UNKNOWN_VERSION
 
+COMMON_DIR  ?= common
+
 CP          ?= copy
 RM          ?= rm -f
 CC          ?= gcc
@@ -21,7 +23,7 @@ else
 CC_COMMON   += -O3
 endif
 
-CFLAGS      ?= $(CC_COMMON) -std=gnu99 -masm=intel
+CFLAGS      ?= $(CC_COMMON) -std=gnu99 -masm=intel -fno-asynchronous-unwind-tables
 CXXFLAGS    ?= $(CC_COMMON) -std=gnu++98 -target i686-pc-win32 -mllvm --x86-asm-syntax=intel
 WFLAGS      ?= $(REVFLAG)
 NFLAGS      ?= $(REVFLAG) $(INCLUDES) -f elf
@@ -36,6 +38,9 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 
 .$(GAME).exe: $(LSCRIPT) $(INBIN) $(OBJS)
 	$(CC) -T $< $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+
+.pure-$(GAME).exe: $(LSCRIPT) $(INBIN) $(PURE_OBJS)
+	$(CC) -T $< $(LDFLAGS) -o $@ $(PURE_OBJS)
 
 .$(GAME).dll: $(DLL_OBJS)
 	$(CC) $(DLL_LDFLAGS) -o $@ $(DLL_OBJS) $(DLL_LIBS)
@@ -60,6 +65,7 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 	$(CP) $< $@
 	$(PETOOL) dump $@
 
+
 %.o: %.cpp
 	$(CXX)  $(CXXFLAGS) -c -o $@ $<
 
@@ -72,6 +78,7 @@ DLL_LDFLAGS ?= $(LD_COMMON) -s -shared -Wl,--strip-all -Wl,--exclude-all-symbols
 %.o: %.rc
 	$(WINDRES) $(WFLAGS) $< $@
 
+
 .PHONY: clean
 clean:
-	$(RM) *.exe *.dll $(OBJS) $(DLL_OBJS)
+	$(RM) *$(GAME).exe *$(GAME).dll $(OBJS) $(DLL_OBJS)

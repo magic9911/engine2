@@ -1,31 +1,40 @@
-@LJMP 0x00589D31, _Read_SUN_INI_Detail_Level_Setting
+%include "INIClass.inc"
+%include "misc_instances.inc"
 
-_Read_SUN_INI_Detail_Level_Setting:
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/extern.inc"
+%include "macros/string.inc"
+
+StringZ ForceLowestDetailLevel, "ForceLowestDetailLevel"
+
+@HACK 0x00589D31, Read_SUN_INI_Detail_Level_Setting
     push eax
-    
+
     call_INIClass__GetBool INIClass_SUN_INI, str_Options, str_ForceLowestDetailLevel, 1
     cmp al, 1
     pop eax
     jz .Force
-    
+
     cmp eax, 2
     mov [esi+14h], eax
     jl .Out
     mov eax, 2
 .Out:
     jmp 0x00589D3E
-    
+
 .Force:
     mov dword [esi+14h], 0
     mov eax, 0
     jmp 0x00589D3E
+@ENDHACK
 
-; Fixes for WaveClass errors related to laser and Ion Cannon ripple effect
-@LJMP 0x006715F0, _sub_6715F0_RETN_Patch
-@LJMP 0x004EEB26, _sub_4EEAC0_WCE_Fix_Patch
+;; Fixes for WaveClass errors related to laser and Ion Cannon ripple effect:
 
-_sub_4EEAC0_WCE_Fix_Patch:
-    jmp 0x004EEB43 ; jump to epilogue
+; sub 6715F0 RETN Patch
+; jump to RETN instruction
+@LJMP 0x006715F0, 0x0067191F
 
-_sub_6715F0_RETN_Patch:
-    jmp 0x0067191F ; jump to RETN instruction
+; sub 4EEAC0 WCE Fix Patch
+; jump to epilogue
+@SJMP 0x004EEB26, 0x004EEB43
