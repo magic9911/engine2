@@ -23,8 +23,8 @@ PATCH_OBJS  = src/loading.o \
 		src/spawner/spectators.o \
 		src/spawner/statistics.o \
 		src/spawner/build_off_ally.o \
-        src/spawner/tunnel.o \
-        src/spawner/nethack.asm.o \
+		src/spawner/tunnel.o \
+		src/spawner/nethack.o \
 		\
 		src/anticheat_test.o \
 		\
