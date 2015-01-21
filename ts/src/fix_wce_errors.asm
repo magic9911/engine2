@@ -11,7 +11,7 @@ StringZ ForceLowestDetailLevel, "ForceLowestDetailLevel"
 @HACK 0x00589D31, Read_SUN_INI_Detail_Level_Setting
     push eax
 
-    call_INIClass__GetBool INIClass_SUN_INI, str_Options, str_ForceLowestDetailLevel, 1
+    call_INIClass__GetBool INIClass_SUN_INI, str_Options, str_ForceLowestDetailLevel, 0
     cmp al, 1
     pop eax
     jz .Force

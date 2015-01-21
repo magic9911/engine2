@@ -12,8 +12,6 @@ cglobal UsedSpawnsArray
 UsedSpawnsArray            resd 8
 OldUnitClassArrayCount     resd 1
 
-section .text
-
 StringZ Spawn1, "Spawn1"
 StringZ Spawn2, "Spawn2"
 StringZ Spawn3, "Spawn3"
@@ -43,6 +41,9 @@ StringZ Spawn8, "Spawn8"
 ;    jmp 0x005DD92F
 
 ; loop check needs to be i < UnitClassArray_Count - OldUnitClassArray_Count
+
+[section .text]
+
 _UnitClass__Read_INI_SpawnX_Fix_UnitClassArray_Loop_Condition:
     mov edi, [UnitClassArray_Count]
     sub edi, [OldUnitClassArrayCount]
@@ -189,3 +190,4 @@ Check_For_Spawn_Fake_HouseType_Name:
     pop edi
     pop ebx
     retn
+    

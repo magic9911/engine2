@@ -13,8 +13,6 @@ section .bss
 cglobal SpectatorStuffInit
 SpectatorStuffInit resb 1
 
-section .text
-
 StringZ IsSpectator,                "IsSpectator"
 
 cextern Spawner__IsSpectatorArray
@@ -38,6 +36,8 @@ cextern str_Multi8
 @LJMP 0x005DE717, _Create_Units_Dont_Count_Spectators_When_Counting_Players
 @LJMP 0x004BF71B, _HouseClass__MPlayer_Defeated_Ignore_Spectator_In_Skirmish
 @LJMP 0x00479974, _DisplayClass__Encroach_Shadow_Spectator
+
+[section .text]
 
 _DisplayClass__Encroach_Shadow_Spectator:
 

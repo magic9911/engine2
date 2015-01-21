@@ -17,12 +17,12 @@
 @LJMP 0x005B4FAE, _Execute_DoList_Send_Statistics_Game_Leave
 @LJMP 0x005B4FD3, _Execute_DoList_Send_Statistics_Game_Leave2
 
-section .text
 
 StringZ stats_dmp,                  "stats.dmp"
 
 cextern Spawner__Active
 
+[section .text]
 _Execute_DoList_Send_Statistics_Game_Leave2:
     mov edx, [SessionType]
 

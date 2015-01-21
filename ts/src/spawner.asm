@@ -65,6 +65,7 @@ StringZ MultipleFactory,            "MultipleFactory"
 StringZ AlliesAllowed,              "AlliesAllowed"
 StringZ SidebarHack,                "SidebarHack"
 StringZ BuildOffAlly,               "BuildOffAlly"
+StringZ Host,                       "Host"
 
 StringZ DifficultyMode1,            "DifficultyMode1"
 StringZ DifficultyMode2,            "DifficultyMode2"
@@ -130,6 +131,7 @@ cextern TunnelPort
 cextern PortHack
 cextern NetHack_SendTo
 cextern NetHack_RecvFrom
+cextern IsHost
 
 @CALL 0x006A2525, NetHack_SendTo
 @CALL 0x006A25F9, NetHack_RecvFrom
@@ -751,6 +753,9 @@ Initialize_Spawn:
 
     call_INIClass__GetBool Spawner__INIClass, str_Settings, str_MultiEngineer, 0
     mov byte [MultiEngineer], al
+    
+    call_INIClass__GetBool Spawner__INIClass, str_Settings, str_Host, 0
+    mov byte [IsHost], al
 
     ; tunnel ip
     lea eax, [TempBuf]

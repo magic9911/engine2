@@ -31,12 +31,19 @@ PATCH_OBJS  = src/loading.o \
 		src/fix_wce_errors.o \
 		src/alt_scout_fix.o \
 		src/fix_mouse_not_found_error.o \
+		src/aircraft_passenger_fix.o \
 		\
 		src/display_messages_typed_by_yourself.o \
 		src/multiplayer_units_placing.o \
 		src/no_options_menu_animation.o \
 		src/internet_cncnet.o \
-		src/no-cd.o \
+        src/trigger_actions_extended.o \
+        src/briefing_screen_mission_start.o \
+        src/briefing_restate_map_file.o \
+        src/reinforcements_player_specific.o \
+        src/only_the_host_may_change_gamespeed.o \
+        src/tiberium_stuff.o \
+		src/no-cd-old.o \
 		src/graphics_patch.o \
 		../shared/src/nethack.o
 

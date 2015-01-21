@@ -1,8 +1,12 @@
+%include "macros/patch.inc"
+%include "macros/hack.inc"
+%include "macros/string.inc"
+
 @LJMP 0x00509383, _Main_Loop_Auto_SS
 @LJMP 0x004EAC39, _ScreenCaptureCommand__Activate_AutoSS_File_Name
 
 ; TODO NEED TO CHECK FOR SESSION == 3 AND SPAWNER ACTIVE
-
+[section .text]
 _Main_Loop_Auto_SS:
     cmp dword [Spawner__Active], 1 ; only do Auto-SS when spawner is active
     jnz .Ret

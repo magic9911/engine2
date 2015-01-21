@@ -7,6 +7,8 @@ StringZ InternetDisabled, "This version of Tiberian Sun only supports online pla
 
 @LJMP 0x004E23A7, _Select_Game_WOL_Disable_For_CnCNet
 
+[section .text]
+
 _Select_Game_WOL_Disable_For_CnCNet:
     mov dword [SessionType], 0
 

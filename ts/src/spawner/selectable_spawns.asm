@@ -13,6 +13,7 @@ cextern UsedSpawnsArray
 @LJMP 0x005DE8CB, _Create_Units_Set_Selected_Spawn_Locations
 @LJMP 0x005DEAD7, _Create_Units_First_Spawn_Check_If_Not_Selected
 
+[section .text]
 _Create_Units_First_Spawn_Check_If_Not_Selected:
     call 0x005BE080 ;    RandomClass::operator()(int,int)
 ;    pushad

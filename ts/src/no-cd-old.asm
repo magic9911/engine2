@@ -2,17 +2,20 @@
 %include "macros/hack.inc"
 %include "macros/string.inc"
 
-extern var.IsNoCD
 
 @LJMP 0x004754A0, _NoCD_Patch1
 @LJMP 0x004756E4, _NoCD_Patch2
 @LJMP 0x0047578F, _NoCD_Patch3
 @LJMP 0x004AB8FB, _NoCD_Patch4
 
+section .bss
+cglobal NoCD__Disable_CD
+NoCD__Disable_CD resb 1
+
 
 [section .text]
 _NoCD_Patch1:
-    cmp byte[var.IsNoCD], 1
+    cmp byte[NoCD__Disable_CD], 1
     jnz .out
     xor eax, eax
     cmp edi, 1
@@ -28,7 +31,7 @@ _NoCD_Patch1:
 
 	
 _NoCD_Patch2:
-    cmp byte[var.IsNoCD], 1
+    cmp byte[NoCD__Disable_CD], 1
     jnz .out
     cmp eax, dword[0x711A00]
     jnz 0x0047578F
@@ -41,7 +44,7 @@ _NoCD_Patch2:
 
 
 _NoCD_Patch3:
-    cmp byte[var.IsNoCD], 1
+    cmp byte[NoCD__Disable_CD], 1
     jnz .out
     cmp eax, edi
     jnz 0x004756F2
@@ -55,7 +58,7 @@ _NoCD_Patch3:
 
 	
 _NoCD_Patch4:
-    cmp byte[var.IsNoCD], 1
+    cmp byte[NoCD__Disable_CD], 1
     jnz .out
     cmp eax, 3
     jnz 0x004AB91E
